@@ -1,0 +1,36 @@
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+h1,
+h2,
+h3,
+.game-title,
+.game-label {
+  font-family: var(--font-pixel);
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+h3 {
+  font-size: 12px;
+}
+
+.game-label {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}

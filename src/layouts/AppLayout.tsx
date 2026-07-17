@@ -5,8 +5,7 @@ import SpaceNavBar from "../components/SpaceNavBar.tsx";
 export default function AppLayout() {
   return (
     <div>
-      <h1>Welcome to Atria</h1>
-      <p>This is the home page of the Atria application.</p>
+      <h1>Atria</h1>
       <MainNavbar />
       <SpaceNavBar />
       <main>
