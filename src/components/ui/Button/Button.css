@@ -1,0 +1,51 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.75rem 1rem;
+
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
+
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Variants ---------- */
+
+.button--primary {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.button--secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.button--danger {
+  background: var(--color-danger);
+  color: var(--color-text-light);
+}
