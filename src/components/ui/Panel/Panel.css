@@ -1,0 +1,22 @@
+.panel {
+  background: var(--color-surface);
+
+  border: var(--border-size) solid var(--color-border);
+
+  border-radius: var(--border-radius-small);
+
+  box-shadow: var(--shadow-pixel);
+
+  padding: var(--space-4);
+
+  transition: var(--transition-fast);
+}
+
+.panel:hover {
+  transform: translate(-1px, -1px);
+}
+
+.panel:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-pixel-small);
+}
