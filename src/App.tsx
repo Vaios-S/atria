@@ -9,11 +9,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/space/:id" element={<SpacePage />} />
-        </Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/space/:id" element={<SpacePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
