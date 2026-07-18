@@ -1,0 +1,56 @@
+.calendar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1.25rem;
+}
+
+.calendar-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.calendar-section__title {
+  margin: 0;
+
+  font-size: 1.2rem;
+}
+
+.calendar-section__date {
+  margin: 0;
+
+  opacity: 0.7;
+}
+
+.calendar-section__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 0.5rem;
+}
+
+.calendar-section__day {
+  aspect-ratio: 1;
+
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+
+  background: var(--color-surface);
+
+  font: inherit;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.calendar-section__day:hover {
+  filter: brightness(1.08);
+}
+
+.calendar-section__day--selected {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+}

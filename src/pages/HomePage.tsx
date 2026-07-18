@@ -2,6 +2,8 @@ import Panel from "../components/ui/Panel";
 import Button from "../components/ui/Button";
 import HomeHeader from "../components/home/HomeHeader/HomeHeader";
 import SpacesSection from "../components/home/SpacesSection";
+import { useState } from "react";
+import CalendarSection from "../components/home/CalendarSection";
 
 export default function HomePage() {
   type Space = {
@@ -42,10 +44,13 @@ export default function HomePage() {
     },
   ];
 
+  const [selectedDay, setSelectedDay] = useState(12);
+
   return (
     <>
       <HomeHeader />
       <SpacesSection spaces={spaces} />
+      <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
     </>
   );
 }
