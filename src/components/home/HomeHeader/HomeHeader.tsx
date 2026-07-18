@@ -1,5 +1,5 @@
 import "./HomeHeader.css";
-import ProgressBar from "../../ui/ProgressBar/ProgressBar";
+import ProgressBar from "../../ui/ProgressBar";
 
 export default function HomeHeader() {
   const dayOfYear = 198;

@@ -45,7 +45,3 @@
 .main-navbar__label {
   font-size: 0.75rem;
 }
-
-body {
-  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
-}
