@@ -4,6 +4,7 @@ import SettingsPage from "./pages/SettingsPage.tsx";
 import SpacePage from "./pages/SpacePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import AppLayout from "./layouts/AppLayout.tsx";
+import MainNavbar from "./components/Navigation/MainNavBar/MainNavBar.tsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/space/:id" element={<SpacePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <MainNavbar />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { spaces } from "../mockSpaces.ts";
+import { spaces } from "../../mockSpaces.ts";
 
 export default function SpaceNavBar() {
   return (
