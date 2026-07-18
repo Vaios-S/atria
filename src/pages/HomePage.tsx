@@ -4,15 +4,10 @@ import HomeHeader from "../components/home/HomeHeader/HomeHeader";
 import SpacesSection from "../components/home/SpacesSection";
 import { useState } from "react";
 import CalendarSection from "../components/home/CalendarSection";
+import type { Space } from "../types/space";
+import DayDetailsSection from "../components/home/DayDetailsSection";
 
 export default function HomePage() {
-  type Space = {
-    id: number;
-    title: string;
-    icon: string;
-    activeQuests: number;
-    progress: number;
-  };
   const spaces: Space[] = [
     {
       id: 1,
@@ -44,6 +39,24 @@ export default function HomePage() {
     },
   ];
 
+  const quests = [
+    {
+      id: 1,
+      title: "Finish React lesson",
+      completed: false,
+    },
+    {
+      id: 2,
+      title: "Gym workout",
+      completed: true,
+    },
+    {
+      id: 3,
+      title: "Read 20 pages",
+      completed: false,
+    },
+  ];
+
   const [selectedDay, setSelectedDay] = useState(12);
 
   return (
@@ -51,6 +64,7 @@ export default function HomePage() {
       <HomeHeader />
       <SpacesSection spaces={spaces} />
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
+      <DayDetailsSection selectedDay={selectedDay} quests={quests} />
     </>
   );
 }
