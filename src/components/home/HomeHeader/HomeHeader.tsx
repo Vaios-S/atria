@@ -1,4 +1,5 @@
 import "./HomeHeader.css";
+import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 
 export default function HomeHeader() {
   const dayOfYear = 198;
@@ -8,8 +9,6 @@ export default function HomeHeader() {
   const level = 3;
   const currentXp = 420;
   const nextLevelXp = 500;
-
-  const progress = (currentXp / nextLevelXp) * 100;
 
   return (
     <section className="home-header">
@@ -27,13 +26,7 @@ export default function HomeHeader() {
             XP {currentXp} / {nextLevelXp}
           </p>
         </div>
-
-        <div className="home-header__bar">
-          <div
-            className="home-header__fill"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+        <ProgressBar value={currentXp} max={nextLevelXp} />
       </div>
     </section>
   );

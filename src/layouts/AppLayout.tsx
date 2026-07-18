@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import MainNavbar from "../components/Navigation/MainNavBar/MainNavBar.tsx";
-import SpaceNavBar from "../components/Navigation/SpaceNavBar.tsx";
+import MainNavbar from "../components/ui/MainNavBar/MainNavBar.tsx";
+import SpaceNavBar from "../components/ui/SpaceNavBar.tsx";
 
 export default function AppLayout() {
   return (

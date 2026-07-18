@@ -1,12 +1,5 @@
 import "./SpaceCard.css";
-
-type Space = {
-  id: number;
-  title: string;
-  icon: string;
-  activeQuests: number;
-  progress: number;
-};
+import type { Space } from "../../../types/space";
 
 type SpaceCardProps = {
   space: Space;
