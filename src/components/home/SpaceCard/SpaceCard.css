@@ -1,0 +1,35 @@
+.space-card {
+  flex-shrink: 0;
+
+  width: 220px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  padding: 1rem;
+
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+
+  background: var(--color-surface);
+}
+
+.space-card__icon {
+  font-size: 2rem;
+}
+
+.space-card__title {
+  margin: 0;
+
+  font-size: 1.2rem;
+}
+
+.space-card__quests,
+.space-card__progress {
+  margin: 0;
+
+  font-size: 0.9rem;
+
+  opacity: 0.8;
+}

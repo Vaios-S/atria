@@ -1,0 +1,35 @@
+.spaces-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1.25rem;
+}
+
+.spaces-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spaces-section__title {
+  margin: 0;
+
+  font-size: 1.2rem;
+}
+
+.spaces-section__list {
+  display: flex;
+  gap: 1rem;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding-bottom: 0.5rem;
+
+  scrollbar-width: none;
+}
+
+.spaces-section__list::-webkit-scrollbar {
+  display: none;
+}
