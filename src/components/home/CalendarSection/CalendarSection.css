@@ -54,3 +54,7 @@
   background: var(--color-primary);
   color: var(--color-text-light);
 }
+
+.calendar-section__day:disabled {
+  cursor: not-allowed;
+}

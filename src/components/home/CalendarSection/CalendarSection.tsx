@@ -27,6 +27,7 @@ export default function CalendarSection({
       <div className="calendar-section__grid">
         {days.map((day) => (
           <button
+            disabled={day === selectedDay}
             key={day}
             className={`calendar-section__day ${
               day === selectedDay ? "calendar-section__day--selected" : ""
