@@ -48,6 +48,18 @@ export default function HomePage() {
       id: 2,
       title: "Gym workout",
       completed: true,
+      day: 12,
+    },
+    {
+      id: 2,
+      title: "Code Atria",
+      completed: true,
+      day: 12,
+    },
+    {
+      id: 2,
+      title: "Gym workout",
+      completed: true,
       day: 13,
     },
     {

@@ -57,3 +57,9 @@
   opacity: 0.5;
   text-decoration: line-through;
 }
+
+.day-details__count {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}

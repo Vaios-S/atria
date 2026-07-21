@@ -19,6 +19,10 @@ export default function DayDetailsSection({
 
       <h2 className="day-details__date">{selectedDay} JULY 2026</h2>
 
+      <p className="day-details__count">
+        {todaysQuests.length} quest{todaysQuests.length !== 1 ? "s" : ""}
+      </p>
+
       <div className="day-details__list">
         {todaysQuests.length === 0 ? (
           <EmptyState
