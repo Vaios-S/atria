@@ -42,16 +42,19 @@ export default function HomePage() {
       id: 1,
       title: "Finish React lesson",
       completed: false,
+      day: 12,
     },
     {
       id: 2,
       title: "Gym workout",
       completed: true,
+      day: 13,
     },
     {
       id: 3,
       title: "Read 20 pages",
       completed: false,
+      day: 14,
     },
   ];
 

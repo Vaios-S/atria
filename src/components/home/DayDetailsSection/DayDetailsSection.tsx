@@ -10,6 +10,8 @@ export default function DayDetailsSection({
   selectedDay,
   quests,
 }: DayDetailsSectionProps) {
+  const todaysQuests = quests.filter((quest) => quest.day === selectedDay);
+
   return (
     <section className="day-details">
       <h1 className="day-details__title">DAY DETAILS</h1>
@@ -17,7 +19,7 @@ export default function DayDetailsSection({
       <h2 className="day-details__date">{selectedDay} JULY 2026</h2>
 
       <div className="day-details__list">
-        {quests.map((quest) => (
+        {todaysQuests.map((quest) => (
           <div key={quest.id} className="day-details__item">
             <input type="checkbox" checked={quest.completed} readOnly />
 
