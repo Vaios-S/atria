@@ -14,7 +14,11 @@ export default function HomePage() {
       <HomeHeader />
       <SpacesSection spaces={spaces} />
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
-      <DayDetailsSection selectedDay={selectedDay} quests={quests} />
+      <DayDetailsSection
+        selectedDay={selectedDay}
+        quests={quests}
+        spaces={spaces}
+      />
     </>
   );
 }

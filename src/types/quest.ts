@@ -3,4 +3,5 @@ export type Quest = {
   title: string;
   completed: boolean;
   day: number;
+  spaceId: number;
 };
