@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage.tsx";
+import HomePage from "./pages/HomePage/HomePage.tsx";
 import SettingsPage from "./pages/SettingsPage.tsx";
-import SpacePage from "./pages/SpacePage.tsx";
+import SpacePage from "./pages/SpacePage/SpacePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import AppLayout from "./layouts/AppLayout.tsx";
 import MainNavbar from "./components/ui/MainNavBar/MainNavBar.tsx";

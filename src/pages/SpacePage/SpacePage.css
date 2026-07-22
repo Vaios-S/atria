@@ -1,0 +1,44 @@
+.space-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.25rem;
+}
+
+.space-page__back-link {
+  width: fit-content;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.space-page__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.space-page__icon {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.space-page__title {
+  margin: 0;
+}
+
+.space-page__quests {
+  margin: 0.25rem 0 0;
+  color: var(--color-text-secondary);
+}
+
+.space-page__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.space-page__progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
