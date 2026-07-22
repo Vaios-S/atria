@@ -1,0 +1,56 @@
+.space-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.space-header__top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.space-header__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 4rem;
+  height: 4rem;
+
+  border-radius: 1rem;
+
+  font-size: 2rem;
+
+  background: var(--color-surface);
+}
+
+.space-header__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.space-header__title {
+  margin: 0;
+}
+
+.space-header__subtitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.space-header__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.space-header__progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}

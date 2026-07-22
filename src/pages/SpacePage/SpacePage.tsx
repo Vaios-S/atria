@@ -1,8 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { spaces } from "../../data/spaces";
 import "./SpacePage.css";
-import ProgressBar from "../../components/ui/ProgressBar";
-import { Link } from "react-router-dom";
+import SpaceHeader from "../../components/space/SpaceHeader";
 
 export default function SpacePage() {
   const { id } = useParams();
@@ -18,27 +17,7 @@ export default function SpacePage() {
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
-
-      <header className="space-page__header">
-        <p className="space-page__icon">{space.icon}</p>
-
-        <div>
-          <h1 className="space-page__title">{space.title}</h1>
-
-          <p className="space-page__quests">
-            {space.activeQuests} Active Quests
-          </p>
-        </div>
-      </header>
-
-      <section className="space-page__progress">
-        <div className="space-page__progress-info">
-          <span>Progress</span>
-          <span>{space.progress}%</span>
-        </div>
-
-        <ProgressBar value={60} max={100} />
-      </section>
+      <SpaceHeader space={space} />
     </main>
   );
 }
