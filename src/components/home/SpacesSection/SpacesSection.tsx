@@ -1,14 +1,7 @@
 import "./SpacesSection.css";
 import Button from "../../ui/Button";
 import SpaceCard from "../SpaceCard";
-
-type Space = {
-  id: number;
-  title: string;
-  icon: string;
-  activeQuests: number;
-  progress: number;
-};
+import type { Space } from "../../../types/space";
 
 type SpacesSectionProps = {
   spaces: Space[];

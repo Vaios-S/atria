@@ -8,7 +8,7 @@ type TodaySectionProps = {
 export default function TodaySection({ quests }: TodaySectionProps) {
   return (
     <section className="today-section">
-      <h2 className="today-section__title">TODAY</h2>
+      <h2 className="today-section__title">TODAY ({quests.length})</h2>
 
       <div className="today-section__list">
         {quests.map((quest) => (
