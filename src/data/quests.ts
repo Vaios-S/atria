@@ -17,7 +17,7 @@ export const quests: Quest[] = [
   {
     id: 3,
     title: "Code Atria",
-    completed: true,
+    completed: false,
     day: 12,
     spaceId: 1,
   },

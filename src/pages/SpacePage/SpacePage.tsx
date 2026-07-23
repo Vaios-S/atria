@@ -20,7 +20,7 @@ export default function SpacePage() {
   const completedquests = spaceQuests.filter(
     (quest) => quest.completed === true,
   );
-
+  console.log(completedquests);
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
