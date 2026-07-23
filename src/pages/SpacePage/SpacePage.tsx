@@ -5,6 +5,7 @@ import "./SpacePage.css";
 import SpaceHeader from "../../components/space/SpaceHeader";
 import TodaySection from "../../components/space/TodaySection";
 import CompletedSection from "../../components/space/CompletedSection";
+import SpaceStats from "../../components/space/SpaceStats";
 
 export default function SpacePage() {
   const { id } = useParams();
@@ -20,13 +21,17 @@ export default function SpacePage() {
   const completedquests = spaceQuests.filter(
     (quest) => quest.completed === true,
   );
-  console.log(completedquests);
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
       <SpaceHeader space={space} />
+      <SpaceStats
+        active={activeQuests.length}
+        completed={completedquests.length}
+      />
       <TodaySection quests={activeQuests} />
       <CompletedSection quests={completedquests} />
     </main>
