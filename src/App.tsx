@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.tsx";
-import SettingsPage from "./pages/SettingsPage.tsx";
+import SettingsPage from "./pages/SettingsPage/SettingsPage.tsx";
 import SpacePage from "./pages/SpacePage/SpacePage.tsx";
-import NotFoundPage from "./pages/NotFoundPage.tsx";
-import AppLayout from "./layouts/AppLayout.tsx";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.tsx";
 import MainNavbar from "./components/ui/MainNavBar/MainNavBar.tsx";
 
 function App() {

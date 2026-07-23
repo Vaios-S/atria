@@ -1,0 +1,41 @@
+.today-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.today-section__title {
+  margin: 0;
+}
+
+.today-section__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.today-section__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding: 0.875rem 1rem;
+
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface);
+}
+
+.today-section__item input {
+  width: 1.1rem;
+  height: 1.1rem;
+
+  flex-shrink: 0;
+}
+
+.today-section__quest-title {
+  margin: 0;
+
+  flex: 1;
+}
