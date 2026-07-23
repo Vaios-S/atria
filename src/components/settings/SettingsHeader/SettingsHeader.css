@@ -1,0 +1,30 @@
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings-header__icon {
+  display: grid;
+  place-items: center;
+
+  width: 3.5rem;
+  height: 3.5rem;
+
+  font-size: 2rem;
+}
+
+.settings-header__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.settings-header__title {
+  margin: 0;
+}
+
+.settings-header__description {
+  margin: 0;
+  color: var(--color-text-muted);
+}
