@@ -9,7 +9,7 @@ export type SpaceCategory =
   | "custom";
 
 export type Space = {
-  id: number;
+  id: string;
   userId: string;
   title: string;
   description?: string;

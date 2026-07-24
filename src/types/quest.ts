@@ -1,9 +1,9 @@
 export type QuestDifficulty = "easy" | "medium" | "hard";
 
 export type Quest = {
-  id: number;
+  id: string;
   userId: string;
-  spaceid: string;
+  spaceId: string;
   title: string;
   description?: string;
   difficulty: QuestDifficulty;
