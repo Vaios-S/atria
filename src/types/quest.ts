@@ -1,7 +1,15 @@
+export type QuestDifficulty = "easy" | "medium" | "hard";
+
 export type Quest = {
   id: number;
+  userId: string;
+  spaceid: string;
   title: string;
-  completed: boolean;
-  day: number;
-  spaceId: number;
+  description?: string;
+  difficulty: QuestDifficulty;
+  scheduledDate?: string;
+  createdAt: string;
+
+  completed?: boolean;
+  day?: number;
 };
