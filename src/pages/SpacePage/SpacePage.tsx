@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { mockQuests } from "../../data/mockQuests";
 import { mockSpaces } from "../../data/mockSpaces";
+import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import "./SpacePage.css";
 import SpaceHeader from "../../components/space/SpaceHeader";
 import TodaySection from "../../components/space/TodaySection";
@@ -27,7 +28,11 @@ export default function SpacePage() {
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
-      <SpaceHeader space={space} />
+      <SpaceHeader
+        space={space}
+        quests={mockQuests}
+        questCompletions={mockQuestCompletions}
+      />
       <SpaceStats
         active={activeQuests.length}
         completed={completedquests.length}
