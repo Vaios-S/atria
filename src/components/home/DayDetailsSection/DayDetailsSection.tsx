@@ -1,20 +1,27 @@
 import "./DayDetailsSection.css";
 import type { Quest } from "../../../types/quest";
 import type { Space } from "../../../types/space";
+import type { QuestCompletion } from "../../../types/questCompletion";
 import EmptyState from "../../ui/EmptyState";
 
 type DayDetailsSectionProps = {
   selectedDay: number;
   quests: Quest[];
   spaces: Space[];
+  questCompletions: QuestCompletion[];
 };
 
 export default function DayDetailsSection({
   selectedDay,
   quests,
   spaces,
+  questCompletions,
 }: DayDetailsSectionProps) {
-  const todaysQuests = quests.filter((quest) => quest.day === selectedDay);
+  const selectedDate = `2026-07-${String(selectedDay).padStart(2, "0")}`;
+
+  const todaysQuests = quests.filter(
+    (quest) => quest.scheduledDate === selectedDate,
+  );
 
   return (
     <section className="day-details">
@@ -39,13 +46,17 @@ export default function DayDetailsSection({
               (space) => space.id === quest.spaceId,
             );
 
+            const isCompleted = questCompletions.some(
+              (completion) => completion.questId === quest.id,
+            );
+
             return (
               <div key={quest.id} className="day-details__item">
                 <span className="day-details__space">
                   {questSpace?.icon} {questSpace?.title}
                 </span>
 
-                <input type="checkbox" checked={quest.completed} readOnly />
+                <input type="checkbox" checked={isCompleted} readOnly />
 
                 <p>{quest.title}</p>
               </div>

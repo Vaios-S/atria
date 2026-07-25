@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import { spaces } from "../../data/spaces";
-import { quests } from "../../data/quests";
+import { mockQuests } from "../../data/mockQuests";
+import { mockSpaces } from "../../data/mockSpaces";
 import "./SpacePage.css";
 import SpaceHeader from "../../components/space/SpaceHeader";
 import TodaySection from "../../components/space/TodaySection";
@@ -10,13 +10,13 @@ import SpaceStats from "../../components/space/SpaceStats";
 export default function SpacePage() {
   const { id } = useParams();
 
-  const space = spaces.find((space) => space.id === Number(id));
+  const space = mockSpaces.find((space) => space.id === id);
 
   if (!space) {
     return <h1>Space not found</h1>;
   }
 
-  const spaceQuests = quests.filter((quest) => quest.spaceId === space.id);
+  const spaceQuests = mockQuests.filter((quest) => quest.spaceId === space.id);
   const activeQuests = spaceQuests.filter((quest) => !quest.completed);
   const completedquests = spaceQuests.filter(
     (quest) => quest.completed === true,

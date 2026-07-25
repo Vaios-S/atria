@@ -3,8 +3,9 @@ import SpacesSection from "../../components/home/SpacesSection";
 import { useState } from "react";
 import CalendarSection from "../../components/home/CalendarSection";
 import DayDetailsSection from "../../components/home/DayDetailsSection";
-import { quests } from "../../data/quests";
-import { spaces } from "../../data/spaces";
+import { mockQuests } from "../../data/mockQuests";
+import { mockSpaces } from "../../data/mockSpaces";
+import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 
 export default function HomePage() {
   const [selectedDay, setSelectedDay] = useState(12);
@@ -12,12 +13,13 @@ export default function HomePage() {
   return (
     <>
       <HomeHeader />
-      <SpacesSection spaces={spaces} />
+      <SpacesSection spaces={mockSpaces} />
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
       <DayDetailsSection
         selectedDay={selectedDay}
-        quests={quests}
-        spaces={spaces}
+        quests={mockQuests}
+        spaces={mockSpaces}
+        questCompletions={mockQuestCompletions}
       />
     </>
   );

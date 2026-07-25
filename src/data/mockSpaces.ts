@@ -1,6 +1,6 @@
 import type { Space } from "../types/space";
 
-export const mockSpacrs: Space[] = [
+export const mockSpaces: Space[] = [
   {
     id: "space-personal",
     userId: "user-1",
