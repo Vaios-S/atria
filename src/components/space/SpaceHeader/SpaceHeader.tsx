@@ -2,32 +2,17 @@ import "./SpaceHeader.css";
 import Panel from "../../ui/Panel";
 import ProgressBar from "../../ui/ProgressBar";
 import type { Space } from "../../../types/space";
-import type { Quest } from "../../../types/quest";
-import type { QuestCompletion } from "../../../types/questCompletion";
 
 type SpaceHeaderProps = {
-  space: Space[];
-  quests: Quest[];
-  questCompletions: QuestCompletion[];
+  space: Space;
+  activeQuests: number;
+  progress: number;
 };
 export default function SpaceHeader({
   space,
-  quests,
-  questCompletions,
+  activeQuests,
+  progress,
 }: SpaceHeaderProps) {
-  const spaceQuests = quests.filter((quest) => quest.spaceId === space.id);
-
-  const completedQuests = spaceQuests.filter((quest) =>
-    questCompletions.some((completion) => completion.questId === quest.id),
-  );
-
-  const activeQuests = spaceQuests.length - completedQuests.length;
-
-  const progress =
-    spaceQuests.length === 0
-      ? 0
-      : Math.round((completedQuests.length / spaceQuests.length) * 100);
-
   return (
     <Panel className="space-header">
       <header className="space-header">

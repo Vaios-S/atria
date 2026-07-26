@@ -26,9 +26,14 @@ export default function SpacePage() {
       ),
   );
 
-  const completedquests = spaceQuests.filter((quest) =>
+  const completedQuests = spaceQuests.filter((quest) =>
     mockQuestCompletions.some((completion) => completion.questId === quest.id),
   );
+
+  const progress =
+    spaceQuests.length === 0
+      ? 0
+      : Math.round((completedQuests.length / spaceQuests.length) * 100);
 
   return (
     <main className="space-page">
@@ -37,15 +42,15 @@ export default function SpacePage() {
       </Link>
       <SpaceHeader
         space={space}
-        quests={mockQuests}
-        questCompletions={mockQuestCompletions}
+        activeQuests={activeQuests.length}
+        progress={progress}
       />
       <SpaceStats
         active={activeQuests.length}
-        completed={completedquests.length}
+        completed={completedQuests.length}
       />
       <TodaySection quests={activeQuests} />
-      <CompletedSection quests={completedquests} />
+      <CompletedSection quests={completedQuests} />
     </main>
   );
 }
