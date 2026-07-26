@@ -10,11 +10,16 @@ import SpaceStats from "../../components/space/SpaceStats";
 import { useState } from "react";
 import type { QuestCompletion } from "../../types/questCompletion";
 import type { Quest } from "../../types/quest";
+import Modal from "../../components/ui/Modal";
+import QuestForm from "../../components/space/QuestForm";
+import Button from "../../components/ui/Button";
 
 export default function SpacePage() {
   const { id } = useParams();
   const [questCompletions, setQuestCompletions] =
     useState(mockQuestCompletions);
+
+  const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
 
   const [quests, setQuests] = useState(mockQuests);
 
@@ -73,6 +78,7 @@ export default function SpacePage() {
       createdAt: new Date().toISOString(),
     };
     setQuests((prev) => [...prev, newQuest]);
+    setIsQuestModalOpen(false);
   }
 
   return (
@@ -80,6 +86,7 @@ export default function SpacePage() {
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
+      <Button onClick={() => setIsQuestModalOpen(true)}>Add Quest</Button>
       <SpaceHeader
         space={space}
         activeQuests={activeQuests.length}
@@ -94,6 +101,17 @@ export default function SpacePage() {
         quests={completedQuests}
         onToggleQuest={handleToggleQuest}
       />
+
+      <Modal
+        isOpen={isQuestModalOpen}
+        title="Add Quest"
+        onClose={() => setIsQuestModalOpen(false)}
+      >
+        <QuestForm
+          onSubmit={handleAddQuest}
+          onCancel={() => setIsQuestModalOpen(false)}
+        />
+      </Modal>
     </main>
   );
 }

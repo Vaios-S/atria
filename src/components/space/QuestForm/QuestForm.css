@@ -1,0 +1,78 @@
+.quest-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.quest-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.quest-form__label {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.quest-form__input,
+.quest-form__textarea,
+.quest-form__select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  font: inherit;
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.quest-form__textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.quest-form__select {
+  cursor: pointer;
+}
+
+.quest-form__input::placeholder,
+.quest-form__textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.quest-form__input:focus,
+.quest-form__textarea:focus,
+.quest-form__select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.quest-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+
+  padding-top: var(--space-2);
+}
+
+.quest-form__actions > * {
+  flex: 1;
+}
+
+@media (min-width: 480px) {
+  .quest-form__actions > * {
+    flex: initial;
+  }
+}
