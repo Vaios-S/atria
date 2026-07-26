@@ -15,6 +15,8 @@ export default function SpacePage() {
   const [questCompletions, setQuestCompletions] =
     useState(mockQuestCompletions);
 
+  const [quests, setQuests] = useState(mockQuests);
+
   const space = mockSpaces.find((space) => space.id === id);
 
   function handleToggleQuest(questId: string) {
@@ -41,7 +43,7 @@ export default function SpacePage() {
     return <h1>Space not found</h1>;
   }
 
-  const spaceQuests = mockQuests.filter((quest) => quest.spaceId === space.id);
+  const spaceQuests = quests.filter((quest) => quest.spaceId === space.id);
 
   const activeQuests = spaceQuests.filter(
     (quest) =>
