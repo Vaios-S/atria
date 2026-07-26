@@ -9,6 +9,7 @@ import CompletedSection from "../../components/space/CompletedSection";
 import SpaceStats from "../../components/space/SpaceStats";
 import { useState } from "react";
 import type { QuestCompletion } from "../../types/questCompletion";
+import type { Quest } from "../../types/quest";
 
 export default function SpacePage() {
   const { id } = useParams();
@@ -58,6 +59,21 @@ export default function SpacePage() {
     spaceQuests.length === 0
       ? 0
       : Math.round((completedQuests.length / spaceQuests.length) * 100);
+
+  const spaceId = space.id;
+  function handleAddQuest() {
+    const newQuest: Quest = {
+      id: `quest-${quests.length + 1}`,
+      userId: "user-1",
+      spaceId,
+      title: "Feed Dog",
+      description: "Feed her 125g",
+      difficulty: "easy",
+      scheduledDate: "2026-08-30",
+      createdAt: new Date().toISOString(),
+    };
+    setQuests((prev) => [...prev, newQuest]);
+  }
 
   return (
     <main className="space-page">
