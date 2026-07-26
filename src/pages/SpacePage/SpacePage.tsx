@@ -18,9 +18,16 @@ export default function SpacePage() {
   }
 
   const spaceQuests = mockQuests.filter((quest) => quest.spaceId === space.id);
-  const activeQuests = spaceQuests.filter((quest) => !quest.completed);
-  const completedquests = spaceQuests.filter(
-    (quest) => quest.completed === true,
+
+  const activeQuests = spaceQuests.filter(
+    (quest) =>
+      !mockQuestCompletions.some(
+        (completion) => completion.questId === quest.id,
+      ),
+  );
+
+  const completedquests = spaceQuests.filter((quest) =>
+    mockQuestCompletions.some((completion) => completion.questId === quest.id),
   );
 
   return (
