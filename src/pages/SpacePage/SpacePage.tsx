@@ -7,9 +7,12 @@ import SpaceHeader from "../../components/space/SpaceHeader";
 import TodaySection from "../../components/space/TodaySection";
 import CompletedSection from "../../components/space/CompletedSection";
 import SpaceStats from "../../components/space/SpaceStats";
+import { useState } from "react";
 
 export default function SpacePage() {
   const { id } = useParams();
+  const [questCompletions, setQuestCompletions] =
+    useState(mockQuestCompletions);
 
   const space = mockSpaces.find((space) => space.id === id);
 
@@ -21,13 +24,11 @@ export default function SpacePage() {
 
   const activeQuests = spaceQuests.filter(
     (quest) =>
-      !mockQuestCompletions.some(
-        (completion) => completion.questId === quest.id,
-      ),
+      !questCompletions.some((completion) => completion.questId === quest.id),
   );
 
   const completedQuests = spaceQuests.filter((quest) =>
-    mockQuestCompletions.some((completion) => completion.questId === quest.id),
+    questCompletions.some((completion) => completion.questId === quest.id),
   );
 
   const progress =
