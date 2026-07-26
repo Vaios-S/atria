@@ -71,8 +71,11 @@ export default function SpacePage() {
         active={activeQuests.length}
         completed={completedQuests.length}
       />
-      <TodaySection quests={activeQuests} />
-      <CompletedSection quests={completedQuests} />
+      <TodaySection quests={activeQuests} onToggleQuest={handleToggleQuest} />
+      <CompletedSection
+        quests={completedQuests}
+        onToggleQuest={handleToggleQuest}
+      />
     </main>
   );
 }

@@ -4,9 +4,13 @@ import EmptyState from "../../ui/EmptyState";
 
 type CompletedSectionProps = {
   quests: Quest[];
+  onToggleQuest: (questId: string) => void;
 };
 
-export default function CompletedSection({ quests }: CompletedSectionProps) {
+export default function CompletedSection({
+  quests,
+  onToggleQuest,
+}: CompletedSectionProps) {
   return (
     <section className="completed-section">
       <h2 className="completed-section__title">COMPLETED ({quests.length})</h2>
@@ -21,7 +25,11 @@ export default function CompletedSection({ quests }: CompletedSectionProps) {
         <div className="completed-section__list">
           {quests.map((quest) => (
             <div key={quest.id} className="completed-section__item">
-              <input type="checkbox" checked readOnly />
+              <input
+                type="checkbox"
+                checked
+                onChange={() => onToggleQuest(quest.id)}
+              />
 
               <p className="completed-section__quest-title">{quest.title}</p>
             </div>

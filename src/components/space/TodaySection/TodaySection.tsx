@@ -4,9 +4,13 @@ import EmptyState from "../../ui/EmptyState";
 
 type TodaySectionProps = {
   quests: Quest[];
+  onToggleQuest: (questId: string) => void;
 };
 
-export default function TodaySection({ quests }: TodaySectionProps) {
+export default function TodaySection({
+  quests,
+  onToggleQuest,
+}: TodaySectionProps) {
   return (
     <section className="today-section">
       <h2 className="today-section__title">TODAY ({quests.length})</h2>
@@ -20,7 +24,7 @@ export default function TodaySection({ quests }: TodaySectionProps) {
         <div className="today-section__list">
           {quests.map((quest) => (
             <div key={quest.id} className="today-section__item">
-              <input type="checkbox" readOnly />
+              <input type="checkbox" onChange={() => onToggleQuest(quest.id)} />
 
               <p className="today-section__quest-title">{quest.title}</p>
             </div>
