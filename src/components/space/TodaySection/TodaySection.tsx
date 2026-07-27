@@ -1,15 +1,18 @@
 import "./TodaySection.css";
 import type { Quest } from "../../../types/quest";
 import EmptyState from "../../ui/EmptyState";
+import Button from "../../ui/Button";
 
 type TodaySectionProps = {
   quests: Quest[];
   onToggleQuest: (questId: string) => void;
+  onDeleteQuest: (questId: string) => void;
 };
 
 export default function TodaySection({
   quests,
   onToggleQuest,
+  onDeleteQuest,
 }: TodaySectionProps) {
   return (
     <section className="today-section">
@@ -27,6 +30,9 @@ export default function TodaySection({
               <input type="checkbox" onChange={() => onToggleQuest(quest.id)} />
 
               <p className="today-section__quest-title">{quest.title}</p>
+              <Button variant="danger" onClick={() => onDeleteQuest(quest.id)}>
+                X
+              </Button>
             </div>
           ))}
         </div>

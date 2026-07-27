@@ -1,15 +1,18 @@
 import "./CompletedSection.css";
 import type { Quest } from "../../../types/quest";
 import EmptyState from "../../ui/EmptyState";
+import Button from "../../ui/Button";
 
 type CompletedSectionProps = {
   quests: Quest[];
   onToggleQuest: (questId: string) => void;
+  onDeleteQuest: (questId: string) => void;
 };
 
 export default function CompletedSection({
   quests,
   onToggleQuest,
+  onDeleteQuest,
 }: CompletedSectionProps) {
   return (
     <section className="completed-section">
@@ -32,6 +35,9 @@ export default function CompletedSection({
               />
 
               <p className="completed-section__quest-title">{quest.title}</p>
+              <Button variant="danger" onClick={() => onDeleteQuest(quest.id)}>
+                X
+              </Button>
             </div>
           ))}
         </div>

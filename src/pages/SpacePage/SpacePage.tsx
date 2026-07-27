@@ -103,10 +103,15 @@ export default function SpacePage() {
         active={activeQuests.length}
         completed={completedQuests.length}
       />
-      <TodaySection quests={activeQuests} onToggleQuest={handleToggleQuest} />
+      <TodaySection
+        quests={activeQuests}
+        onToggleQuest={handleToggleQuest}
+        onDeleteQuest={handleDeleteQuest}
+      />
       <CompletedSection
         quests={completedQuests}
         onToggleQuest={handleToggleQuest}
+        onDeleteQuest={handleDeleteQuest}
       />
 
       <Modal
