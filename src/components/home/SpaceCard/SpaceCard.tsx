@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 
 type SpaceCardProps = {
   space: Space;
+  activeQuests: number;
+  progress: number;
 };
 
-export default function SpaceCard({ space }: SpaceCardProps) {
+export default function SpaceCard({
+  space,
+  activeQuests,
+  progress,
+}: SpaceCardProps) {
   return (
     <>
       <Link to={`/space/${space.id}`} className="space-card">
@@ -14,9 +20,9 @@ export default function SpaceCard({ space }: SpaceCardProps) {
 
         <h2 className="space-card__title">{space.title}</h2>
 
-        <p className="space-card__quests">{space.activeQuests} Active Quests</p>
+        <p className="space-card__quests">{activeQuests} Active Quests</p>
 
-        <p className="space-card__progress">{space.progress}% Complete</p>
+        <p className="space-card__progress">{progress}% Complete</p>
       </Link>
     </>
   );

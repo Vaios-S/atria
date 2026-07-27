@@ -11,8 +11,16 @@ import { useState } from "react";
 import type { QuestCompletion } from "../../types/questCompletion";
 import type { Quest } from "../../types/quest";
 import Modal from "../../components/ui/Modal";
-import QuestForm from "../../components/space/QuestForm";
+import QuestForm, {
+  type QuestFormData,
+} from "../../components/space/QuestForm";
 import Button from "../../components/ui/Button";
+import {
+  getActiveQuests,
+  getCompletedQuests,
+  getQuestProgress,
+  getQuestsBySpace,
+} from "../../utils/spaceQuestUtils";
 
 export default function SpacePage() {
   const { id } = useParams();
@@ -49,32 +57,24 @@ export default function SpacePage() {
     return <h1>Space not found</h1>;
   }
 
-  const spaceQuests = quests.filter((quest) => quest.spaceId === space.id);
+  const spaceQuests = getQuestsBySpace(quests, space.id);
 
-  const activeQuests = spaceQuests.filter(
-    (quest) =>
-      !questCompletions.some((completion) => completion.questId === quest.id),
-  );
+  const activeQuests = getActiveQuests(spaceQuests, questCompletions);
 
-  const completedQuests = spaceQuests.filter((quest) =>
-    questCompletions.some((completion) => completion.questId === quest.id),
-  );
+  const completedQuests = getCompletedQuests(spaceQuests, questCompletions);
 
-  const progress =
-    spaceQuests.length === 0
-      ? 0
-      : Math.round((completedQuests.length / spaceQuests.length) * 100);
+  const progress = getQuestProgress(spaceQuests, completedQuests);
 
   const spaceId = space.id;
-  function handleAddQuest() {
+  function handleAddQuest(formData: QuestFormData) {
     const newQuest: Quest = {
       id: `quest-${quests.length + 1}`,
       userId: "user-1",
       spaceId,
-      title: "Feed Dog",
-      description: "Feed her 125g",
-      difficulty: "easy",
-      scheduledDate: "2026-08-30",
+      title: formData.title,
+      description: formData.description,
+      difficulty: formData.difficulty,
+      scheduledDate: formData.scheduledDate,
       createdAt: new Date().toISOString(),
     };
     setQuests((prev) => [...prev, newQuest]);

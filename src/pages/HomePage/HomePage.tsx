@@ -13,7 +13,11 @@ export default function HomePage() {
   return (
     <>
       <HomeHeader />
-      <SpacesSection spaces={mockSpaces} />
+      <SpacesSection
+        spaces={mockSpaces}
+        quests={mockQuests}
+        questCompletions={mockQuestCompletions}
+      />
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
       <DayDetailsSection
         selectedDay={selectedDay}
