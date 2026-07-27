@@ -53,6 +53,13 @@ export default function SpacePage() {
     }
   }
 
+  function handleDeleteQuest(questId: string) {
+    setQuests((prev) => prev.filter((quest) => quest.id !== questId));
+    setQuestCompletions((prev) =>
+      prev.filter((completion) => completion.questId !== questId),
+    );
+  }
+
   if (!space) {
     return <h1>Space not found</h1>;
   }
