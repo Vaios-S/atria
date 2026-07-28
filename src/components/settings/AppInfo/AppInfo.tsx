@@ -1,15 +1,21 @@
 import "./AppInfo.css";
+import {
+  APP_NAME,
+  APP_TAGLINE,
+  APP_VERSION,
+  APP_AUTHOR,
+  APP_MOTO,
+} from "../../../constants/app";
 
 export default function AppInfo() {
   return (
     <section className="app-info">
-      <h3 className="app-info__title">Atria - Where all your spaces meet.</h3>
+      <h3 className="app-info__title">{APP_NAME}</h3>
 
-      <span className="app-info__version">Version 0.1.0</span>
-
-      <p className="app-info__tagline">
-        Built with ❤️ using React & TypeScript.
-      </p>
+      <span className="app-info__version">Version {APP_VERSION}</span>
+      <p className="app-info__tagline">{APP_MOTO}</p>
+      <p className="app-info__tagline">{APP_TAGLINE}</p>
+      <p className="app-info__tagline">By {APP_AUTHOR}</p>
     </section>
   );
 }
