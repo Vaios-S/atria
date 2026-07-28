@@ -22,6 +22,7 @@ export default function TodaySection({
           icon="📜"
           title="No active quests"
           description="You're all caught up for now."
+          action={<Button variant="primary">Add Quest</Button>}
         />
       ) : (
         <div className="today-section__list">

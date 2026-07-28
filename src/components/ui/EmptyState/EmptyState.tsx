@@ -1,15 +1,18 @@
 import "./EmptyState.css";
+import type { ReactNode } from "react";
 
 type EmptyStateProps = {
   icon: string;
   title: string;
   description: string;
+  action?: ReactNode;
 };
 
 export default function EmptyState({
   icon,
   title,
   description,
+  action,
 }: EmptyStateProps) {
   return (
     <section className="empty-state">
@@ -18,6 +21,8 @@ export default function EmptyState({
       <h2 className="empty-state__title">{title}</h2>
 
       <p className="empty-state__description">{description}</p>
+
+      {action && <div className="empty-state__action">{action}</div>}
     </section>
   );
 }
