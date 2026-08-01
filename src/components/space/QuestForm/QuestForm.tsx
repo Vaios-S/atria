@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import * as React from "react";
 import Button from "../../ui/Button";
 import "./QuestForm.css";
 import type { QuestDifficulty } from "../../../types/quest";
@@ -21,13 +22,15 @@ export default function QuestForm({ onSubmit, onCancel }: QuestFormProps) {
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState<QuestDifficulty>("easy");
   const [scheduledDate, setScheduledDate] = useState("");
+  const [error, setError] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const trimmedTitle = title.trim();
 
     if (!trimmedTitle) {
+      setError("Quest title is required");
       return;
     }
 
@@ -52,12 +55,15 @@ export default function QuestForm({ onSubmit, onCancel }: QuestFormProps) {
           name="title"
           type="text"
           value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          onChange={(event) => {
+            setTitle(event.target.value);
+            setError("");
+          }}
           placeholder="What needs to be done?"
           autoComplete="off"
           autoFocus
-          required
         />
+        {error && <p className="quest-form__error">{error}</p>}
       </div>
 
       <div className="quest-form__field">

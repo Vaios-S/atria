@@ -71,6 +71,13 @@
   flex: 1;
 }
 
+.quest-form__error {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: #dc2626;
+  font-weight: 500;
+}
+
 @media (min-width: 480px) {
   .quest-form__actions > * {
     flex: initial;
