@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import Button from "../../ui/Button";
 import "./QuestForm.css";
 import type { QuestDifficulty } from "../../../types/quest";
+import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
 
 export type QuestFormData = {
   title: string;
@@ -89,9 +90,11 @@ export default function QuestForm({ onSubmit, onCancel }: QuestFormProps) {
             setDifficulty(event.target.value as QuestDifficulty)
           }
         >
-          <option value="easy">Quick Quest</option>
-          <option value="medium">Challenge</option>
-          <option value="hard">Boss Quest</option>
+          {Object.entries(QUEST_DIFFICULTY_LABELS).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
         </select>
       </div>
 
