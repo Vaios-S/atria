@@ -140,6 +140,7 @@ export default function SpacePage() {
         quests={completedQuests}
         onToggleQuest={handleToggleQuest}
         onDeleteQuest={handleDeleteQuest}
+        onEditQuest={handleEditQuest}
       />
 
       <Modal

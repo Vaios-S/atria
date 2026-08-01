@@ -7,12 +7,14 @@ type CompletedSectionProps = {
   quests: Quest[];
   onToggleQuest: (questId: string) => void;
   onDeleteQuest: (questId: string) => void;
+  onEditQuest: (quest: Quest) => void;
 };
 
 export default function CompletedSection({
   quests,
   onToggleQuest,
   onDeleteQuest,
+  onEditQuest,
 }: CompletedSectionProps) {
   return (
     <section className="completed-section">
@@ -37,6 +39,9 @@ export default function CompletedSection({
               <p className="completed-section__quest-title">{quest.title}</p>
               <Button variant="danger" onClick={() => onDeleteQuest(quest.id)}>
                 X
+              </Button>
+              <Button variant="secondary" onClick={() => onEditQuest(quest)}>
+                Edit
               </Button>
             </div>
           ))}
