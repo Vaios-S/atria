@@ -7,12 +7,14 @@ type TodaySectionProps = {
   quests: Quest[];
   onToggleQuest: (questId: string) => void;
   onDeleteQuest: (questId: string) => void;
+  onEditQuest: (quest: Quest) => void;
 };
 
 export default function TodaySection({
   quests,
   onToggleQuest,
   onDeleteQuest,
+  onEditQuest,
 }: TodaySectionProps) {
   return (
     <section className="today-section">
@@ -33,6 +35,9 @@ export default function TodaySection({
               <p className="today-section__quest-title">{quest.title}</p>
               <Button variant="danger" onClick={() => onDeleteQuest(quest.id)}>
                 X
+              </Button>
+              <Button variant="secondary" onClick={() => onEditQuest(quest)}>
+                Edit
               </Button>
             </div>
           ))}

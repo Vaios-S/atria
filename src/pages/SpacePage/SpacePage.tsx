@@ -31,6 +31,10 @@ export default function SpacePage() {
 
   const [quests, setQuests] = useState(mockQuests);
 
+  const [editingQuest, setEditingQuest] = useState<Quest | undefined>(
+    undefined,
+  );
+
   const space = mockSpaces.find((space) => space.id === id);
 
   function handleToggleQuest(questId: string) {
@@ -60,6 +64,11 @@ export default function SpacePage() {
     );
   }
 
+  function handleEditQuest(quest: Quest) {
+    setEditingQuest(quest);
+    setIsQuestModalOpen(true);
+  }
+
   if (!space) {
     return <h1>Space not found</h1>;
   }
@@ -85,7 +94,25 @@ export default function SpacePage() {
       createdAt: new Date().toISOString(),
     };
     setQuests((prev) => [...prev, newQuest]);
+    setEditingQuest(undefined);
     setIsQuestModalOpen(false);
+  }
+
+  function handleUpdateQuest(formData: QuestFormData) {
+    if (!editingQuest) return;
+
+    const updatedQuest: Quest = {
+      ...editingQuest,
+      title: formData.title,
+      description: formData.description,
+      difficulty: formData.difficulty,
+      scheduledDate: formData.scheduledDate,
+    };
+    setQuests((prev) =>
+      prev.map((q) => (q.id === editingQuest.id ? updatedQuest : q)),
+    );
+    setIsQuestModalOpen(false);
+    setEditingQuest(undefined);
   }
 
   return (
@@ -107,6 +134,7 @@ export default function SpacePage() {
         quests={activeQuests}
         onToggleQuest={handleToggleQuest}
         onDeleteQuest={handleDeleteQuest}
+        onEditQuest={handleEditQuest}
       />
       <CompletedSection
         quests={completedQuests}
@@ -116,11 +144,16 @@ export default function SpacePage() {
 
       <Modal
         isOpen={isQuestModalOpen}
-        title="Add Quest"
-        onClose={() => setIsQuestModalOpen(false)}
+        title={editingQuest ? "Edit Quest" : "Add Quest"}
+        onClose={() => {
+          setIsQuestModalOpen(false);
+          setEditingQuest(undefined);
+        }}
       >
         <QuestForm
-          onSubmit={handleAddQuest}
+          initialValues={editingQuest}
+          submitLabel={editingQuest ? "Save Changes" : "Add Quest"}
+          onSubmit={editingQuest ? handleUpdateQuest : handleAddQuest}
           onCancel={() => setIsQuestModalOpen(false)}
         />
       </Modal>

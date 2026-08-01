@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as React from "react";
 import Button from "../../ui/Button";
 import "./QuestForm.css";
-import type { QuestDifficulty } from "../../../types/quest";
+import type { Quest, QuestDifficulty } from "../../../types/quest";
 import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
 
 export type QuestFormData = {
@@ -15,13 +15,26 @@ export type QuestFormData = {
 type QuestFormProps = {
   onSubmit: (formData: QuestFormData) => void;
   onCancel: () => void;
+  initialValues?: Quest;
+  submitLabel?: string;
 };
 
-export default function QuestForm({ onSubmit, onCancel }: QuestFormProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [difficulty, setDifficulty] = useState<QuestDifficulty>("easy");
-  const [scheduledDate, setScheduledDate] = useState("");
+export default function QuestForm({
+  onSubmit,
+  onCancel,
+  initialValues,
+  submitLabel,
+}: QuestFormProps) {
+  const [title, setTitle] = useState(initialValues?.title ?? "");
+  const [description, setDescription] = useState(
+    initialValues?.description ?? "",
+  );
+  const [difficulty, setDifficulty] = useState<QuestDifficulty>(
+    initialValues?.difficulty ?? "easy",
+  );
+  const [scheduledDate, setScheduledDate] = useState(
+    initialValues?.scheduledDate ?? new Date().toISOString().split("T")[0],
+  );
   const [error, setError] = useState("");
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
@@ -125,7 +138,7 @@ export default function QuestForm({ onSubmit, onCancel }: QuestFormProps) {
         </Button>
 
         <Button type="submit" variant="primary">
-          Add Quest
+          {submitLabel ?? "Add Quest"}
         </Button>
       </div>
     </form>
