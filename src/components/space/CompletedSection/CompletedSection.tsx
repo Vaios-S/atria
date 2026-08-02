@@ -6,7 +6,7 @@ import Button from "../../ui/Button";
 type CompletedSectionProps = {
   quests: Quest[];
   onToggleQuest: (questId: string) => void;
-  onDeleteQuest: (questId: string) => void;
+  onDeleteQuest: (quest: Quest) => void;
   onEditQuest: (quest: Quest) => void;
 };
 
@@ -37,7 +37,7 @@ export default function CompletedSection({
               />
 
               <p className="completed-section__quest-title">{quest.title}</p>
-              <Button variant="danger" onClick={() => onDeleteQuest(quest.id)}>
+              <Button variant="danger" onClick={() => onDeleteQuest(quest)}>
                 X
               </Button>
               <Button variant="secondary" onClick={() => onEditQuest(quest)}>

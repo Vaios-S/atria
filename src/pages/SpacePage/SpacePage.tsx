@@ -21,6 +21,7 @@ import {
   getQuestProgress,
   getQuestsBySpace,
 } from "../../utils/spaceQuestUtils";
+import ConfirmDialog from "../../components/ui/ConfirmDialog";
 
 export default function SpacePage() {
   const { id } = useParams();
@@ -34,6 +35,12 @@ export default function SpacePage() {
   const [editingQuest, setEditingQuest] = useState<Quest | undefined>(
     undefined,
   );
+
+  const [questToDelete, setQuestToDelete] = useState<Quest | undefined>(
+    undefined,
+  );
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const space = mockSpaces.find((space) => space.id === id);
 
@@ -57,11 +64,20 @@ export default function SpacePage() {
     }
   }
 
-  function handleDeleteQuest(questId: string) {
-    setQuests((prev) => prev.filter((quest) => quest.id !== questId));
+  function onDeleteQuest(quest: Quest) {
+    setQuestToDelete(quest);
+    setIsDeleteModalOpen(true);
+  }
+
+  function handleDeleteQuest() {
+    if (!questToDelete) return;
+
+    setQuests((prev) => prev.filter((quest) => quest.id !== questToDelete.id));
     setQuestCompletions((prev) =>
-      prev.filter((completion) => completion.questId !== questId),
+      prev.filter((completion) => completion.questId !== questToDelete.id),
     );
+    setIsDeleteModalOpen(false);
+    setQuestToDelete(undefined);
   }
 
   function handleEditQuest(quest: Quest) {
@@ -120,7 +136,14 @@ export default function SpacePage() {
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
-      <Button onClick={() => setIsQuestModalOpen(true)}>Add Quest</Button>
+      <Button
+        onClick={() => {
+          setEditingQuest(undefined);
+          setIsQuestModalOpen(true);
+        }}
+      >
+        Add Quest
+      </Button>
       <SpaceHeader
         space={space}
         activeQuests={activeQuests.length}
@@ -133,13 +156,13 @@ export default function SpacePage() {
       <TodaySection
         quests={activeQuests}
         onToggleQuest={handleToggleQuest}
-        onDeleteQuest={handleDeleteQuest}
+        onDeleteQuest={onDeleteQuest}
         onEditQuest={handleEditQuest}
       />
       <CompletedSection
         quests={completedQuests}
         onToggleQuest={handleToggleQuest}
-        onDeleteQuest={handleDeleteQuest}
+        onDeleteQuest={onDeleteQuest}
         onEditQuest={handleEditQuest}
       />
 
@@ -156,6 +179,19 @@ export default function SpacePage() {
           submitLabel={editingQuest ? "Save Changes" : "Add Quest"}
           onSubmit={editingQuest ? handleUpdateQuest : handleAddQuest}
           onCancel={() => setIsQuestModalOpen(false)}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        title="Delete Quest"
+        onClose={() => setIsDeleteModalOpen(false)}
+      >
+        <ConfirmDialog
+          title="Delete Quest"
+          message="Are you sure?"
+          onConfirm={handleDeleteQuest}
+          onCancel={() => setIsDeleteModalOpen(false)}
         />
       </Modal>
     </main>
