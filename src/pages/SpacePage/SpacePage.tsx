@@ -189,7 +189,7 @@ export default function SpacePage() {
       >
         <ConfirmDialog
           title="Delete Quest"
-          message="Are you sure?"
+          message={`Are you sure you want to delete the quest "${questToDelete?.title}"?`}
           onConfirm={handleDeleteQuest}
           onCancel={() => setIsDeleteModalOpen(false)}
         />
