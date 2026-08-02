@@ -15,9 +15,6 @@ export type Space = {
   description?: string;
   category: SpaceCategory;
   createdAt: string;
-
+  color?: string;
   icon: string;
-
-  activeQuests?: number;
-  progress?: number;
 };

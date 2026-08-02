@@ -15,12 +15,14 @@ type SpacesSectionProps = {
   spaces: Space[];
   quests: Quest[];
   questCompletions: QuestCompletion[];
+  onAddSpace: () => void;
 };
 
 export default function SpacesSection({
   spaces,
   quests,
   questCompletions,
+  onAddSpace,
 }: SpacesSectionProps) {
   return (
     <>
@@ -28,7 +30,7 @@ export default function SpacesSection({
         <header className="spaces-section__header">
           <h1 className="spaces-section__title">SPACES</h1>
 
-          <Button>+</Button>
+          <Button onClick={onAddSpace}>+</Button>
         </header>
 
         <div className="spaces-section__list">
