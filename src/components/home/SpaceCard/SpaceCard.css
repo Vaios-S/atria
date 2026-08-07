@@ -149,6 +149,40 @@
   outline-offset: 2px;
 }
 
+.space-card__delete-button {
+  position: absolute;
+  top: 2.75rem;
+  right: 0.75rem;
+
+  padding: 0.35rem 0.55rem;
+
+  border: 1px solid var(--color-danger);
+  border-radius: 0.5rem;
+
+  background-color: var(--color-surface);
+  color: var(--color-danger);
+
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.space-card__delete-button:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.space-card__delete-button:focus-visible {
+  outline: 2px solid var(--color-danger);
+  outline-offset: 2px;
+}
+
 @media (min-width: 768px) {
   .space-card {
     flex-basis: 15rem;

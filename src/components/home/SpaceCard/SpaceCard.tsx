@@ -7,6 +7,7 @@ type SpaceCardProps = {
   activeQuests: number;
   progress: number;
   onEdit: () => void;
+  onDelete: () => void;
 };
 
 export default function SpaceCard({
@@ -14,6 +15,7 @@ export default function SpaceCard({
   activeQuests,
   progress,
   onEdit,
+  onDelete,
 }: SpaceCardProps) {
   return (
     <>
@@ -55,6 +57,22 @@ export default function SpaceCard({
           aria-label={`Edit ${space.title}`}
         >
           Edit
+        </button>
+        <button
+          className="space-card__edit-button"
+          type="button"
+          onClick={onEdit}
+          aria-label={`Edit ${space.title}`}
+        >
+          Edit
+        </button>
+        <button
+          className="space-card__delete-button"
+          type="button"
+          onClick={onDelete}
+          aria-label={`Delete ${space.title}`}
+        >
+          Delete
         </button>
       </article>
     </>

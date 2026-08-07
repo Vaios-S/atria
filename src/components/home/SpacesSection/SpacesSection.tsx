@@ -17,6 +17,7 @@ type SpacesSectionProps = {
   questCompletions: QuestCompletion[];
   onAddSpace: () => void;
   onEditSpace: (space: Space) => void;
+  onDeleteSpace: (space: Space) => void;
 };
 
 export default function SpacesSection({
@@ -25,6 +26,7 @@ export default function SpacesSection({
   questCompletions,
   onAddSpace,
   onEditSpace,
+  onDeleteSpace,
 }: SpacesSectionProps) {
   return (
     <>
@@ -54,6 +56,7 @@ export default function SpacesSection({
                 activeQuests={activeQuests.length}
                 progress={progress}
                 onEdit={() => onEditSpace(space)}
+                onDelete={() => onDeleteSpace(space)}
               />
             );
           })}

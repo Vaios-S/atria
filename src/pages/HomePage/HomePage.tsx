@@ -9,6 +9,7 @@ import Modal from "../../components/ui/Modal";
 import SpaceForm from "../../components/home/SpaceForm";
 import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
 import type { Space } from "../../types/space";
+import ConfirmDialog from "../../components/ui/ConfirmDialog";
 
 type HomePageProps = {
   spaces: Space[];
@@ -68,6 +69,22 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
     setEditingSpace(space);
     setIsSpaceModalOpen(true);
   }
+
+  function handleDeleteSpace() {
+    if (!spaceToDelete) return;
+    setSpaces((prev) => prev.filter((space) => space.id !== spaceToDelete.id));
+    setIsDeleteModalOpen(false);
+    setSpaceToDelete(undefined);
+  }
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [spaceToDelete, setSpaceToDelete] = useState<Space | undefined>(
+    undefined,
+  );
+  function onDeleteSpace(space: Space) {
+    setSpaceToDelete(space);
+    setIsDeleteModalOpen(true);
+  }
   return (
     <>
       <HomeHeader />
@@ -77,6 +94,7 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
         questCompletions={mockQuestCompletions}
         onAddSpace={openSpaceModal}
         onEditSpace={onEditSpace}
+        onDeleteSpace={onDeleteSpace}
       />
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
       <DayDetailsSection
@@ -99,6 +117,22 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
           submitLabel={editingSpace ? "Save Changes" : "Add Space"}
           onSubmit={editingSpace ? handleUpdateSpace : handleAddSpace}
           onCancel={() => setIsSpaceModalOpen(false)}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        title="Delete Space"
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setEditingSpace(undefined);
+        }}
+      >
+        <ConfirmDialog
+          title="Delete Space"
+          message="Are you sure you want to delete this space?"
+          onConfirm={handleDeleteSpace}
+          onCancel={() => setIsDeleteModalOpen(false)}
         />
       </Modal>
     </>
