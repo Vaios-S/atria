@@ -11,6 +11,8 @@ import {
   getQuestsBySpace,
 } from "../../../utils/spaceQuestUtils";
 
+import EmptyState from "../../ui/EmptyState";
+
 type SpacesSectionProps = {
   spaces: Space[];
   quests: Quest[];
@@ -28,7 +30,25 @@ export default function SpacesSection({
   onEditSpace,
   onDeleteSpace,
 }: SpacesSectionProps) {
-  return (
+  return spaces.length === 0 ? (
+    <section className="spaces-section">
+      <header className="spaces-section__header">
+        <h1 className="spaces-section__title">SPACES</h1>
+
+        <Button onClick={onAddSpace}>+</Button>
+      </header>
+      <EmptyState
+        icon="🌱"
+        title="No spaces yet"
+        description="Create your first space and start organizing what matters to you."
+        action={
+          <Button variant="primary" onClick={onAddSpace}>
+            Create Space
+          </Button>
+        }
+      />
+    </section>
+  ) : (
     <>
       <section className="spaces-section">
         <header className="spaces-section__header">
