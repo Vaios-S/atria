@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router-dom";
 import { mockQuests } from "../../data/mockQuests";
-import { mockSpaces } from "../../data/mockSpaces";
 import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import "./SpacePage.css";
 import SpaceHeader from "../../components/space/SpaceHeader";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as React from "react";
 import Button from "../../ui/Button";
-import type { SpaceCategory } from "../../../types/space";
+import type { Space, SpaceCategory } from "../../../types/space";
 import "./SpaceForm.css";
 import { SPACE_CATEGORY_LABELS } from "../../../constants/spaceCategories";
 
@@ -16,14 +16,25 @@ export type SpaceFormData = {
 type SpaceFormProps = {
   onSubmit: (formData: SpaceFormData) => void;
   onCancel: () => void;
+  initialValues?: Space;
+  submitLabel?: string;
 };
 
-export default function SpaceForm({ onSubmit, onCancel }: SpaceFormProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<SpaceCategory>("personal");
-  const [icon, setIcon] = useState("🌿");
-  const [color, setColor] = useState("#7c8f73");
+export default function SpaceForm({
+  onSubmit,
+  onCancel,
+  initialValues,
+  submitLabel,
+}: SpaceFormProps) {
+  const [title, setTitle] = useState(initialValues?.title ?? "");
+  const [description, setDescription] = useState(
+    initialValues?.description ?? "",
+  );
+  const [category, setCategory] = useState<SpaceCategory>(
+    initialValues?.category ?? "personal",
+  );
+  const [icon, setIcon] = useState(initialValues?.icon ?? "🌿");
+  const [color, setColor] = useState(initialValues?.color ?? "#7c8f73");
 
   const [titleError, setTitleError] = useState("");
 
@@ -165,7 +176,7 @@ export default function SpaceForm({ onSubmit, onCancel }: SpaceFormProps) {
         </Button>
 
         <Button type="submit" variant="primary">
-          Create Space
+          {submitLabel ?? "Add Space"}
         </Button>
       </div>
     </form>

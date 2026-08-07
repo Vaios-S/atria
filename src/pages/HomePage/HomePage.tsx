@@ -4,7 +4,6 @@ import { useState } from "react";
 import CalendarSection from "../../components/home/CalendarSection";
 import DayDetailsSection from "../../components/home/DayDetailsSection";
 import { mockQuests } from "../../data/mockQuests";
-import { mockSpaces } from "../../data/mockSpaces";
 import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import Modal from "../../components/ui/Modal";
 import SpaceForm from "../../components/home/SpaceForm";
@@ -41,6 +40,34 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
     setIsSpaceModalOpen(true);
   }
 
+  const [editingSpace, setEditingSpace] = useState<Space | undefined>(
+    undefined,
+  );
+
+  function handleUpdateSpace(formData: SpaceFormData) {
+    if (!editingSpace) return;
+    const updatedSpace = {
+      ...editingSpace,
+      title: formData.title,
+      description: formData.description,
+      category: formData.category,
+      icon: formData.icon,
+      color: formData.color,
+    };
+
+    setSpaces((prev) =>
+      prev.map((space) =>
+        space.id === updatedSpace.id ? updatedSpace : space,
+      ),
+    );
+    setIsSpaceModalOpen(false);
+    setEditingSpace(undefined);
+  }
+
+  function onEditSpace(space: Space) {
+    setEditingSpace(space);
+    setIsSpaceModalOpen(true);
+  }
   return (
     <>
       <HomeHeader />
@@ -49,6 +76,7 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
         quests={mockQuests}
         questCompletions={mockQuestCompletions}
         onAddSpace={openSpaceModal}
+        onEditSpace={onEditSpace}
       />
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
       <DayDetailsSection
@@ -60,11 +88,16 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
 
       <Modal
         isOpen={isSpaceModalOpen}
-        title="Add Space"
-        onClose={() => setIsSpaceModalOpen(false)}
+        title={editingSpace ? "Edit Space" : "Add Space"}
+        onClose={() => {
+          setIsSpaceModalOpen(false);
+          setEditingSpace(undefined);
+        }}
       >
         <SpaceForm
-          onSubmit={handleAddSpace}
+          initialValues={editingSpace}
+          submitLabel={editingSpace ? "Save Changes" : "Add Space"}
+          onSubmit={editingSpace ? handleUpdateSpace : handleAddSpace}
           onCancel={() => setIsSpaceModalOpen(false)}
         />
       </Modal>

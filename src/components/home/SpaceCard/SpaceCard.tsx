@@ -6,24 +6,57 @@ type SpaceCardProps = {
   space: Space;
   activeQuests: number;
   progress: number;
+  onEdit: () => void;
 };
 
 export default function SpaceCard({
   space,
   activeQuests,
   progress,
+  onEdit,
 }: SpaceCardProps) {
   return (
     <>
-      <Link to={`/space/${space.id}`} className="space-card">
-        <p className="space-card__icon">{space.icon}</p>
+      <article className="space-card">
+        <Link to={`/space/${space.id}`} className="space-card__link">
+          <div className="space-card__header">
+            <div
+              className="space-card__icon"
+              style={{ backgroundColor: space.color }}
+            >
+              {space.icon}
+            </div>
 
-        <h2 className="space-card__title">{space.title}</h2>
+            <div className="space-card__info">
+              <h2 className="space-card__title">{space.title}</h2>
+              <p className="space-card__quests">{activeQuests} Active Quests</p>
+            </div>
+          </div>
 
-        <p className="space-card__quests">{activeQuests} Active Quests</p>
+          <div className="space-card__progress">
+            <div className="space-card__progress-info">
+              <span>Progress</span>
+              <span>{progress}%</span>
+            </div>
 
-        <p className="space-card__progress">{progress}% Complete</p>
-      </Link>
+            <div className="space-card__progress-track">
+              <div
+                className="space-card__progress-bar"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        </Link>
+
+        <button
+          className="space-card__edit-button"
+          type="button"
+          onClick={onEdit}
+          aria-label={`Edit ${space.title}`}
+        >
+          Edit
+        </button>
+      </article>
     </>
   );
 }
