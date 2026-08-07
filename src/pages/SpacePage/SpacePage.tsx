@@ -10,7 +10,6 @@ import SpaceStats from "../../components/space/SpaceStats";
 import { useState } from "react";
 import type { QuestCompletion } from "../../types/questCompletion";
 import type { Quest } from "../../types/quest";
-import type { Space } from "../../types/space";
 import Modal from "../../components/ui/Modal";
 import QuestForm, {
   type QuestFormData,
@@ -23,8 +22,14 @@ import {
   getQuestsBySpace,
 } from "../../utils/spaceQuestUtils";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
+import type { Space } from "../../types/space";
 
-export default function SpacePage({ spaces }: Space[]) {
+type SpacePageProps = {
+  spaces: Space[];
+  setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
+};
+
+export default function SpacePage({ spaces, setSpaces }: SpacePageProps) {
   const { id } = useParams();
   const [questCompletions, setQuestCompletions] =
     useState(mockQuestCompletions);
@@ -43,7 +48,7 @@ export default function SpacePage({ spaces }: Space[]) {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const space = space.find((space) => space.id === id);
+  const space = spaces.find((space) => space.id === id);
 
   function handleToggleQuest(questId: string) {
     const completionExists = questCompletions.some(

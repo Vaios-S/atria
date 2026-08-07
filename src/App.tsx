@@ -4,14 +4,24 @@ import SettingsPage from "./pages/SettingsPage/SettingsPage.tsx";
 import SpacePage from "./pages/SpacePage/SpacePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.tsx";
 import MainNavbar from "./components/ui/MainNavBar/MainNavBar.tsx";
+import { useState } from "react";
+import { mockSpaces } from "./data/mockSpaces.ts";
 
 function App() {
+  const [spaces, setSpaces] = useState(mockSpaces);
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={<HomePage spaces={spaces} setSpaces={setSpaces} />}
+        />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/space/:id" element={<SpacePage />} />
+        <Route
+          path="/space/:id"
+          element={<SpacePage spaces={spaces} setSpaces={setSpaces} />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <MainNavbar />

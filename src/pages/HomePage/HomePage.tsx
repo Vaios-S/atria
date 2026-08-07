@@ -9,11 +9,15 @@ import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import Modal from "../../components/ui/Modal";
 import SpaceForm from "../../components/home/SpaceForm";
 import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
+import type { Space } from "../../types/space";
 
-export default function HomePage() {
+type HomePageProps = {
+  spaces: Space[];
+  setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
+};
+
+export default function HomePage({ spaces, setSpaces }: HomePageProps) {
   const [selectedDay, setSelectedDay] = useState(24);
-
-  const [spaces, setSpaces] = useState(mockSpaces);
 
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
 
