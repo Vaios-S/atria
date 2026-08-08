@@ -7,10 +7,13 @@ import MainNavbar from "./components/ui/MainNavBar/MainNavBar.tsx";
 import { useState } from "react";
 import { mockSpaces } from "./data/mockSpaces.ts";
 import { mockQuests } from "./data/mockQuests.ts";
+import { mockQuestCompletions } from "./data/mockQuestCompletions.ts";
 
 function App() {
   const [spaces, setSpaces] = useState(mockSpaces);
   const [quests, setQuests] = useState(mockQuests);
+  const [questCompletions, setQuestCompletions] =
+    useState(mockQuestCompletions);
 
   return (
     <>
@@ -23,6 +26,8 @@ function App() {
               setSpaces={setSpaces}
               quests={quests}
               setQuests={setQuests}
+              questCompletions={questCompletions}
+              setQuestCompletions={setQuestCompletions}
             />
           }
         />
@@ -35,6 +40,8 @@ function App() {
               setSpaces={setSpaces}
               quests={quests}
               setQuests={setQuests}
+              questCompletions={questCompletions}
+              setQuestCompletions={setQuestCompletions}
             />
           }
         />

@@ -10,12 +10,15 @@ import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
 import type { Space } from "../../types/space";
 import type { Quest } from "../../types/quest";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
+import type { QuestCompletion } from "../../types/questCompletion";
 
 type HomePageProps = {
   spaces: Space[];
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
   quests: Quest[];
   setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
+  questCompletions: QuestCompletion[];
+  setQuestCompletions: React.Dispatch<React.SetStateAction<QuestCompletion[]>>;
 };
 
 export default function HomePage({
@@ -23,6 +26,8 @@ export default function HomePage({
   setSpaces,
   quests,
   setQuests,
+  questCompletions,
+  setQuestCompletions,
 }: HomePageProps) {
   const [selectedDay, setSelectedDay] = useState(24);
 
@@ -98,7 +103,7 @@ export default function HomePage({
       <SpacesSection
         spaces={spaces}
         quests={quests}
-        questCompletions={mockQuestCompletions}
+        questCompletions={questCompletions}
         onAddSpace={openSpaceModal}
         onEditSpace={onEditSpace}
         onDeleteSpace={onDeleteSpace}
@@ -108,7 +113,7 @@ export default function HomePage({
         selectedDay={selectedDay}
         quests={quests}
         spaces={spaces}
-        questCompletions={mockQuestCompletions}
+        questCompletions={questCompletions}
       />
 
       <Modal

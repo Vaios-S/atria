@@ -28,6 +28,8 @@ type SpacePageProps = {
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
   quests: Quest[];
   setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
+  questCompletions: QuestCompletion[];
+  setQuestCompletions: React.Dispatch<React.SetStateAction<QuestCompletion[]>>;
 };
 
 export default function SpacePage({
@@ -35,10 +37,10 @@ export default function SpacePage({
   setSpaces,
   quests,
   setQuests,
+  questCompletions,
+  setQuestCompletions,
 }: SpacePageProps) {
   const { id } = useParams();
-  const [questCompletions, setQuestCompletions] =
-    useState(mockQuestCompletions);
 
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
 
