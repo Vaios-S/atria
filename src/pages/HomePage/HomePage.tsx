@@ -3,7 +3,6 @@ import SpacesSection from "../../components/home/SpacesSection";
 import { useState } from "react";
 import CalendarSection from "../../components/home/CalendarSection";
 import DayDetailsSection from "../../components/home/DayDetailsSection";
-import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import Modal from "../../components/ui/Modal";
 import SpaceForm from "../../components/home/SpaceForm";
 import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
@@ -85,6 +84,19 @@ export default function HomePage({
   function handleDeleteSpace() {
     if (!spaceToDelete) return;
     setSpaces((prev) => prev.filter((space) => space.id !== spaceToDelete.id));
+    setQuests((prev) =>
+      prev.filter((quest) => quest.spaceId !== spaceToDelete.id),
+    );
+
+    const questsToDelete = quests.filter(
+      (quest) => quest.spaceId === spaceToDelete.id,
+    );
+    setQuestCompletions((prev) =>
+      prev.filter(
+        (completion) =>
+          !questsToDelete.some((quest) => quest.id === completion.questId),
+      ),
+    );
     setIsDeleteModalOpen(false);
     setSpaceToDelete(undefined);
   }
