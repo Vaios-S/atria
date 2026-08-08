@@ -3,20 +3,27 @@ import SpacesSection from "../../components/home/SpacesSection";
 import { useState } from "react";
 import CalendarSection from "../../components/home/CalendarSection";
 import DayDetailsSection from "../../components/home/DayDetailsSection";
-import { mockQuests } from "../../data/mockQuests";
 import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import Modal from "../../components/ui/Modal";
 import SpaceForm from "../../components/home/SpaceForm";
 import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
 import type { Space } from "../../types/space";
+import type { Quest } from "../../types/quest";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 
 type HomePageProps = {
   spaces: Space[];
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
+  quests: Quest[];
+  setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
 };
 
-export default function HomePage({ spaces, setSpaces }: HomePageProps) {
+export default function HomePage({
+  spaces,
+  setSpaces,
+  quests,
+  setQuests,
+}: HomePageProps) {
   const [selectedDay, setSelectedDay] = useState(24);
 
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
@@ -90,7 +97,7 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
       <HomeHeader />
       <SpacesSection
         spaces={spaces}
-        quests={mockQuests}
+        quests={quests}
         questCompletions={mockQuestCompletions}
         onAddSpace={openSpaceModal}
         onEditSpace={onEditSpace}
@@ -99,7 +106,7 @@ export default function HomePage({ spaces, setSpaces }: HomePageProps) {
       <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
       <DayDetailsSection
         selectedDay={selectedDay}
-        quests={mockQuests}
+        quests={quests}
         spaces={spaces}
         questCompletions={mockQuestCompletions}
       />

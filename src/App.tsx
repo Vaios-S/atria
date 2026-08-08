@@ -6,21 +6,37 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.tsx";
 import MainNavbar from "./components/ui/MainNavBar/MainNavBar.tsx";
 import { useState } from "react";
 import { mockSpaces } from "./data/mockSpaces.ts";
+import { mockQuests } from "./data/mockQuests.ts";
 
 function App() {
   const [spaces, setSpaces] = useState(mockSpaces);
+  const [quests, setQuests] = useState(mockQuests);
 
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<HomePage spaces={spaces} setSpaces={setSpaces} />}
+          element={
+            <HomePage
+              spaces={spaces}
+              setSpaces={setSpaces}
+              quests={quests}
+              setQuests={setQuests}
+            />
+          }
         />
         <Route path="/settings" element={<SettingsPage />} />
         <Route
           path="/space/:id"
-          element={<SpacePage spaces={spaces} setSpaces={setSpaces} />}
+          element={
+            <SpacePage
+              spaces={spaces}
+              setSpaces={setSpaces}
+              quests={quests}
+              setQuests={setQuests}
+            />
+          }
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

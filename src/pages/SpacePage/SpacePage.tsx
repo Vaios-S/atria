@@ -26,16 +26,21 @@ import type { Space } from "../../types/space";
 type SpacePageProps = {
   spaces: Space[];
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
+  quests: Quest[];
+  setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
 };
 
-export default function SpacePage({ spaces, setSpaces }: SpacePageProps) {
+export default function SpacePage({
+  spaces,
+  setSpaces,
+  quests,
+  setQuests,
+}: SpacePageProps) {
   const { id } = useParams();
   const [questCompletions, setQuestCompletions] =
     useState(mockQuestCompletions);
 
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
-
-  const [quests, setQuests] = useState(mockQuests);
 
   const [editingQuest, setEditingQuest] = useState<Quest | undefined>(
     undefined,
