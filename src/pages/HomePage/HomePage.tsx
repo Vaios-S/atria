@@ -105,10 +105,32 @@ export default function HomePage({
   const [spaceToDelete, setSpaceToDelete] = useState<Space | undefined>(
     undefined,
   );
+
   function onDeleteSpace(space: Space) {
     setSpaceToDelete(space);
     setIsDeleteModalOpen(true);
   }
+
+  function handleToggleQuest(questId: string) {
+    const completionExists = questCompletions.some(
+      (completion) => completion.questId === questId,
+    );
+
+    if (completionExists) {
+      setQuestCompletions((prev) =>
+        prev.filter((completion) => completion.questId !== questId),
+      );
+    } else {
+      const newCompletion: QuestCompletion = {
+        id: `completed-${questCompletions.length + 1}`,
+        userId: "user-1",
+        questId: `${questId}`,
+        completedAt: new Date().toISOString(),
+      };
+      setQuestCompletions((prev) => [...prev, newCompletion]);
+    }
+  }
+
   return (
     <>
       <HomeHeader />
@@ -126,6 +148,7 @@ export default function HomePage({
         quests={quests}
         spaces={spaces}
         questCompletions={questCompletions}
+        onToggleQuest={handleToggleQuest}
       />
 
       <Modal

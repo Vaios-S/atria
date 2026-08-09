@@ -9,6 +9,7 @@ type DayDetailsSectionProps = {
   quests: Quest[];
   spaces: Space[];
   questCompletions: QuestCompletion[];
+  onToggleQuest: (questId: string) => void;
 };
 
 export default function DayDetailsSection({
@@ -16,6 +17,7 @@ export default function DayDetailsSection({
   quests,
   spaces,
   questCompletions,
+  onToggleQuest,
 }: DayDetailsSectionProps) {
   const selectedDate = `2026-07-${String(selectedDay).padStart(2, "0")}`;
 
@@ -56,7 +58,11 @@ export default function DayDetailsSection({
                   {questSpace?.icon} {questSpace?.title}
                 </span>
 
-                <input type="checkbox" checked={isCompleted} readOnly />
+                <input
+                  type="checkbox"
+                  checked={isCompleted}
+                  onChange={() => onToggleQuest(quest.id)}
+                />
 
                 <p>{quest.title}</p>
               </div>
