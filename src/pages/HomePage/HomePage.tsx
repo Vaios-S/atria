@@ -169,7 +169,7 @@ export default function HomePage({
         onDaySelect={setSelectedDate}
       />
       <DayDetailsSection
-        selectedDay={selectedDay}
+        selectedDate={selectedDate}
         quests={quests}
         spaces={spaces}
         questCompletions={questCompletions}

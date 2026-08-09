@@ -4,9 +4,20 @@ import type { Space } from "../../../types/space";
 import type { QuestCompletion } from "../../../types/questCompletion";
 import EmptyState from "../../ui/EmptyState";
 import Button from "../../ui/Button";
+import {
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+  isSameDay,
+  format,
+  getDay,
+  addMonths,
+  subMonths,
+  isToday,
+} from "date-fns";
 
 type DayDetailsSectionProps = {
-  selectedDay: number;
+  selectedDate: Date;
   quests: Quest[];
   spaces: Space[];
   questCompletions: QuestCompletion[];
@@ -15,24 +26,22 @@ type DayDetailsSectionProps = {
 };
 
 export default function DayDetailsSection({
-  selectedDay,
+  selectedDate,
   quests,
   spaces,
   questCompletions,
   onToggleQuest,
   onAddQuest,
 }: DayDetailsSectionProps) {
-  const selectedDate = `2026-07-${String(selectedDay).padStart(2, "0")}`;
-
   const todaysQuests = quests.filter(
-    (quest) => quest.scheduledDate === selectedDate,
+    (quest) => quest.scheduledDate === selectedDate.toISOString(),
   );
 
   return (
     <section className="day-details">
       <h1 className="day-details__title">DAY DETAILS</h1>
 
-      <h2 className="day-details__date">{selectedDay} JULY 2026</h2>
+      <h2 className="day-details__date">{format(selectedDate, "MMMM yyyy")}</h2>
 
       <p className="day-details__count">
         {todaysQuests.length} quest{todaysQuests.length !== 1 ? "s" : ""}

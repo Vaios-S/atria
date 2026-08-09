@@ -116,3 +116,8 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+.calendar-section__day--today {
+  border: 1px solid var(--color-primary);
+  font-weight: 700;
+}

@@ -8,6 +8,7 @@ import {
   getDay,
   addMonths,
   subMonths,
+  isToday,
 } from "date-fns";
 
 type CalendarSectionProps = {
@@ -86,7 +87,7 @@ export default function CalendarSection({
               isSameDay(day, selectedDate)
                 ? "calendar-section__day--selected"
                 : ""
-            }`}
+            } ${isToday(day) ? "calendar-section__day--today" : ""}`}
             onClick={() => onDaySelect(day)}
           >
             {format(day, "d")}
