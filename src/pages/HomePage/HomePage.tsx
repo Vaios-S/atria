@@ -31,7 +31,7 @@ export default function HomePage({
   questCompletions,
   setQuestCompletions,
 }: HomePageProps) {
-  const [selectedDay, setSelectedDay] = useState(24);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
 
@@ -141,7 +141,7 @@ export default function HomePage({
     const newQuest: Quest = {
       id: `quest-${quests.length + 1}`,
       userId: "user-1",
-      spaceId: formData.spaceId ?? "",
+      spaceId: formData.spaceId ?? undefined,
       title: formData.title,
       description: formData.description,
       difficulty: formData.difficulty,
@@ -164,7 +164,10 @@ export default function HomePage({
         onEditSpace={onEditSpace}
         onDeleteSpace={onDeleteSpace}
       />
-      <CalendarSection selectedDay={selectedDay} onDaySelect={setSelectedDay} />
+      <CalendarSection
+        selectedDate={selectedDate}
+        onDaySelect={setSelectedDate}
+      />
       <DayDetailsSection
         selectedDay={selectedDay}
         quests={quests}
