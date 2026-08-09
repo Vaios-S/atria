@@ -3,6 +3,7 @@ import type { Quest } from "../../../types/quest";
 import type { Space } from "../../../types/space";
 import type { QuestCompletion } from "../../../types/questCompletion";
 import EmptyState from "../../ui/EmptyState";
+import Button from "../../ui/Button";
 
 type DayDetailsSectionProps = {
   selectedDay: number;
@@ -10,6 +11,7 @@ type DayDetailsSectionProps = {
   spaces: Space[];
   questCompletions: QuestCompletion[];
   onToggleQuest: (questId: string) => void;
+  onAddQuest: () => void;
 };
 
 export default function DayDetailsSection({
@@ -18,6 +20,7 @@ export default function DayDetailsSection({
   spaces,
   questCompletions,
   onToggleQuest,
+  onAddQuest,
 }: DayDetailsSectionProps) {
   const selectedDate = `2026-07-${String(selectedDay).padStart(2, "0")}`;
 
@@ -34,6 +37,7 @@ export default function DayDetailsSection({
       <p className="day-details__count">
         {todaysQuests.length} quest{todaysQuests.length !== 1 ? "s" : ""}
       </p>
+      <Button onClick={onAddQuest}>+ Add Quest</Button>
 
       <div className="day-details__list">
         {todaysQuests.length === 0 ? (

@@ -4,12 +4,14 @@ import Button from "../../ui/Button";
 import "./QuestForm.css";
 import type { Quest, QuestDifficulty } from "../../../types/quest";
 import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
+import type { Space } from "../../../types/space";
 
 export type QuestFormData = {
   title: string;
   description: string;
   difficulty: QuestDifficulty;
   scheduledDate: string;
+  spaceId?: string;
 };
 
 type QuestFormProps = {
@@ -17,6 +19,7 @@ type QuestFormProps = {
   onCancel: () => void;
   initialValues?: Quest;
   submitLabel?: string;
+  spaces?: Space[];
 };
 
 export default function QuestForm({
@@ -24,6 +27,7 @@ export default function QuestForm({
   onCancel,
   initialValues,
   submitLabel,
+  spaces,
 }: QuestFormProps) {
   const [title, setTitle] = useState(initialValues?.title ?? "");
   const [description, setDescription] = useState(
@@ -36,6 +40,8 @@ export default function QuestForm({
     initialValues?.scheduledDate ?? new Date().toISOString().split("T")[0],
   );
   const [error, setError] = useState("");
+
+  const [spaceId, setSpaceId] = useState(initialValues?.spaceId ?? "");
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -52,6 +58,7 @@ export default function QuestForm({
       description: description.trim(),
       difficulty,
       scheduledDate,
+      spaceId: spaceId || undefined,
     });
   }
 
@@ -99,6 +106,30 @@ export default function QuestForm({
         <label className="quest-form__label" htmlFor="quest-difficulty">
           Difficulty
         </label>
+
+        {spaces && (
+          <div className="quest-form__field">
+            <label className="quest-form__label" htmlFor="quest-space">
+              Space
+            </label>
+
+            <select
+              className="quest-form__select"
+              id="quest-space"
+              name="spaceId"
+              value={spaceId}
+              onChange={(event) => setSpaceId(event.target.value)}
+            >
+              <option value="">General</option>
+
+              {spaces.map((space) => (
+                <option key={space.id} value={space.id}>
+                  {space.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <select
           className="quest-form__select"

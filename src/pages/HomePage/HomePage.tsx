@@ -10,6 +10,9 @@ import type { Space } from "../../types/space";
 import type { Quest } from "../../types/quest";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { QuestCompletion } from "../../types/questCompletion";
+import QuestForm, {
+  type QuestFormData,
+} from "../../components/space/QuestForm";
 
 type HomePageProps = {
   spaces: Space[];
@@ -32,6 +35,18 @@ export default function HomePage({
 
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
 
+  const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
+
+  const [editingSpace, setEditingSpace] = useState<Space | undefined>(
+    undefined,
+  );
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const [spaceToDelete, setSpaceToDelete] = useState<Space | undefined>(
+    undefined,
+  );
+
   function handleAddSpace(formData: SpaceFormData) {
     const newSpace = {
       id: `space-${formData.title.toLowerCase().replace(/\s+/g, "-")}`,
@@ -51,10 +66,6 @@ export default function HomePage({
   function openSpaceModal() {
     setIsSpaceModalOpen(true);
   }
-
-  const [editingSpace, setEditingSpace] = useState<Space | undefined>(
-    undefined,
-  );
 
   function handleUpdateSpace(formData: SpaceFormData) {
     if (!editingSpace) return;
@@ -101,11 +112,6 @@ export default function HomePage({
     setSpaceToDelete(undefined);
   }
 
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [spaceToDelete, setSpaceToDelete] = useState<Space | undefined>(
-    undefined,
-  );
-
   function onDeleteSpace(space: Space) {
     setSpaceToDelete(space);
     setIsDeleteModalOpen(true);
@@ -131,6 +137,22 @@ export default function HomePage({
     }
   }
 
+  function handleAddQuest(formData: QuestFormData) {
+    const newQuest: Quest = {
+      id: `quest-${quests.length + 1}`,
+      userId: "user-1",
+      spaceId: formData.spaceId ?? "",
+      title: formData.title,
+      description: formData.description,
+      difficulty: formData.difficulty,
+      scheduledDate: formData.scheduledDate,
+      createdAt: new Date().toISOString(),
+    };
+    setQuests((prev) => [...prev, newQuest]);
+
+    setIsQuestModalOpen(false);
+  }
+
   return (
     <>
       <HomeHeader />
@@ -149,6 +171,7 @@ export default function HomePage({
         spaces={spaces}
         questCompletions={questCompletions}
         onToggleQuest={handleToggleQuest}
+        onAddQuest={() => setIsQuestModalOpen(true)}
       />
 
       <Modal
@@ -180,6 +203,21 @@ export default function HomePage({
           message="Are you sure you want to delete this space?"
           onConfirm={handleDeleteSpace}
           onCancel={() => setIsDeleteModalOpen(false)}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={isQuestModalOpen}
+        title={"Add Quest"}
+        onClose={() => {
+          setIsQuestModalOpen(false);
+        }}
+      >
+        <QuestForm
+          submitLabel="Add Quest"
+          onSubmit={handleAddQuest}
+          onCancel={() => setIsQuestModalOpen(false)}
+          spaces={spaces}
         />
       </Modal>
     </>
