@@ -10,15 +10,18 @@ import {
   subMonths,
   isToday,
 } from "date-fns";
+import type { Quest } from "../../../types/quest";
 
 type CalendarSectionProps = {
   selectedDate: Date;
   onDaySelect: (date: Date) => void;
+  quests: Quest[];
 };
 
 export default function CalendarSection({
   selectedDate,
   onDaySelect,
+  quests,
 }: CalendarSectionProps) {
   const days = eachDayOfInterval({
     start: startOfMonth(selectedDate),
@@ -79,20 +82,32 @@ export default function CalendarSection({
         {Array.from({ length: emptyDays }).map((_, index) => (
           <div key={`empty-${index}`} className="calendar-section__empty-day" />
         ))}
-        {days.map((day) => (
-          <button
-            disabled={isSameDay(day, selectedDate)}
-            key={day.toISOString()}
-            className={`calendar-section__day ${
-              isSameDay(day, selectedDate)
-                ? "calendar-section__day--selected"
-                : ""
-            } ${isToday(day) ? "calendar-section__day--today" : ""}`}
-            onClick={() => onDaySelect(day)}
-          >
-            {format(day, "d")}
-          </button>
-        ))}
+        {days.map((day) => {
+          const hasQuest = quests.some(
+            (quest) => quest.scheduledDate === format(day, "yyyy-MM-dd"),
+          );
+
+          return (
+            <button
+              disabled={isSameDay(day, selectedDate)}
+              key={day.toISOString()}
+              className={`calendar-section__day ${
+                isSameDay(day, selectedDate)
+                  ? "calendar-section__day--selected"
+                  : ""
+              } ${isToday(day) ? "calendar-section__day--today" : ""}`}
+              onClick={() => onDaySelect(day)}
+            >
+              {hasQuest && (
+                <span
+                  className="calendar-section__quest-indicator"
+                  aria-hidden="true"
+                />
+              )}
+              {format(day, "d")}
+            </button>
+          );
+        })}
       </div>
     </section>
   );

@@ -167,6 +167,7 @@ export default function HomePage({
       <CalendarSection
         selectedDate={selectedDate}
         onDaySelect={setSelectedDate}
+        quests={quests}
       />
       <DayDetailsSection
         selectedDate={selectedDate}
