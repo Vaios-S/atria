@@ -9,6 +9,7 @@ import {
   addMonths,
   subMonths,
   isToday,
+  isWeekend,
 } from "date-fns";
 import type { Quest } from "../../../types/quest";
 
@@ -95,7 +96,9 @@ export default function CalendarSection({
                 isSameDay(day, selectedDate)
                   ? "calendar-section__day--selected"
                   : ""
-              } ${isToday(day) ? "calendar-section__day--today" : ""}`}
+              } ${isToday(day) ? "calendar-section__day--today" : ""} ${
+                isWeekend(day) ? "calendar-section__day--weekend" : ""
+              }`}
               onClick={() => onDaySelect(day)}
             >
               {hasQuest && (

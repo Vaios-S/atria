@@ -139,3 +139,7 @@
 
   transform: translateX(-50%);
 }
+
+.calendar-section__day--weekend {
+  opacity: 0.65;
+}
