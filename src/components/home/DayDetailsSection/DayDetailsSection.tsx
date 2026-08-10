@@ -68,7 +68,8 @@ export default function DayDetailsSection({
             return (
               <div key={quest.id} className="day-details__item">
                 <span className="day-details__space">
-                  {questSpace?.icon} {questSpace?.title}
+                  {questSpace ? questSpace?.icon : "📜 General"}{" "}
+                  {questSpace?.title}
                 </span>
 
                 <input
