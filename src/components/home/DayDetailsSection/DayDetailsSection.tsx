@@ -4,17 +4,8 @@ import type { Space } from "../../../types/space";
 import type { QuestCompletion } from "../../../types/questCompletion";
 import EmptyState from "../../ui/EmptyState";
 import Button from "../../ui/Button";
-import {
-  startOfMonth,
-  endOfMonth,
-  eachDayOfInterval,
-  isSameDay,
-  format,
-  getDay,
-  addMonths,
-  subMonths,
-  isToday,
-} from "date-fns";
+import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 type DayDetailsSectionProps = {
   selectedDate: Date;
@@ -67,10 +58,16 @@ export default function DayDetailsSection({
 
             return (
               <div key={quest.id} className="day-details__item">
-                <span className="day-details__space">
-                  {questSpace ? questSpace?.icon : "📜 General"}{" "}
-                  {questSpace?.title}
-                </span>
+                {questSpace ? (
+                  <Link
+                    to={`/space/${quest.spaceId}`}
+                    className="day-details__space-link"
+                  >
+                    {questSpace.icon} {questSpace.title}
+                  </Link>
+                ) : (
+                  <span className="day-details__space">📜 General</span>
+                )}
 
                 <input
                   type="checkbox"
@@ -78,7 +75,7 @@ export default function DayDetailsSection({
                   onChange={() => onToggleQuest(quest.id)}
                 />
 
-                <p>{quest.title}</p>
+                <p className="day-details__quest-title">{quest.title}</p>
               </div>
             );
           })
