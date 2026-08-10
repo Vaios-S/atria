@@ -70,6 +70,13 @@ export default function CalendarSection({
           >
             →
           </button>
+          <button
+            type="button"
+            className="calendar-section__today-button"
+            onClick={() => onDaySelect(new Date())}
+          >
+            Today
+          </button>
         </div>
       </header>
 
