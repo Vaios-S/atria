@@ -34,7 +34,7 @@ export default function DayDetailsSection({
   onAddQuest,
 }: DayDetailsSectionProps) {
   const todaysQuests = quests.filter(
-    (quest) => quest.scheduledDate === selectedDate.toISOString(),
+    (quest) => quest.scheduledDate === format(selectedDate, "yyyy-MM-dd"),
   );
 
   return (
