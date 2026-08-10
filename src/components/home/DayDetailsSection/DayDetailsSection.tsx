@@ -32,7 +32,9 @@ export default function DayDetailsSection({
     <section className="day-details">
       <h1 className="day-details__title">DAY DETAILS</h1>
 
-      <h2 className="day-details__date">{format(selectedDate, "MMMM yyyy")}</h2>
+      <h2 className="day-details__date">
+        {format(selectedDate, "EEEE, MMMM d, yyyy")}
+      </h2>
 
       <p className="day-details__count">
         {todaysQuests.length} quest{todaysQuests.length !== 1 ? "s" : ""}
