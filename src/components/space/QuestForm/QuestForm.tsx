@@ -20,6 +20,7 @@ type QuestFormProps = {
   initialValues?: Quest;
   submitLabel?: string;
   spaces?: Space[];
+  initialDate?: Date;
 };
 
 export default function QuestForm({
@@ -28,6 +29,7 @@ export default function QuestForm({
   initialValues,
   submitLabel,
   spaces,
+  initialDate,
 }: QuestFormProps) {
   const [title, setTitle] = useState(initialValues?.title ?? "");
   const [description, setDescription] = useState(
@@ -37,7 +39,9 @@ export default function QuestForm({
     initialValues?.difficulty ?? "easy",
   );
   const [scheduledDate, setScheduledDate] = useState(
-    initialValues?.scheduledDate ?? new Date().toISOString().split("T")[0],
+    initialValues?.scheduledDate ??
+      initialDate ??
+      new Date().toISOString().split("T")[0],
   );
   const [error, setError] = useState("");
 

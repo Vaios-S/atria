@@ -13,6 +13,7 @@ import type { QuestCompletion } from "../../types/questCompletion";
 import QuestForm, {
   type QuestFormData,
 } from "../../components/space/QuestForm";
+import { format } from "date-fns";
 
 type HomePageProps = {
   spaces: Space[];
@@ -222,6 +223,7 @@ export default function HomePage({
           onSubmit={handleAddQuest}
           onCancel={() => setIsQuestModalOpen(false)}
           spaces={spaces}
+          initialDate={format(selectedDate, "yyyy-MM-dd")}
         />
       </Modal>
     </>
