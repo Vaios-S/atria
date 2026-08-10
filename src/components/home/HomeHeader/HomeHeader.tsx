@@ -1,10 +1,12 @@
 import "./HomeHeader.css";
 import ProgressBar from "../../ui/ProgressBar";
+import { getDayOfYear, getDaysInYear, getYear } from "date-fns";
 
 export default function HomeHeader() {
-  const dayOfYear = 198;
-  const totalDays = 365;
-  const humanEraYear = 12026;
+  const today = new Date();
+  const dayOfYear = getDayOfYear(today);
+  const totalDays = getDaysInYear(today);
+  const humanEraYear = getYear(today) + 10000;
 
   const level = 3;
   const currentXp = 420;
