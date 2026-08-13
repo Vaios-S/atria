@@ -91,9 +91,10 @@ export default function CalendarSection({
           <div key={`empty-${index}`} className="calendar-section__empty-day" />
         ))}
         {days.map((day) => {
-          const hasQuest = quests.some(
+          const dayQuests = quests.filter(
             (quest) => quest.scheduledDate === format(day, "yyyy-MM-dd"),
           );
+          const hasQuest = dayQuests.length > 0;
 
           return (
             <button
@@ -107,6 +108,11 @@ export default function CalendarSection({
                 isWeekend(day) ? "calendar-section__day--weekend" : ""
               }`}
               onClick={() => onDaySelect(day)}
+              aria-label={`${format(day, "MMMM d, yyyy")}, ${
+                dayQuests.length === 1
+                  ? "1 quest"
+                  : `${dayQuests.length} quests`
+              }`}
             >
               {hasQuest && (
                 <span

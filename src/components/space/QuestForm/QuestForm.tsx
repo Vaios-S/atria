@@ -20,7 +20,7 @@ type QuestFormProps = {
   initialValues?: Quest;
   submitLabel?: string;
   spaces?: Space[];
-  initialDate?: Date;
+  initialDate?: string;
 };
 
 export default function QuestForm({
