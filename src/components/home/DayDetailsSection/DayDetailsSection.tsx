@@ -28,6 +28,9 @@ export default function DayDetailsSection({
   const todaysQuests = quests.filter(
     (quest) => quest.scheduledDate === format(selectedDate, "yyyy-MM-dd"),
   );
+  const completedQuestsCount = todaysQuests.filter((quest) =>
+    questCompletions.some((completion) => completion.questId === quest.id),
+  ).length;
 
   return (
     <section className="day-details">
@@ -38,7 +41,8 @@ export default function DayDetailsSection({
       </h2>
 
       <p className="day-details__count">
-        {todaysQuests.length} quest{todaysQuests.length !== 1 ? "s" : ""}
+        {completedQuestsCount} of {todaysQuests.length} quest
+        {todaysQuests.length !== 1 ? "s" : ""} completed
       </p>
       <Button onClick={onAddQuest}>+ Add Quest</Button>
 
