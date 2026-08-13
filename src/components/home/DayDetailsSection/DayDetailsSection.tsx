@@ -6,6 +6,7 @@ import EmptyState from "../../ui/EmptyState";
 import Button from "../../ui/Button";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
 
 type DayDetailsSectionProps = {
   selectedDate: Date;
@@ -78,6 +79,9 @@ export default function DayDetailsSection({
                 />
 
                 <p className="day-details__quest-title">{quest.title}</p>
+                <span className="day-details__difficulty">
+                  {QUEST_DIFFICULTY_LABELS[quest.difficulty]}
+                </span>
               </div>
             );
           })

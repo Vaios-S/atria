@@ -26,14 +26,16 @@
 }
 
 .day-details__item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 5.5rem 1.5rem minmax(0, 1fr) 5rem;
   align-items: center;
   gap: 0.75rem;
 
-  padding: 0.9rem;
+  min-height: 3.5rem;
+  padding: 0.75rem 0.9rem;
 
   border: 2px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: 0.5rem;
 
   background: var(--color-surface);
 }
@@ -48,9 +50,12 @@
 }
 
 .day-details__quest-title {
+  min-width: 0;
   margin: 0;
 
-  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
+  line-height: 1.35;
 }
 
 .day-details__item:has(input:checked) .day-details__quest-title {
@@ -64,21 +69,76 @@
   margin-bottom: 1rem;
 }
 
+.day-details__space,
 .day-details__space-link {
-  color: inherit;
+  min-width: 0;
+
+  color: var(--color-text-primary);
+  font-size: 0.8rem;
   font-weight: 500;
+
   text-decoration: none;
 
-  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .day-details__space-link:hover {
   text-decoration: underline;
-  opacity: 0.8;
 }
 
 .day-details__space-link:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   border-radius: 0.25rem;
+}
+
+.day-details__item input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+
+  margin: 0;
+
+  justify-self: center;
+  flex-shrink: 0;
+
+  cursor: pointer;
+}
+.day-details__item:has(input:checked) .day-details__quest-title {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.day-details__difficulty {
+  justify-self: end;
+
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  font-weight: 500;
+
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .day-details__item {
+    grid-template-columns: 4.5rem 1.25rem minmax(0, 1fr) 4.25rem;
+    gap: 0.5rem;
+
+    padding: 0.7rem;
+  }
+
+  .day-details__space,
+  .day-details__space-link {
+    font-size: 0.7rem;
+  }
+
+  .day-details__quest-title {
+    font-size: 0.8rem;
+  }
+
+  .day-details__difficulty {
+    font-size: 0.65rem;
+  }
 }
