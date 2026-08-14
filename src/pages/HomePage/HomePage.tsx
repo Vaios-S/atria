@@ -200,14 +200,17 @@ export default function HomePage({
         title="Delete Space"
         onClose={() => {
           setIsDeleteModalOpen(false);
-          setEditingSpace(undefined);
+          setSpaceToDelete(undefined);
         }}
       >
         <ConfirmDialog
           title="Delete Space"
           message="Are you sure you want to delete this space?"
           onConfirm={handleDeleteSpace}
-          onCancel={() => setIsDeleteModalOpen(false)}
+          onCancel={() => {
+            setIsDeleteModalOpen(false);
+            setSpaceToDelete(undefined);
+          }}
         />
       </Modal>
 
