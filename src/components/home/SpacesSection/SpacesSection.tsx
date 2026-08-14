@@ -30,33 +30,26 @@ export default function SpacesSection({
   onEditSpace,
   onDeleteSpace,
 }: SpacesSectionProps) {
-  return spaces.length === 0 ? (
+  return (
     <section className="spaces-section">
       <header className="spaces-section__header">
         <h1 className="spaces-section__title">SPACES</h1>
 
         <Button onClick={onAddSpace}>+</Button>
       </header>
-      <EmptyState
-        icon="🌱"
-        title="No spaces yet"
-        description="Create your first space and start organizing what matters to you."
-        action={
-          <Button variant="primary" onClick={onAddSpace}>
-            Create Space
-          </Button>
-        }
-      />
-    </section>
-  ) : (
-    <>
-      <section className="spaces-section">
-        <header className="spaces-section__header">
-          <h1 className="spaces-section__title">SPACES</h1>
 
-          <Button onClick={onAddSpace}>+</Button>
-        </header>
-
+      {spaces.length === 0 ? (
+        <EmptyState
+          icon="🌱"
+          title="No spaces yet"
+          description="Create your first space and start organizing what matters to you."
+          action={
+            <Button variant="primary" onClick={onAddSpace}>
+              Create Space
+            </Button>
+          }
+        />
+      ) : (
         <div className="spaces-section__list">
           {spaces.map((space) => {
             const spaceQuests = getQuestsBySpace(quests, space.id);
@@ -69,6 +62,7 @@ export default function SpacesSection({
             );
 
             const progress = getQuestProgress(spaceQuests, completedQuests);
+
             return (
               <SpaceCard
                 key={space.id}
@@ -81,7 +75,7 @@ export default function SpacesSection({
             );
           })}
         </div>
-      </section>
-    </>
+      )}
+    </section>
   );
 }
