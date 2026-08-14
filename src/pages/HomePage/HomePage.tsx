@@ -95,20 +95,22 @@ export default function HomePage({
 
   function handleDeleteSpace() {
     if (!spaceToDelete) return;
+    const questsIdsToDelete = quests
+      .filter((quest) => quest.spaceId === spaceToDelete.id)
+      .map((quest) => quest.id);
+
     setSpaces((prev) => prev.filter((space) => space.id !== spaceToDelete.id));
+
     setQuests((prev) =>
       prev.filter((quest) => quest.spaceId !== spaceToDelete.id),
     );
 
-    const questsToDelete = quests.filter(
-      (quest) => quest.spaceId === spaceToDelete.id,
-    );
     setQuestCompletions((prev) =>
       prev.filter(
-        (completion) =>
-          !questsToDelete.some((quest) => quest.id === completion.questId),
+        (completion) => !questsIdsToDelete.includes(completion.questId),
       ),
     );
+
     setIsDeleteModalOpen(false);
     setSpaceToDelete(undefined);
   }
