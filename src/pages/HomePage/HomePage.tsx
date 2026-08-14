@@ -50,7 +50,7 @@ export default function HomePage({
 
   function handleAddSpace(formData: SpaceFormData) {
     const newSpace = {
-      id: `space-${formData.title.toLowerCase().replace(/\s+/g, "-")}`,
+      id: crypto.randomUUID(),
       userId: "user-1",
       title: formData.title,
       description: formData.description,
@@ -129,7 +129,7 @@ export default function HomePage({
       );
     } else {
       const newCompletion: QuestCompletion = {
-        id: `completed-${questCompletions.length + 1}`,
+        id: crypto.randomUUID(),
         userId: "user-1",
         questId: `${questId}`,
         completedAt: new Date().toISOString(),
@@ -140,7 +140,7 @@ export default function HomePage({
 
   function handleAddQuest(formData: QuestFormData) {
     const newQuest: Quest = {
-      id: `quest-${quests.length + 1}`,
+      id: crypto.randomUUID(),
       userId: "user-1",
       spaceId: formData.spaceId ?? undefined,
       title: formData.title,

@@ -58,14 +58,7 @@ export default function SpaceCard({
         >
           Edit
         </button>
-        <button
-          className="space-card__edit-button"
-          type="button"
-          onClick={onEdit}
-          aria-label={`Edit ${space.title}`}
-        >
-          Edit
-        </button>
+
         <button
           className="space-card__delete-button"
           type="button"
