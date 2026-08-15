@@ -15,6 +15,7 @@ type DayDetailsSectionProps = {
   questCompletions: QuestCompletion[];
   onToggleQuest: (questId: string) => void;
   onAddQuest: () => void;
+  onSelectedQuest: (quest: Quest) => void;
 };
 
 export default function DayDetailsSection({
@@ -24,6 +25,7 @@ export default function DayDetailsSection({
   questCompletions,
   onToggleQuest,
   onAddQuest,
+  onSelectedQuest,
 }: DayDetailsSectionProps) {
   const todaysQuests = quests.filter(
     (quest) => quest.scheduledDate === format(selectedDate, "yyyy-MM-dd"),
@@ -86,6 +88,14 @@ export default function DayDetailsSection({
                 <span className="day-details__difficulty">
                   {QUEST_DIFFICULTY_LABELS[quest.difficulty]}
                 </span>
+                <button
+                  type="button"
+                  className="day-details__actions-button"
+                  aria-label={`Open actions for ${quest.title}`}
+                  onClick={() => onSelectedQuest(quest)}
+                >
+                  ...
+                </button>
               </div>
             );
           })

@@ -14,6 +14,7 @@ import QuestForm, {
   type QuestFormData,
 } from "../../components/space/QuestForm";
 import { format } from "date-fns";
+import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
 
 type HomePageProps = {
   spaces: Space[];
@@ -45,6 +46,10 @@ export default function HomePage({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [spaceToDelete, setSpaceToDelete] = useState<Space | undefined>(
+    undefined,
+  );
+
+  const [selectedQuest, setSelectedQuest] = useState<Quest | undefined>(
     undefined,
   );
 
@@ -156,6 +161,10 @@ export default function HomePage({
     setIsQuestModalOpen(false);
   }
 
+  function onSelectedQuest(quest: Quest) {
+    setSelectedQuest(quest);
+  }
+
   return (
     <>
       <HomeHeader />
@@ -179,6 +188,7 @@ export default function HomePage({
         questCompletions={questCompletions}
         onToggleQuest={handleToggleQuest}
         onAddQuest={() => setIsQuestModalOpen(true)}
+        onSelectedQuest={onSelectedQuest}
       />
 
       <Modal
