@@ -53,6 +53,12 @@ export default function HomePage({
     undefined,
   );
 
+  const [isEditQuestModalOpen, setIsEditQuestModalOpen] = useState(false);
+
+  const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
+
+  const [isQuestActionsOpen, setIsQuestActionsOpen] = useState(false);
+
   function handleAddSpace(formData: SpaceFormData) {
     const newSpace = {
       id: crypto.randomUUID(),
@@ -163,6 +169,54 @@ export default function HomePage({
 
   function onSelectedQuest(quest: Quest) {
     setSelectedQuest(quest);
+    setIsQuestActionsOpen(true);
+  }
+
+  function handleOpenEditQuest() {
+    if (!selectedQuest) return;
+
+    setIsQuestActionsOpen(false);
+    setIsEditQuestModalOpen(true);
+  }
+
+  function handleOpenDeleteQuest() {
+    if (!selectedQuest) return;
+
+    setIsQuestActionsOpen(false);
+    setIsDeleteQuestModalOpen(true);
+  }
+
+  function handleUpdateQuest(formData: QuestFormData) {
+    if (!selectedQuest) return;
+
+    const updatedQuest: Quest = {
+      ...selectedQuest,
+      title: formData.title,
+      description: formData.description,
+      difficulty: formData.difficulty,
+      scheduledDate: formData.scheduledDate,
+      spaceId: formData.spaceId,
+    };
+
+    setQuests((prev) =>
+      prev.map((q) => (q.id === selectedQuest.id ? updatedQuest : q)),
+    );
+
+    setIsEditQuestModalOpen(false);
+    setSelectedQuest(undefined);
+  }
+
+  function handleDeleteQuest() {
+    if (!selectedQuest) return;
+
+    setQuests((prev) => prev.filter((quest) => quest.id !== selectedQuest.id));
+
+    setQuestCompletions((prev) =>
+      prev.filter((completion) => completion.questId !== selectedQuest.id),
+    );
+
+    setIsDeleteQuestModalOpen(false);
+    setSelectedQuest(undefined);
   }
 
   return (
@@ -228,7 +282,7 @@ export default function HomePage({
 
       <Modal
         isOpen={isQuestModalOpen}
-        title={"Add Quest"}
+        title="Add Quest"
         onClose={() => {
           setIsQuestModalOpen(false);
         }}
@@ -241,6 +295,58 @@ export default function HomePage({
           initialDate={format(selectedDate, "yyyy-MM-dd")}
         />
       </Modal>
+
+      <Modal
+        isOpen={isEditQuestModalOpen}
+        title="Edit Quest"
+        onClose={() => {
+          setIsEditQuestModalOpen(false);
+          setSelectedQuest(undefined);
+        }}
+      >
+        {selectedQuest && (
+          <QuestForm
+            initialValues={selectedQuest}
+            submitLabel="Save Changes"
+            onSubmit={handleUpdateQuest}
+            onCancel={() => {
+              setIsEditQuestModalOpen(false);
+              setSelectedQuest(undefined);
+            }}
+            spaces={spaces}
+          />
+        )}
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteQuestModalOpen}
+        title="Delete Quest"
+        onClose={() => {
+          setIsDeleteQuestModalOpen(false);
+          setSelectedQuest(undefined);
+        }}
+      >
+        <ConfirmDialog
+          title="Delete Quest"
+          message="Are you sure you want to delete this quest?"
+          onConfirm={handleDeleteQuest}
+          onCancel={() => {
+            setIsDeleteQuestModalOpen(false);
+            setSelectedQuest(undefined);
+          }}
+        />
+      </Modal>
+
+      {isQuestActionsOpen && selectedQuest && (
+        <QuestActionsMenu
+          onEdit={handleOpenEditQuest}
+          onDelete={handleOpenDeleteQuest}
+          onClose={() => {
+            setIsQuestActionsOpen(false);
+            setSelectedQuest(undefined);
+          }}
+        />
+      )}
     </>
   );
 }
