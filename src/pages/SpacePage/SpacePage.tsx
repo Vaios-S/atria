@@ -230,13 +230,19 @@ export default function SpacePage({
       <Modal
         isOpen={isDeleteModalOpen}
         title="Delete Quest"
-        onClose={() => setIsDeleteModalOpen(false)}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setQuestToDelete(undefined);
+        }}
       >
         <ConfirmDialog
           title="Delete Quest"
           message={`Are you sure you want to delete the quest "${questToDelete?.title}"?`}
           onConfirm={handleDeleteQuest}
-          onCancel={() => setIsDeleteModalOpen(false)}
+          onCancel={() => {
+            setIsDeleteModalOpen(false);
+            setQuestToDelete(undefined);
+          }}
         />
       </Modal>
     </main>
