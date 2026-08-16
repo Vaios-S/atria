@@ -80,6 +80,7 @@ export default function SpaceForm({
             }
           }}
           autoFocus
+          autoComplete="off"
         />
 
         {titleError && <p className="space-form__error">{titleError}</p>}

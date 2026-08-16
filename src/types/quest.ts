@@ -9,7 +9,4 @@ export type Quest = {
   difficulty: QuestDifficulty;
   scheduledDate?: string;
   createdAt: string;
-
-  completed?: boolean;
-  day?: number;
 };
