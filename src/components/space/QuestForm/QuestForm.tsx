@@ -106,34 +106,34 @@ export default function QuestForm({
         />
       </div>
 
+      {spaces && (
+        <div className="quest-form__field">
+          <label className="quest-form__label" htmlFor="quest-space">
+            Space
+          </label>
+
+          <select
+            className="quest-form__select"
+            id="quest-space"
+            name="spaceId"
+            value={spaceId}
+            onChange={(event) => setSpaceId(event.target.value)}
+          >
+            <option value="">General</option>
+
+            {spaces.map((space) => (
+              <option key={space.id} value={space.id}>
+                {space.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <div className="quest-form__field">
         <label className="quest-form__label" htmlFor="quest-difficulty">
           Difficulty
         </label>
-
-        {spaces && (
-          <div className="quest-form__field">
-            <label className="quest-form__label" htmlFor="quest-space">
-              Space
-            </label>
-
-            <select
-              className="quest-form__select"
-              id="quest-space"
-              name="spaceId"
-              value={spaceId}
-              onChange={(event) => setSpaceId(event.target.value)}
-            >
-              <option value="">General</option>
-
-              {spaces.map((space) => (
-                <option key={space.id} value={space.id}>
-                  {space.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
 
         <select
           className="quest-form__select"
