@@ -1,6 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { mockQuests } from "../../data/mockQuests";
-import { mockQuestCompletions } from "../../data/mockQuestCompletions";
 import "./SpacePage.css";
 import SpaceHeader from "../../components/space/SpaceHeader";
 import TodaySection from "../../components/space/TodaySection";
@@ -67,7 +65,7 @@ export default function SpacePage({
       );
     } else {
       const newCompletion: QuestCompletion = {
-        id: `completed-${questCompletions.length + 1}`,
+        id: crypto.randomUUID(),
         userId: "user-1",
         questId: `${questId}`,
         completedAt: new Date().toISOString(),
@@ -112,7 +110,7 @@ export default function SpacePage({
   const spaceId = space.id;
   function handleAddQuest(formData: QuestFormData) {
     const newQuest: Quest = {
-      id: `quest-${quests.length + 1}`,
+      id: crypto.randomUUID(),
       userId: "user-1",
       spaceId,
       title: formData.title,
