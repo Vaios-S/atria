@@ -20,6 +20,7 @@ import {
 } from "../../utils/spaceQuestUtils";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { Space } from "../../types/space";
+import { format } from "date-fns";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -103,11 +104,29 @@ export default function SpacePage({
 
   const activeQuests = getActiveQuests(spaceQuests, questCompletions);
 
+  const todayActiveQuest = activeQuests.filter(
+    (quest) =>
+      quest.scheduledDate !== undefined &&
+      quest.scheduledDate === format(new Date(), "yyyy-MM-dd"),
+  );
+
+  const upcomingActiveQuest = activeQuests.filter(
+    (quest) =>
+      quest.scheduledDate !== undefined &&
+      quest.scheduledDate > format(new Date(), "yyyy-MM-dd"),
+  );
+  const overDueActiveQuest = activeQuests.filter(
+    (quest) =>
+      quest.scheduledDate !== undefined &&
+      quest.scheduledDate < format(new Date(), "yyyy-MM-dd"),
+  );
+
   const completedQuests = getCompletedQuests(spaceQuests, questCompletions);
 
   const progress = getQuestProgress(spaceQuests, completedQuests);
 
   const spaceId = space.id;
+
   function handleAddQuest(formData: QuestFormData) {
     const newQuest: Quest = {
       id: crypto.randomUUID(),
@@ -164,11 +183,28 @@ export default function SpacePage({
         completed={completedQuests.length}
       />
       <TodaySection
-        quests={activeQuests}
+        title="UPCOMING"
+        quests={upcomingActiveQuest}
         onToggleQuest={handleToggleQuest}
         onDeleteQuest={onDeleteQuest}
         onEditQuest={handleEditQuest}
       />
+
+      <TodaySection
+        quests={todayActiveQuest}
+        onToggleQuest={handleToggleQuest}
+        onDeleteQuest={onDeleteQuest}
+        onEditQuest={handleEditQuest}
+      />
+
+      <TodaySection
+        title="OVER DUE"
+        quests={overDueActiveQuest}
+        onToggleQuest={handleToggleQuest}
+        onDeleteQuest={onDeleteQuest}
+        onEditQuest={handleEditQuest}
+      />
+
       <CompletedSection
         quests={completedQuests}
         onToggleQuest={handleToggleQuest}

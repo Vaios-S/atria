@@ -4,6 +4,7 @@ import EmptyState from "../../ui/EmptyState";
 import Button from "../../ui/Button";
 
 type TodaySectionProps = {
+  title?: string;
   quests: Quest[];
   onToggleQuest: (questId: string) => void;
   onDeleteQuest: (quest: Quest) => void;
@@ -11,6 +12,7 @@ type TodaySectionProps = {
 };
 
 export default function TodaySection({
+  title = "TODAY",
   quests,
   onToggleQuest,
   onDeleteQuest,
@@ -18,7 +20,9 @@ export default function TodaySection({
 }: TodaySectionProps) {
   return (
     <section className="today-section">
-      <h2 className="today-section__title">TODAY ({quests.length})</h2>
+      <h2 className="today-section__title">
+        {title} ({quests.length})
+      </h2>
       {quests.length === 0 ? (
         <EmptyState
           icon="📜"
