@@ -160,19 +160,17 @@ export default function SpacePage({
     setEditingQuest(undefined);
   }
 
+  function onAddQuest() {
+    setEditingQuest(undefined);
+    setIsQuestModalOpen(true);
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
-      <Button
-        onClick={() => {
-          setEditingQuest(undefined);
-          setIsQuestModalOpen(true);
-        }}
-      >
-        Add Quest
-      </Button>
+      <Button onClick={onAddQuest}>Add Quest</Button>
       <SpaceHeader
         space={space}
         activeQuests={activeQuests.length}
@@ -195,6 +193,7 @@ export default function SpacePage({
         onToggleQuest={handleToggleQuest}
         onDeleteQuest={onDeleteQuest}
         onEditQuest={handleEditQuest}
+        onAddQuest={onAddQuest}
       />
 
       <TodaySection
