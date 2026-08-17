@@ -108,6 +108,10 @@ export default function SpacePage({
     return <h1>Space not found</h1>;
   }
 
+  const currentSpaceSections = spaceSections.filter(
+    (section) => section.spaceId === space.id,
+  );
+
   const spaceQuests = getQuestsBySpace(quests, space.id);
 
   const activeQuests = getActiveQuests(spaceQuests, questCompletions);
