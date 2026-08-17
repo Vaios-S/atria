@@ -8,12 +8,14 @@ import { useState } from "react";
 import { mockSpaces } from "./data/mockSpaces.ts";
 import { mockQuests } from "./data/mockQuests.ts";
 import { mockQuestCompletions } from "./data/mockQuestCompletions.ts";
+import { mockSpaceSections } from "./data/mockSpaceSections.ts";
 
 function App() {
   const [spaces, setSpaces] = useState(mockSpaces);
   const [quests, setQuests] = useState(mockQuests);
   const [questCompletions, setQuestCompletions] =
     useState(mockQuestCompletions);
+  const [spaceSections, setSpaceSections] = useState(mockSpaceSections);
 
   return (
     <>
@@ -38,6 +40,8 @@ function App() {
             <SpacePage
               spaces={spaces}
               setSpaces={setSpaces}
+              spaceSections={spaceSections}
+              setSpaceSections={setSpaceSections}
               quests={quests}
               setQuests={setQuests}
               questCompletions={questCompletions}

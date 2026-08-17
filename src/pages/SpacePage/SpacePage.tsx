@@ -21,12 +21,18 @@ import {
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { Space } from "../../types/space";
 import { format } from "date-fns";
+import type { SpaceSection } from "../../types/spaceSection";
 
 type SpacePageProps = {
   spaces: Space[];
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
+
+  spaceSections: SpaceSection[];
+  setSpaceSections: React.Dispatch<React.SetStateAction<SpaceSection[]>>;
+
   quests: Quest[];
   setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
+
   questCompletions: QuestCompletion[];
   setQuestCompletions: React.Dispatch<React.SetStateAction<QuestCompletion[]>>;
 };
@@ -34,6 +40,8 @@ type SpacePageProps = {
 export default function SpacePage({
   spaces,
   setSpaces,
+  spaceSections,
+  setSpaceSections,
   quests,
   setQuests,
   questCompletions,
