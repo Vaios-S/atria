@@ -21,6 +21,7 @@ import type { Space } from "../../types/space";
 import { format } from "date-fns";
 import type { SpaceSection } from "../../types/spaceSection";
 import QuestSection from "../../components/space/sections/QuestSection";
+import EmptyState from "../../components/ui/EmptyState";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -191,23 +192,31 @@ export default function SpacePage({
         active={activeQuests.length}
         completed={completedQuests.length}
       />
-      {currentSpaceSections.map((section) => {
-        if (section.type === "quests") {
-          return (
-            <QuestSection
-              todayQuests={todayActiveQuest}
-              upcomingQuests={upcomingActiveQuest}
-              overdueQuests={overDueActiveQuest}
-              completedQuests={completedQuests}
-              onToggleQuest={handleToggleQuest}
-              onDeleteQuest={onDeleteQuest}
-              onEditQuest={handleEditQuest}
-              onAddQuest={onAddQuest}
-            />
-          );
-        }
-        return null;
-      })}
+      {currentSpaceSections.length === 0 ? (
+        <EmptyState
+          icon="🧩"
+          title="No sections yet"
+          description="Add your first section to start building this space."
+        />
+      ) : (
+        currentSpaceSections.map((section) => {
+          if (section.type === "quests") {
+            return (
+              <QuestSection
+                todayQuests={todayActiveQuest}
+                upcomingQuests={upcomingActiveQuest}
+                overdueQuests={overDueActiveQuest}
+                completedQuests={completedQuests}
+                onToggleQuest={handleToggleQuest}
+                onDeleteQuest={onDeleteQuest}
+                onEditQuest={handleEditQuest}
+                onAddQuest={onAddQuest}
+              />
+            );
+          }
+          return null;
+        })
+      )}
 
       <Modal
         isOpen={isQuestModalOpen}
