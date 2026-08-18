@@ -1,8 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import "./SpacePage.css";
 import SpaceHeader from "../../components/space/SpaceHeader";
-import TodaySection from "../../components/space/TodaySection";
-import CompletedSection from "../../components/space/CompletedSection";
 import SpaceStats from "../../components/space/SpaceStats";
 import { useState } from "react";
 import type { QuestCompletion } from "../../types/questCompletion";
@@ -22,6 +20,7 @@ import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { Space } from "../../types/space";
 import { format } from "date-fns";
 import type { SpaceSection } from "../../types/spaceSection";
+import QuestSection from "../../components/space/sections/QuestSection";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -192,35 +191,15 @@ export default function SpacePage({
         active={activeQuests.length}
         completed={completedQuests.length}
       />
-      <TodaySection
-        title="UPCOMING"
-        quests={upcomingActiveQuest}
-        onToggleQuest={handleToggleQuest}
-        onDeleteQuest={onDeleteQuest}
-        onEditQuest={handleEditQuest}
-      />
-
-      <TodaySection
-        quests={todayActiveQuest}
+      <QuestSection
+        todayQuests={todayActiveQuest}
+        upcomingQuests={upcomingActiveQuest}
+        overdueQuests={overDueActiveQuest}
+        completedQuests={completedQuests}
         onToggleQuest={handleToggleQuest}
         onDeleteQuest={onDeleteQuest}
         onEditQuest={handleEditQuest}
         onAddQuest={onAddQuest}
-      />
-
-      <TodaySection
-        title="OVER DUE"
-        quests={overDueActiveQuest}
-        onToggleQuest={handleToggleQuest}
-        onDeleteQuest={onDeleteQuest}
-        onEditQuest={handleEditQuest}
-      />
-
-      <CompletedSection
-        quests={completedQuests}
-        onToggleQuest={handleToggleQuest}
-        onDeleteQuest={onDeleteQuest}
-        onEditQuest={handleEditQuest}
       />
 
       <Modal
