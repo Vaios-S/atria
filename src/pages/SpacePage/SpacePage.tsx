@@ -191,16 +191,23 @@ export default function SpacePage({
         active={activeQuests.length}
         completed={completedQuests.length}
       />
-      <QuestSection
-        todayQuests={todayActiveQuest}
-        upcomingQuests={upcomingActiveQuest}
-        overdueQuests={overDueActiveQuest}
-        completedQuests={completedQuests}
-        onToggleQuest={handleToggleQuest}
-        onDeleteQuest={onDeleteQuest}
-        onEditQuest={handleEditQuest}
-        onAddQuest={onAddQuest}
-      />
+      {currentSpaceSections.map((section) => {
+        if (section.type === "quests") {
+          return (
+            <QuestSection
+              todayQuests={todayActiveQuest}
+              upcomingQuests={upcomingActiveQuest}
+              overdueQuests={overDueActiveQuest}
+              completedQuests={completedQuests}
+              onToggleQuest={handleToggleQuest}
+              onDeleteQuest={onDeleteQuest}
+              onEditQuest={handleEditQuest}
+              onAddQuest={onAddQuest}
+            />
+          );
+        }
+        return null;
+      })}
 
       <Modal
         isOpen={isQuestModalOpen}
