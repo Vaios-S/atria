@@ -3,6 +3,7 @@ import type { SpaceSection } from "../types/spaceSection";
 export const mockSpaceSections: SpaceSection[] = [
   {
     id: "section-personal-quests",
+    title: "Quests",
     spaceId: "space-personal",
     type: "quests",
     position: 0,
@@ -10,6 +11,7 @@ export const mockSpaceSections: SpaceSection[] = [
   },
   {
     id: "section-work-quests",
+    title: "Quests",
     spaceId: "space-work",
     type: "quests",
     position: 0,
@@ -17,6 +19,7 @@ export const mockSpaceSections: SpaceSection[] = [
   },
   {
     id: "section-study-quests",
+    title: "Quests",
     spaceId: "space-study",
     type: "quests",
     position: 0,
@@ -24,6 +27,7 @@ export const mockSpaceSections: SpaceSection[] = [
   },
   {
     id: "section-fitness-quests",
+    title: "Quests",
     spaceId: "space-fitness",
     type: "quests",
     position: 0,
@@ -31,6 +35,7 @@ export const mockSpaceSections: SpaceSection[] = [
   },
   {
     id: "section-travel-quests",
+    title: "Quests",
     spaceId: "space-travel",
     type: "quests",
     position: 0,
@@ -38,6 +43,7 @@ export const mockSpaceSections: SpaceSection[] = [
   },
   {
     id: "section-personal-checklist",
+    title: "Groseries1",
     spaceId: "space-personal",
     type: "checklist",
     position: 1,
@@ -45,6 +51,7 @@ export const mockSpaceSections: SpaceSection[] = [
   },
   {
     id: "section-personal-checklist2",
+    title: "Groseries2",
     spaceId: "space-personal",
     type: "checklist",
     position: 3,

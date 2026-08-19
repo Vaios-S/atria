@@ -4,13 +4,18 @@ import "./ChecklistSection.css";
 
 type ChecklistSectionProps = {
   items: ChecklistItem[];
+  title: string;
 };
 
-export default function ChecklistSection({ items }: ChecklistSectionProps) {
+export default function ChecklistSection({
+  items,
+  title,
+}: ChecklistSectionProps) {
   if (!items) return;
+
   return (
     <section className="checklist-section">
-      <h2 className="checklist-section__title">Checklist</h2>
+      <h2 className="checklist-section__title">{title}</h2>
 
       <div className="checklist-section__empty">
         {items.length === 0 && (

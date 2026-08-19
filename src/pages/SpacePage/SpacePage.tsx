@@ -190,6 +190,7 @@ export default function SpacePage({
   function handleAddSection(type: SpaceSectionType) {
     const newSection: SpaceSection = {
       id: crypto.randomUUID(),
+      title: "Quests",
       spaceId: space?.id,
       type,
       position: currentSpaceSections.length,
@@ -261,6 +262,7 @@ export default function SpacePage({
               <ChecklistSection
                 key={section.id}
                 items={sectionChecklistItems}
+                title={section.title}
               />
             );
           }
