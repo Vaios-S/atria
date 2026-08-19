@@ -23,6 +23,7 @@ import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import QuestSection from "../../components/space/sections/QuestSection";
 import EmptyState from "../../components/ui/EmptyState";
 import SectionPicker from "../../components/space/SectionPicker";
+import ChecklistSection from "../../components/space/sections/ChecklistSection";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -63,6 +64,8 @@ export default function SpacePage({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isSectionPickerOpen, setIsSectionPickerOpen] = useState(false);
+
+  const [checkItem, setCheckItem] = useState([]);
 
   const space = spaces.find((space) => space.id === id);
 
@@ -233,16 +236,25 @@ export default function SpacePage({
         currentSpaceSections.map((section) => {
           if (section.type === "quests") {
             return (
-              <QuestSection
-                todayQuests={todayActiveQuest}
-                upcomingQuests={upcomingActiveQuest}
-                overdueQuests={overDueActiveQuest}
-                completedQuests={completedQuests}
-                onToggleQuest={handleToggleQuest}
-                onDeleteQuest={onDeleteQuest}
-                onEditQuest={handleEditQuest}
-                onAddQuest={onAddQuest}
-              />
+              <div key={section.id}>
+                <QuestSection
+                  todayQuests={todayActiveQuest}
+                  upcomingQuests={upcomingActiveQuest}
+                  overdueQuests={overDueActiveQuest}
+                  completedQuests={completedQuests}
+                  onToggleQuest={handleToggleQuest}
+                  onDeleteQuest={onDeleteQuest}
+                  onEditQuest={handleEditQuest}
+                  onAddQuest={onAddQuest}
+                />
+              </div>
+            );
+          }
+          if (section.type === "checklist") {
+            return (
+              <div key={section.id}>
+                <ChecklistSection />
+              </div>
             );
           }
           return null;
