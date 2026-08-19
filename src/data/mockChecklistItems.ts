@@ -15,4 +15,19 @@ export const mockChecklistItems: ChecklistItem[] = [
     completed: true,
     createdAt: "2026-08-19T12:10:00.000Z",
   },
+
+  {
+    id: "checklist-item-3",
+    sectionId: "section-personal-checklist2",
+    text: "Buy groceries2",
+    completed: false,
+    createdAt: "2026-08-19T12:00:00.000Z",
+  },
+  {
+    id: "checklist-item-4",
+    sectionId: "section-personal-checklist2",
+    text: "Call the dentist2",
+    completed: true,
+    createdAt: "2026-08-19T12:10:00.000Z",
+  },
 ];

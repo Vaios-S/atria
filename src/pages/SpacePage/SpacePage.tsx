@@ -24,6 +24,7 @@ import QuestSection from "../../components/space/sections/QuestSection";
 import EmptyState from "../../components/ui/EmptyState";
 import SectionPicker from "../../components/space/SectionPicker";
 import type { ChecklistItem } from "../../types/checklistItem";
+import ChecklistSection from "../../components/space/sections/ChecklistSection";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -239,25 +240,28 @@ export default function SpacePage({
         currentSpaceSections.map((section) => {
           if (section.type === "quests") {
             return (
-              <div key={section.id}>
-                <QuestSection
-                  todayQuests={todayActiveQuest}
-                  upcomingQuests={upcomingActiveQuest}
-                  overdueQuests={overDueActiveQuest}
-                  completedQuests={completedQuests}
-                  onToggleQuest={handleToggleQuest}
-                  onDeleteQuest={onDeleteQuest}
-                  onEditQuest={handleEditQuest}
-                  onAddQuest={onAddQuest}
-                />
-              </div>
+              <QuestSection
+                key={section.id}
+                todayQuests={todayActiveQuest}
+                upcomingQuests={upcomingActiveQuest}
+                overdueQuests={overDueActiveQuest}
+                completedQuests={completedQuests}
+                onToggleQuest={handleToggleQuest}
+                onDeleteQuest={onDeleteQuest}
+                onEditQuest={handleEditQuest}
+                onAddQuest={onAddQuest}
+              />
             );
           }
           if (section.type === "checklist") {
+            const sectionChecklistItems = checkListItems.filter(
+              (item) => item.sectionId === section.id,
+            );
             return (
-              <div key={section.id}>
-                <ChecklistSection />
-              </div>
+              <ChecklistSection
+                key={section.id}
+                items={sectionChecklistItems}
+              />
             );
           }
           return null;
