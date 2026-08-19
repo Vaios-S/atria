@@ -23,7 +23,7 @@ import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import QuestSection from "../../components/space/sections/QuestSection";
 import EmptyState from "../../components/ui/EmptyState";
 import SectionPicker from "../../components/space/SectionPicker";
-import ChecklistSection from "../../components/space/sections/ChecklistSection";
+import type { ChecklistItem } from "../../types/checklistItem";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -37,6 +37,9 @@ type SpacePageProps = {
 
   questCompletions: QuestCompletion[];
   setQuestCompletions: React.Dispatch<React.SetStateAction<QuestCompletion[]>>;
+
+  checkListItems: ChecklistItem[];
+  setCheckListItems: React.Dispatch<React.SetStateAction<ChecklistItem[]>>;
 };
 
 export default function SpacePage({
@@ -48,6 +51,8 @@ export default function SpacePage({
   setQuests,
   questCompletions,
   setQuestCompletions,
+  checkListItems,
+  setCheckListItems,
 }: SpacePageProps) {
   const { id } = useParams();
 
@@ -64,8 +69,6 @@ export default function SpacePage({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isSectionPickerOpen, setIsSectionPickerOpen] = useState(false);
-
-  const [checkItem, setCheckItem] = useState([]);
 
   const space = spaces.find((space) => space.id === id);
 
