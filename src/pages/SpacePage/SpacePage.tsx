@@ -19,9 +19,10 @@ import {
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { Space } from "../../types/space";
 import { format, set } from "date-fns";
-import type { SpaceSection } from "../../types/spaceSection";
+import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import QuestSection from "../../components/space/sections/QuestSection";
 import EmptyState from "../../components/ui/EmptyState";
+import SectionPicker from "../../components/space/SectionPicker";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -179,6 +180,18 @@ export default function SpacePage({
     setIsQuestModalOpen(true);
   }
 
+  function handleAddSection(type: SpaceSectionType) {
+    const newSection: SpaceSection = {
+      id: crypto.randomUUID(),
+      spaceId: space?.id,
+      type,
+      position: currentSpaceSections.length,
+      createdAt: new Date().toISOString(),
+    };
+    setSpaceSections((prev) => [...prev, newSection]);
+    setIsSectionPickerOpen(false);
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -198,6 +211,17 @@ export default function SpacePage({
       <Button onClick={() => setIsSectionPickerOpen(true)}>
         + Add Section
       </Button>
+
+      <Modal
+        isOpen={isSectionPickerOpen}
+        title="Add Section"
+        onClose={() => setIsSectionPickerOpen(false)}
+      >
+        <SectionPicker
+          onSelect={handleAddSection}
+          onClose={() => setIsSectionPickerOpen(false)}
+        />
+      </Modal>
 
       {currentSpaceSections.length === 0 ? (
         <EmptyState

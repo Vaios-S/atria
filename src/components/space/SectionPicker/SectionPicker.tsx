@@ -7,24 +7,11 @@ type SectionPickerProps = {
 };
 
 export default function SectionPicker({
-  onSlect,
+  onSelect,
   onClose,
 }: SectionPickerProps) {
   return (
     <section className="section-picker">
-      <div className="section-picker__header">
-        <h2 className="section-picker__title">Add a section</h2>
-
-        <button
-          type="button"
-          className="section-picker__close"
-          onClick={onClose}
-          aria-label="Close section picker"
-        >
-          ×
-        </button>
-      </div>
-
       <div className="section-picker__options">
         <button
           type="button"
