@@ -18,7 +18,7 @@ import {
 } from "../../utils/spaceQuestUtils";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { Space } from "../../types/space";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import type { SpaceSection } from "../../types/spaceSection";
 import QuestSection from "../../components/space/sections/QuestSection";
 import EmptyState from "../../components/ui/EmptyState";
@@ -60,6 +60,8 @@ export default function SpacePage({
   );
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const [isSectionPickerOpen, setIsSectionPickerOpen] = useState(false);
 
   const space = spaces.find((space) => space.id === id);
 
@@ -192,6 +194,11 @@ export default function SpacePage({
         active={activeQuests.length}
         completed={completedQuests.length}
       />
+
+      <Button onClick={() => setIsSectionPickerOpen(true)}>
+        + Add Section
+      </Button>
+
       {currentSpaceSections.length === 0 ? (
         <EmptyState
           icon="🧩"
