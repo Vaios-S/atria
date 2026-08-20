@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ChecklistItem } from "../../../../types/checklistItem";
 import Button from "../../../ui/Button";
 import "./ChecklistSection.css";
@@ -5,13 +6,25 @@ import "./ChecklistSection.css";
 type ChecklistSectionProps = {
   items: ChecklistItem[];
   title: string;
+  sectionId: string;
+  handleAddItem: (sectionId: string, text: string) => void;
 };
 
 export default function ChecklistSection({
   items,
   title,
+  sectionId,
+  handleAddItem,
 }: ChecklistSectionProps) {
-  if (!items) return;
+  const [listItem, setListItem] = useState("");
+  function handleSubmitItem() {
+    const trimmedItem = listItem.trim();
+
+    if (!trimmedItem) return;
+
+    handleAddItem(sectionId, trimmedItem);
+    setListItem("");
+  }
 
   return (
     <section className="checklist-section">
@@ -32,7 +45,14 @@ export default function ChecklistSection({
         ))}
 
         <div className="checklist-section__actions">
-          <Button variant="primary">+ Add Item</Button>
+          <input
+            type="text"
+            value={listItem}
+            onChange={(e) => setListItem(e.target.value)}
+          />
+          <Button variant="primary" onClick={handleSubmitItem}>
+            + Add Item
+          </Button>
         </div>
       </div>
     </section>

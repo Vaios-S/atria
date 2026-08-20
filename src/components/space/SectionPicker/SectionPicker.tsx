@@ -12,13 +12,15 @@ export default function SectionPicker({
   setNameOfSection,
   nameOfSection,
 }: SectionPickerProps) {
+  const trimmedName = nameOfSection.trim();
+
   return (
     <section className="section-picker">
       <input
         className="section-picker__input"
         type="text"
-        value={nameOfSection}
-        onChange={(e) => setNameOfSection(e.target.value.trim())}
+        value={trimmedName}
+        onChange={(e) => setNameOfSection(e.target.value)}
         placeholder="Name your section..."
       />
       <div className="section-picker__options">

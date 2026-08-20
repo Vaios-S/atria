@@ -18,7 +18,7 @@ import {
 } from "../../utils/spaceQuestUtils";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { Space } from "../../types/space";
-import { format, set } from "date-fns";
+import { format } from "date-fns";
 import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import QuestSection from "../../components/space/sections/QuestSection";
 import EmptyState from "../../components/ui/EmptyState";
@@ -189,6 +189,7 @@ export default function SpacePage({
   }
 
   const [nameOfSection, setNameOfSection] = useState("");
+
   function handleAddSection(type: SpaceSectionType) {
     const newSection: SpaceSection = {
       id: crypto.randomUUID(),
@@ -202,6 +203,18 @@ export default function SpacePage({
     setSpaceSections((prev) => [...prev, newSection]);
     setIsSectionPickerOpen(false);
     setNameOfSection("");
+  }
+
+  function handleAddItem(sectionId: string, text: string) {
+    const newItem: ChecklistItem = {
+      id: crypto.randomUUID(),
+      sectionId,
+      text,
+      completed: false,
+      createdAt: new Date().toISOString(),
+    };
+
+    setCheckListItems((prev) => [...prev, newItem]);
   }
 
   return (
@@ -268,6 +281,8 @@ export default function SpacePage({
                 key={section.id}
                 items={sectionChecklistItems}
                 title={section.title}
+                sectionId={section.id}
+                handleAddItem={handleAddItem}
               />
             );
           }
