@@ -3,15 +3,24 @@ import "./SectionPicker.css";
 
 type SectionPickerProps = {
   onSelect: (type: SpaceSectionType) => void;
-  onClose: () => void;
+  setNameOfSection: (name: string) => void;
+  nameOfSection: string;
 };
 
 export default function SectionPicker({
   onSelect,
-  onClose,
+  setNameOfSection,
+  nameOfSection,
 }: SectionPickerProps) {
   return (
     <section className="section-picker">
+      <input
+        className="section-picker__input"
+        type="text"
+        value={nameOfSection}
+        onChange={(e) => setNameOfSection(e.target.value.trim())}
+        placeholder="Name your section..."
+      />
       <div className="section-picker__options">
         <button
           type="button"

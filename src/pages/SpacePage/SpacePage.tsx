@@ -188,10 +188,12 @@ export default function SpacePage({
     setIsQuestModalOpen(true);
   }
 
+  const [nameOfSection, setNameOfSection] = useState("");
   function handleAddSection(type: SpaceSectionType) {
     const newSection: SpaceSection = {
       id: crypto.randomUUID(),
-      title: SPACE_SECTION_LABELS[type],
+      title:
+        nameOfSection.length === 0 ? SPACE_SECTION_LABELS[type] : nameOfSection,
       spaceId: space?.id,
       type,
       position: currentSpaceSections.length,
@@ -199,6 +201,7 @@ export default function SpacePage({
     };
     setSpaceSections((prev) => [...prev, newSection]);
     setIsSectionPickerOpen(false);
+    setNameOfSection("");
   }
 
   return (
@@ -228,7 +231,8 @@ export default function SpacePage({
       >
         <SectionPicker
           onSelect={handleAddSection}
-          onClose={() => setIsSectionPickerOpen(false)}
+          setNameOfSection={setNameOfSection}
+          nameOfSection={nameOfSection}
         />
       </Modal>
 
