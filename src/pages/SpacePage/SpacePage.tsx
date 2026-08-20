@@ -240,7 +240,10 @@ export default function SpacePage({
       <Modal
         isOpen={isSectionPickerOpen}
         title="Add Section"
-        onClose={() => setIsSectionPickerOpen(false)}
+        onClose={() => {
+          setIsSectionPickerOpen(false);
+          setNameOfSection("");
+        }}
       >
         <SectionPicker
           onSelect={handleAddSection}
