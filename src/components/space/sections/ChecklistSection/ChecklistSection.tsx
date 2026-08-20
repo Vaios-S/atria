@@ -25,7 +25,7 @@ export default function ChecklistSection({
         )}
 
         {items.map((item) => (
-          <div className="checklist-section__item">
+          <div key={item.id} className="checklist-section__item">
             <input type="checkbox" />
             <p className="checklist-section__item-text">{item.text}</p>
           </div>

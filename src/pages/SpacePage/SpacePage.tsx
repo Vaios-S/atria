@@ -25,6 +25,7 @@ import EmptyState from "../../components/ui/EmptyState";
 import SectionPicker from "../../components/space/SectionPicker";
 import type { ChecklistItem } from "../../types/checklistItem";
 import ChecklistSection from "../../components/space/sections/ChecklistSection";
+import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -190,7 +191,7 @@ export default function SpacePage({
   function handleAddSection(type: SpaceSectionType) {
     const newSection: SpaceSection = {
       id: crypto.randomUUID(),
-      title: "Quests",
+      title: SPACE_SECTION_LABELS[type],
       spaceId: space?.id,
       type,
       position: currentSpaceSections.length,
