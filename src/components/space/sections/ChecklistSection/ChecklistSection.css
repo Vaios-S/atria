@@ -76,3 +76,23 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+.checklist-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.checklist-section__title {
+  margin: 0;
+}
+
+.checklist-section__progress {
+  margin: 0;
+
+  font-size: 0.75rem;
+  white-space: nowrap;
+
+  color: var(--color-text-muted);
+}

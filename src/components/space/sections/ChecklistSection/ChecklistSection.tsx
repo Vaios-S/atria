@@ -30,9 +30,16 @@ export default function ChecklistSection({
     setListItem("");
   }
 
+  const completedItems = items.filter((item) => item.completed === true);
+
   return (
     <section className="checklist-section">
       <h2 className="checklist-section__title">{title}</h2>
+      {items.length > 0 && (
+        <p className="checklist-section__progress">
+          {completedItems.length} of {items.length} completed
+        </p>
+      )}
 
       <div className="checklist-section__empty">
         {items.length === 0 && (
