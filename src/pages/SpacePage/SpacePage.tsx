@@ -217,6 +217,14 @@ export default function SpacePage({
     setCheckListItems((prev) => [...prev, newItem]);
   }
 
+  function handleToggleItem(itemId: string) {
+    setCheckListItems((prev) =>
+      prev.map((item) =>
+        item.id === itemId ? { ...item, completed: !item.completed } : item,
+      ),
+    );
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -286,6 +294,7 @@ export default function SpacePage({
                 title={section.title}
                 sectionId={section.id}
                 handleAddItem={handleAddItem}
+                handleToggleItem={handleToggleItem}
               />
             );
           }

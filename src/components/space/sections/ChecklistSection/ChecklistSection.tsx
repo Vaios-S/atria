@@ -8,6 +8,7 @@ type ChecklistSectionProps = {
   title: string;
   sectionId: string;
   handleAddItem: (sectionId: string, text: string) => void;
+  handleToggleItem: (itemId: string) => void;
 };
 
 export default function ChecklistSection({
@@ -15,6 +16,7 @@ export default function ChecklistSection({
   title,
   sectionId,
   handleAddItem,
+  handleToggleItem,
 }: ChecklistSectionProps) {
   const [listItem, setListItem] = useState("");
   function handleSubmitItem() {
@@ -39,7 +41,11 @@ export default function ChecklistSection({
 
         {items.map((item) => (
           <div key={item.id} className="checklist-section__item">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={item.completed}
+              onChange={() => handleToggleItem(item.id)}
+            />
             <p className="checklist-section__item-text">{item.text}</p>
           </div>
         ))}
