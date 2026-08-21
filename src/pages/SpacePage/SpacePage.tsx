@@ -225,6 +225,10 @@ export default function SpacePage({
     );
   }
 
+  function handleDeleteItem(itemId: string) {
+    setCheckListItems((prev) => prev.filter((item) => item.id !== itemId));
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -295,6 +299,7 @@ export default function SpacePage({
                 sectionId={section.id}
                 handleAddItem={handleAddItem}
                 handleToggleItem={handleToggleItem}
+                handleDeleteItem={handleDeleteItem}
               />
             );
           }

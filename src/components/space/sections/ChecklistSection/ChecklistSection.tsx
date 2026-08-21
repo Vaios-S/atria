@@ -9,6 +9,7 @@ type ChecklistSectionProps = {
   sectionId: string;
   handleAddItem: (sectionId: string, text: string) => void;
   handleToggleItem: (itemId: string) => void;
+  handleDeleteItem: (itemId: string) => void;
 };
 
 export default function ChecklistSection({
@@ -17,6 +18,7 @@ export default function ChecklistSection({
   sectionId,
   handleAddItem,
   handleToggleItem,
+  handleDeleteItem,
 }: ChecklistSectionProps) {
   const [listItem, setListItem] = useState("");
   function handleSubmitItem() {
@@ -47,6 +49,14 @@ export default function ChecklistSection({
               onChange={() => handleToggleItem(item.id)}
             />
             <p className="checklist-section__item-text">{item.text}</p>
+            <button
+              type="button"
+              className="checklist-section__delete"
+              onClick={() => handleDeleteItem(item.id)}
+              aria-label={`Delete ${item.text}`}
+            >
+              ×
+            </button>
           </div>
         ))}
 
