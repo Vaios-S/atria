@@ -10,6 +10,7 @@ type ChecklistSectionProps = {
   handleAddItem: (sectionId: string, text: string) => void;
   handleToggleItem: (itemId: string) => void;
   handleDeleteItem: (itemId: string) => void;
+  onSelectedSection: (sectionId: string) => void;
 };
 
 export default function ChecklistSection({
@@ -19,6 +20,7 @@ export default function ChecklistSection({
   handleAddItem,
   handleToggleItem,
   handleDeleteItem,
+  onSelectedSection,
 }: ChecklistSectionProps) {
   const [listItem, setListItem] = useState("");
   function handleSubmitItem() {
@@ -40,6 +42,15 @@ export default function ChecklistSection({
           {completedItems.length} of {items.length} completed
         </p>
       )}
+
+      <button
+        type="button"
+        className="checklist-section__menu-button"
+        aria-label={`Actions for ${title}`}
+        onClick={() => onSelectedSection(sectionId)}
+      >
+        •••
+      </button>
 
       <div className="checklist-section__empty">
         {items.length === 0 && (

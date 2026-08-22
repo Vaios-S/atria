@@ -26,6 +26,7 @@ import SectionPicker from "../../components/space/SectionPicker";
 import type { ChecklistItem } from "../../types/checklistItem";
 import ChecklistSection from "../../components/space/sections/ChecklistSection";
 import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
+import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -229,6 +230,24 @@ export default function SpacePage({
     setCheckListItems((prev) => prev.filter((item) => item.id !== itemId));
   }
 
+  const [isSectionActionOpen, setIsSectionActionOpen] = useState(false);
+  const [selectedSection, setSelectedSection] = useState("");
+
+  function onSelectedSection(sectionId: string) {
+    setSelectedSection(sectionId);
+    setIsSectionActionOpen(true);
+  }
+
+  function handleDeleteSection() {
+    setSpaceSections((prev) =>
+      prev.filter((section) => section.id !== selectedSection),
+    );
+    setIsSectionActionOpen(false);
+    setSelectedSection("");
+  }
+
+  function handleEditSection() {}
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -300,6 +319,7 @@ export default function SpacePage({
                 handleAddItem={handleAddItem}
                 handleToggleItem={handleToggleItem}
                 handleDeleteItem={handleDeleteItem}
+                onSelectedSection={onSelectedSection}
               />
             );
           }
@@ -341,6 +361,17 @@ export default function SpacePage({
           }}
         />
       </Modal>
+
+      {isSectionActionOpen && selectedSection && (
+        <QuestActionsMenu
+          onEdit={handleEditSection}
+          onDelete={handleDeleteSection}
+          onClose={() => {
+            setIsSectionActionOpen(false);
+            setSelectedSection("");
+          }}
+        />
+      )}
     </main>
   );
 }
