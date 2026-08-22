@@ -42,3 +42,44 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.section-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-edit__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.section-edit__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.section-edit__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+
+  background: var(--color-surface);
+  color: inherit;
+
+  font: inherit;
+}
+
+.section-edit__input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.section-edit__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}

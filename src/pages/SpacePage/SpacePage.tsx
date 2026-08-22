@@ -246,7 +246,43 @@ export default function SpacePage({
     setSelectedSection("");
   }
 
-  function handleEditSection() {}
+  const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
+
+  const [sectionTitle, setSectionTitle] = useState("");
+
+  function handleEditSection() {
+    const sectionToEdit = spaceSections.find(
+      (section) => section.id === selectedSection,
+    );
+
+    if (!sectionToEdit) return;
+
+    setSectionTitle(sectionToEdit.title);
+    setIsSectionActionOpen(false);
+    setIsSectionEditOpen(true);
+  }
+
+  function handleSaveSectionTitle() {
+    const sectionToEdit = spaceSections.find(
+      (section) => section.id === selectedSection,
+    );
+
+    if (!sectionToEdit) return;
+
+    const updatedSection = {
+      ...sectionToEdit,
+      title: sectionTitle,
+    };
+
+    setSpaceSections((prev) =>
+      prev.map((section) =>
+        section.id === selectedSection ? updatedSection : section,
+      ),
+    );
+    setIsSectionEditOpen(false);
+    setSelectedSection("");
+    setSectionTitle("");
+  }
 
   return (
     <main className="space-page">
@@ -372,6 +408,50 @@ export default function SpacePage({
           }}
         />
       )}
+
+      <Modal
+        isOpen={isSectionEditOpen}
+        title="Edit Section"
+        onClose={() => {
+          setIsSectionEditOpen(false);
+        }}
+      >
+        <div className="section-edit">
+          <div className="section-edit__field">
+            <label htmlFor="section-title" className="section-edit__label">
+              Section title
+            </label>
+
+            <input
+              id="section-title"
+              type="text"
+              className="section-edit__input"
+              value={sectionTitle}
+              onChange={(event) => setSectionTitle(event.target.value)}
+              placeholder="Name your section..."
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="section-edit__actions">
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setIsSectionEditOpen(false)}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              type="button"
+              variant="primary"
+              onClick={handleSaveSectionTitle}
+            >
+              Save Changes
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </main>
   );
 }
