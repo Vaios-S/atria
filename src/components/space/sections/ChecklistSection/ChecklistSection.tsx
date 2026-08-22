@@ -55,7 +55,13 @@ export default function ChecklistSection({
               checked={item.completed}
               onChange={() => handleToggleItem(item.id)}
             />
-            <p className="checklist-section__item-text">{item.text}</p>
+            <p
+              className={`checklist-section__item-text ${
+                item.completed ? "checklist-section__item-text--completed" : ""
+              }`}
+            >
+              {item.text}
+            </p>
             <button
               type="button"
               className="checklist-section__delete"

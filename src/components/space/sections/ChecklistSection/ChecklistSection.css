@@ -96,3 +96,8 @@
 
   color: var(--color-text-muted);
 }
+
+.checklist-section__item-text--completed {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
