@@ -27,6 +27,8 @@ import type { ChecklistItem } from "../../types/checklistItem";
 import ChecklistSection from "../../components/space/sections/ChecklistSection";
 import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
 import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
+import NotesSection from "../../components/space/sections/NotesSection";
+import type { Note } from "../../types/note";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -43,6 +45,9 @@ type SpacePageProps = {
 
   checkListItems: ChecklistItem[];
   setCheckListItems: React.Dispatch<React.SetStateAction<ChecklistItem[]>>;
+
+  notes: Note[];
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
 };
 
 export default function SpacePage({
@@ -56,6 +61,8 @@ export default function SpacePage({
   setQuestCompletions,
   checkListItems,
   setCheckListItems,
+  notes,
+  setNotes,
 }: SpacePageProps) {
   const { id } = useParams();
 
@@ -367,6 +374,21 @@ export default function SpacePage({
                 handleAddItem={handleAddItem}
                 handleToggleItem={handleToggleItem}
                 handleDeleteItem={handleDeleteItem}
+                onSelectedSection={onSelectedSection}
+              />
+            );
+          }
+
+          if (section.type === "notes") {
+            const sectionNote = notes.find(
+              (note) => note.sectionId === section.id,
+            );
+            return (
+              <NotesSection
+                key={section.id}
+                sectionId={section.id}
+                title={section.title}
+                note={sectionNote}
                 onSelectedSection={onSelectedSection}
               />
             );

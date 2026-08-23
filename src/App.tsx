@@ -10,6 +10,7 @@ import { mockQuests } from "./data/mockQuests.ts";
 import { mockQuestCompletions } from "./data/mockQuestCompletions.ts";
 import { mockSpaceSections } from "./data/mockSpaceSections.ts";
 import { mockChecklistItems } from "./data/mockChecklistItems.ts";
+import { mockNotes } from "./data/mockNotes.ts";
 
 function App() {
   const [spaces, setSpaces] = useState(mockSpaces);
@@ -18,6 +19,7 @@ function App() {
     useState(mockQuestCompletions);
   const [spaceSections, setSpaceSections] = useState(mockSpaceSections);
   const [checkListItems, setCheckListItems] = useState(mockChecklistItems);
+  const [notes, setNotes] = useState(mockNotes);
 
   return (
     <>
@@ -50,6 +52,8 @@ function App() {
               setQuestCompletions={setQuestCompletions}
               checkListItems={checkListItems}
               setCheckListItems={setCheckListItems}
+              notes={notes}
+              setNotes={setNotes}
             />
           }
         />
