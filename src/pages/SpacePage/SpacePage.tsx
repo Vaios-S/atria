@@ -249,7 +249,6 @@ export default function SpacePage({
     setIsDeleteModalOpen(false);
     setSelectedSection("");
   }
-  console.log(checkListItems);
 
   function handleOpenDeleteSection() {
     setIsSectionActionOpen(false);
@@ -349,6 +348,9 @@ export default function SpacePage({
                 onDeleteQuest={onDeleteQuest}
                 onEditQuest={handleEditQuest}
                 onAddQuest={onAddQuest}
+                sectionId={section.id}
+                title={section.title}
+                onSelectedSection={onSelectedSection}
               />
             );
           }

@@ -12,6 +12,9 @@ type QuestSectionProps = {
   onDeleteQuest: (quest: Quest) => void;
   onEditQuest: (quest: Quest) => void;
   onAddQuest: () => void;
+  sectionId: string;
+  title: string;
+  onSelectedSection: (sectionId: string) => void;
 };
 
 export default function QuestSection({
@@ -23,9 +26,20 @@ export default function QuestSection({
   onDeleteQuest,
   onEditQuest,
   onAddQuest,
+  sectionId,
+  title,
+  onSelectedSection,
 }: QuestSectionProps) {
   return (
     <section>
+      <button
+        type="button"
+        className="quest-section__menu-button"
+        aria-label={`Actions for ${title}`}
+        onClick={() => onSelectedSection(sectionId)}
+      >
+        •••
+      </button>
       <TodaySection
         quests={todayQuests}
         onToggleQuest={onToggleQuest}
