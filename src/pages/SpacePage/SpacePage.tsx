@@ -243,7 +243,13 @@ export default function SpacePage({
       prev.filter((section) => section.id !== selectedSection),
     );
     setIsSectionActionOpen(false);
+    setIsDeleteModalOpen(false);
     setSelectedSection("");
+  }
+
+  function handleOpenDeleteSection() {
+    setIsSectionActionOpen(false);
+    setIsDeleteModalOpen(true);
   }
 
   const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
@@ -401,14 +407,31 @@ export default function SpacePage({
       {isSectionActionOpen && selectedSection && (
         <QuestActionsMenu
           onEdit={handleEditSection}
-          onDelete={handleDeleteSection}
+          onDelete={handleOpenDeleteSection}
           onClose={() => {
             setIsSectionActionOpen(false);
             setSelectedSection("");
           }}
         />
       )}
-
+      <Modal
+        isOpen={isDeleteModalOpen}
+        title="Delete Section"
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setSelectedSection("");
+        }}
+      >
+        <ConfirmDialog
+          title="Delete Section"
+          message="Are you sure you want to delete this section?"
+          onConfirm={handleDeleteSection}
+          onCancel={() => {
+            setIsDeleteModalOpen(false);
+            setSelectedSection("");
+          }}
+        />
+      </Modal>
       <Modal
         isOpen={isSectionEditOpen}
         title="Edit Section"
