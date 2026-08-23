@@ -242,10 +242,14 @@ export default function SpacePage({
     setSpaceSections((prev) =>
       prev.filter((section) => section.id !== selectedSection),
     );
+    setCheckListItems((prev) =>
+      prev.filter((item) => item.sectionId !== selectedSection),
+    );
     setIsSectionActionOpen(false);
     setIsDeleteModalOpen(false);
     setSelectedSection("");
   }
+  console.log(checkListItems);
 
   function handleOpenDeleteSection() {
     setIsSectionActionOpen(false);
