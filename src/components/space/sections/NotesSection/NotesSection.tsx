@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Note } from "../../../../types/note";
 import Button from "../../../ui/Button";
 import "./NotesSection.css";
@@ -15,6 +16,7 @@ export default function NotesSection({
   note,
   onSelectedSection,
 }: NotesSectionProps) {
+  const [noteContent, setNoteContent] = useState(note?.content ?? "");
   return (
     <section className="notes-section">
       <div className="notes-section__header">
@@ -37,6 +39,8 @@ export default function NotesSection({
 
         <textarea
           id={`note-${sectionId}`}
+          value={noteContent}
+          onChange={(e) => setNoteContent(e.target.value)}
           className="notes-section__textarea"
           placeholder="Write anything here..."
           rows={6}
