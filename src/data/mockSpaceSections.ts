@@ -57,4 +57,12 @@ export const mockSpaceSections: SpaceSection[] = [
     position: 3,
     createdAt: "2026-08-19T10:20:00.000Z",
   },
+  {
+    id: "section-personal-notes",
+    spaceId: "space-personal",
+    type: "notes",
+    title: "Weekly Notes",
+    position: 2,
+    createdAt: "2026-08-23T10:00:00.000Z",
+  },
 ];
