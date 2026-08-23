@@ -1,0 +1,80 @@
+.notes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+
+  background: var(--color-surface);
+}
+
+.notes-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.notes-section__title {
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.notes-section__content {
+  padding: 0.75rem;
+
+  border-radius: 0.5rem;
+
+  background: var(--color-surface-secondary);
+}
+
+.notes-section__text {
+  margin: 0;
+
+  font-size: 0.9rem;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+.notes-section__empty {
+  margin: 0;
+
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.notes-section__menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  background: transparent;
+  color: inherit;
+
+  font-size: 1rem;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.notes-section__menu-button:hover {
+  background: var(--color-surface-secondary);
+}
+
+.notes-section__menu-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
