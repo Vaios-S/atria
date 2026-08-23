@@ -1,4 +1,5 @@
 import type { Note } from "../../../../types/note";
+import Button from "../../../ui/Button";
 import "./NotesSection.css";
 
 type NotesSectionProps = {
@@ -29,12 +30,23 @@ export default function NotesSection({
         </button>
       </div>
 
-      <div className="notes-section__content">
-        {note ? (
-          <p className="notes-section__text">{note.content}</p>
-        ) : (
-          <p className="notes-section__empty">No notes yet.</p>
-        )}
+      <div className="notes-section__editor">
+        <label htmlFor={`note-${sectionId}`} className="notes-section__label">
+          Note
+        </label>
+
+        <textarea
+          id={`note-${sectionId}`}
+          className="notes-section__textarea"
+          placeholder="Write anything here..."
+          rows={6}
+        />
+
+        <div className="notes-section__actions">
+          <Button type="button" variant="primary">
+            Save
+          </Button>
+        </div>
       </div>
     </section>
   );
