@@ -8,6 +8,7 @@ type NotesSectionProps = {
   title: string;
   note?: Note;
   onSelectedSection: (sectionId: string) => void;
+  onSaveNote: (sectionId: string, content: string) => void;
 };
 
 export default function NotesSection({
@@ -15,6 +16,7 @@ export default function NotesSection({
   title,
   note,
   onSelectedSection,
+  onSaveNote,
 }: NotesSectionProps) {
   const [noteContent, setNoteContent] = useState(note?.content ?? "");
   return (
@@ -47,7 +49,11 @@ export default function NotesSection({
         />
 
         <div className="notes-section__actions">
-          <Button type="button" variant="primary">
+          <Button
+            type="button"
+            variant="primary"
+            onClick={() => onSaveNote(sectionId, noteContent)}
+          >
             Save
           </Button>
         </div>

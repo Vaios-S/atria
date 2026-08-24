@@ -300,6 +300,29 @@ export default function SpacePage({
     setSectionTitle("");
   }
 
+  function onSaveNote(sectionId: string, content: string) {
+    const newNote = {
+      id: crypto.randomUUID(),
+      sectionId,
+      content,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setNotes((prev) => {
+      const existingNote = prev.find((note) => note.sectionId === sectionId);
+
+      if (!existingNote) {
+        return [...prev, newNote];
+      }
+      return prev.map((note) =>
+        note.sectionId === sectionId
+          ? { ...note, content: content, updatedAt: new Date().toISOString() }
+          : note,
+      );
+    });
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -390,6 +413,7 @@ export default function SpacePage({
                 title={section.title}
                 note={sectionNote}
                 onSelectedSection={onSelectedSection}
+                onSaveNote={onSaveNote}
               />
             );
           }
