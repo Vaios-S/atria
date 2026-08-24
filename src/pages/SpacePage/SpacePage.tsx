@@ -252,6 +252,9 @@ export default function SpacePage({
     setCheckListItems((prev) =>
       prev.filter((item) => item.sectionId !== selectedSection),
     );
+    setNotes((prev) =>
+      prev.filter((note) => note.sectionId !== selectedSection),
+    );
     setIsSectionActionOpen(false);
     setIsDeleteModalOpen(false);
     setSelectedSection("");
