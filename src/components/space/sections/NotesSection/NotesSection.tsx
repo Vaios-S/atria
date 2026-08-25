@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Note } from "../../../../types/note";
 import Button from "../../../ui/Button";
 import "./NotesSection.css";
+import { flushSync } from "react-dom";
 
 type NotesSectionProps = {
   sectionId: string;
@@ -53,6 +54,7 @@ export default function NotesSection({
             type="button"
             variant="primary"
             onClick={() => onSaveNote(sectionId, noteContent)}
+            disabled={note?.content === noteContent}
           >
             Save
           </Button>
