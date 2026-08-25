@@ -54,7 +54,9 @@ export default function NotesSection({
             type="button"
             variant="primary"
             onClick={() => onSaveNote(sectionId, noteContent)}
-            disabled={note?.content === noteContent}
+            disabled={
+              note?.content === noteContent || noteContent.trim() === ""
+            }
           >
             Save
           </Button>
