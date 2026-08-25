@@ -326,6 +326,10 @@ export default function SpacePage({
     });
   }
 
+  const hasQuestSection = currentSpaceSections.some(
+    (section) => section.type === "quests",
+  );
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -358,6 +362,7 @@ export default function SpacePage({
           onSelect={handleAddSection}
           setNameOfSection={setNameOfSection}
           nameOfSection={nameOfSection}
+          hasQuestSection={hasQuestSection}
         />
       </Modal>
 

@@ -5,12 +5,14 @@ type SectionPickerProps = {
   onSelect: (type: SpaceSectionType) => void;
   setNameOfSection: (name: string) => void;
   nameOfSection: string;
+  hasQuestSection: boolean;
 };
 
 export default function SectionPicker({
   onSelect,
   setNameOfSection,
   nameOfSection,
+  hasQuestSection,
 }: SectionPickerProps) {
   const trimmedName = nameOfSection.trim();
 
@@ -28,8 +30,12 @@ export default function SectionPicker({
           type="button"
           className="section-picker__option"
           onClick={() => onSelect("quests")}
+          disabled={hasQuestSection}
         >
           📜 Quests
+          {hasQuestSection && (
+            <span className="section-picker__option-status">Already added</span>
+          )}
         </button>
 
         <button

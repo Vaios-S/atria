@@ -50,6 +50,10 @@
   text-align: left;
   font: inherit;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .section-picker__option:hover {
@@ -87,4 +91,29 @@
 .section-picker__input:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+.section-picker__option:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.section-picker__option:disabled:hover {
+  transform: none;
+  background: inherit;
+}
+
+.section-picker__option-status {
+  margin-left: auto;
+  padding: 0.2rem 0.45rem;
+
+  border-radius: 999px;
+
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
 }
