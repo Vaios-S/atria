@@ -246,9 +246,24 @@ export default function SpacePage({
   }
 
   function handleDeleteSection() {
-    setSpaceSections((prev) =>
-      prev.filter((section) => section.id !== selectedSection),
-    );
+    setSpaceSections((prev) => {
+      const sectionsAfterDelete = prev.filter(
+        (section) => section.id !== selectedSection,
+      );
+
+      const otherSpaceSections = sectionsAfterDelete.filter(
+        (section) => section.spaceId !== space.id,
+      );
+
+      const normalizedCurrentSections = sectionsAfterDelete
+        .filter((section) => section.spaceId === space.id)
+        .map((section, index) => ({
+          ...section,
+          position: index,
+        }));
+
+      return [...otherSpaceSections, ...normalizedCurrentSections];
+    });
     setCheckListItems((prev) =>
       prev.filter((item) => item.sectionId !== selectedSection),
     );
@@ -259,6 +274,8 @@ export default function SpacePage({
     setIsDeleteModalOpen(false);
     setSelectedSection("");
   }
+
+  console.log(currentSpaceSections);
 
   function handleOpenDeleteSection() {
     setIsSectionActionOpen(false);

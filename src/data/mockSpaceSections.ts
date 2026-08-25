@@ -54,7 +54,7 @@ export const mockSpaceSections: SpaceSection[] = [
     title: "Groseries2",
     spaceId: "space-personal",
     type: "checklist",
-    position: 3,
+    position: 2,
     createdAt: "2026-08-19T10:20:00.000Z",
   },
   {
@@ -62,7 +62,7 @@ export const mockSpaceSections: SpaceSection[] = [
     spaceId: "space-personal",
     type: "notes",
     title: "Weekly Notes",
-    position: 2,
+    position: 3,
     createdAt: "2026-08-23T10:00:00.000Z",
   },
 ];
