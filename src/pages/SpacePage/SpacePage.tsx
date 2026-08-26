@@ -1,34 +1,45 @@
+// React
+import { useState } from "react";
+
+// Libraries
 import { Link, useParams } from "react-router-dom";
-import "./SpacePage.css";
+import { format } from "date-fns";
+
+// Components
 import SpaceHeader from "../../components/space/SpaceHeader";
 import SpaceStats from "../../components/space/SpaceStats";
-import { useState } from "react";
-import type { QuestCompletion } from "../../types/questCompletion";
-import type { Quest } from "../../types/quest";
 import Modal from "../../components/ui/Modal";
+import Button from "../../components/ui/Button";
+import ConfirmDialog from "../../components/ui/ConfirmDialog";
+import QuestSection from "../../components/space/sections/QuestSection";
+import EmptyState from "../../components/ui/EmptyState";
+import SectionPicker from "../../components/space/SectionPicker";
+import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
+import NotesSection from "../../components/space/sections/NotesSection";
+import ChecklistSection from "../../components/space/sections/ChecklistSection";
 import QuestForm, {
   type QuestFormData,
 } from "../../components/space/QuestForm";
-import Button from "../../components/ui/Button";
+
+// Utils / constants
 import {
   getActiveQuests,
   getCompletedQuests,
   getQuestProgress,
   getQuestsBySpace,
 } from "../../utils/spaceQuestUtils";
-import ConfirmDialog from "../../components/ui/ConfirmDialog";
-import type { Space } from "../../types/space";
-import { format } from "date-fns";
-import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
-import QuestSection from "../../components/space/sections/QuestSection";
-import EmptyState from "../../components/ui/EmptyState";
-import SectionPicker from "../../components/space/SectionPicker";
-import type { ChecklistItem } from "../../types/checklistItem";
-import ChecklistSection from "../../components/space/sections/ChecklistSection";
 import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
-import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
-import NotesSection from "../../components/space/sections/NotesSection";
+
+//Types
+import type { QuestCompletion } from "../../types/questCompletion";
+import type { Quest } from "../../types/quest";
+import type { Space } from "../../types/space";
+import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import type { Note } from "../../types/note";
+import type { ChecklistItem } from "../../types/checklistItem";
+
+// Styles
+import "./SpacePage.css";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -43,8 +54,8 @@ type SpacePageProps = {
   questCompletions: QuestCompletion[];
   setQuestCompletions: React.Dispatch<React.SetStateAction<QuestCompletion[]>>;
 
-  checkListItems: ChecklistItem[];
-  setCheckListItems: React.Dispatch<React.SetStateAction<ChecklistItem[]>>;
+  checklistItems: ChecklistItem[];
+  setChecklistItems: React.Dispatch<React.SetStateAction<ChecklistItem[]>>;
 
   notes: Note[];
   setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
@@ -59,8 +70,8 @@ export default function SpacePage({
   setQuests,
   questCompletions,
   setQuestCompletions,
-  checkListItems,
-  setCheckListItems,
+  checklistItems,
+  setChecklistItems,
   notes,
   setNotes,
 }: SpacePageProps) {
@@ -98,7 +109,7 @@ export default function SpacePage({
       const newCompletion: QuestCompletion = {
         id: crypto.randomUUID(),
         userId: "user-1",
-        questId: `${questId}`,
+        questId,
         completedAt: new Date().toISOString(),
       };
       setQuestCompletions((prev) => [...prev, newCompletion]);
@@ -138,21 +149,18 @@ export default function SpacePage({
 
   const activeQuests = getActiveQuests(spaceQuests, questCompletions);
 
-  const todayActiveQuest = activeQuests.filter(
+  const today = format(new Date(), "yyyy-MM-dd");
+
+  const todayActiveQuests = activeQuests.filter(
     (quest) =>
-      quest.scheduledDate !== undefined &&
-      quest.scheduledDate === format(new Date(), "yyyy-MM-dd"),
+      quest.scheduledDate !== undefined && quest.scheduledDate === today,
   );
 
-  const upcomingActiveQuest = activeQuests.filter(
-    (quest) =>
-      quest.scheduledDate !== undefined &&
-      quest.scheduledDate > format(new Date(), "yyyy-MM-dd"),
+  const upcomingActiveQuests = activeQuests.filter(
+    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate > today,
   );
-  const overDueActiveQuest = activeQuests.filter(
-    (quest) =>
-      quest.scheduledDate !== undefined &&
-      quest.scheduledDate < format(new Date(), "yyyy-MM-dd"),
+  const overdueActiveQuests = activeQuests.filter(
+    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate < today,
   );
 
   const completedQuests = getCompletedQuests(spaceQuests, questCompletions);
@@ -225,11 +233,11 @@ export default function SpacePage({
       createdAt: new Date().toISOString(),
     };
 
-    setCheckListItems((prev) => [...prev, newItem]);
+    setChecklistItems((prev) => [...prev, newItem]);
   }
 
   function handleToggleItem(itemId: string) {
-    setCheckListItems((prev) =>
+    setChecklistItems((prev) =>
       prev.map((item) =>
         item.id === itemId ? { ...item, completed: !item.completed } : item,
       ),
@@ -237,7 +245,7 @@ export default function SpacePage({
   }
 
   function handleDeleteItem(itemId: string) {
-    setCheckListItems((prev) => prev.filter((item) => item.id !== itemId));
+    setChecklistItems((prev) => prev.filter((item) => item.id !== itemId));
   }
 
   const [isSectionActionOpen, setIsSectionActionOpen] = useState(false);
@@ -267,7 +275,7 @@ export default function SpacePage({
         }));
       return [...otherSpaceSections, ...normalizedCurrentSections];
     });
-    setCheckListItems((prev) =>
+    setChecklistItems((prev) =>
       prev.filter((item) => item.sectionId !== selectedSection),
     );
     setNotes((prev) =>
@@ -446,9 +454,9 @@ export default function SpacePage({
             return (
               <QuestSection
                 key={section.id}
-                todayQuests={todayActiveQuest}
-                upcomingQuests={upcomingActiveQuest}
-                overdueQuests={overDueActiveQuest}
+                todayQuests={todayActiveQuests}
+                upcomingQuests={upcomingActiveQuests}
+                overdueQuests={overdueActiveQuests}
                 completedQuests={completedQuests}
                 onToggleQuest={handleToggleQuest}
                 onDeleteQuest={onDeleteQuest}
@@ -465,7 +473,7 @@ export default function SpacePage({
             );
           }
           if (section.type === "checklist") {
-            const sectionChecklistItems = checkListItems.filter(
+            const sectionChecklistItems = checklistItems.filter(
               (item) => item.sectionId === section.id,
             );
             return (

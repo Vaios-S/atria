@@ -50,8 +50,8 @@ function App() {
               setQuests={setQuests}
               questCompletions={questCompletions}
               setQuestCompletions={setQuestCompletions}
-              checkListItems={checkListItems}
-              setCheckListItems={setCheckListItems}
+              checklistItems={checkListItems}
+              setChecklistItems={setCheckListItems}
               notes={notes}
               setNotes={setNotes}
             />
