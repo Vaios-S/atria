@@ -255,11 +255,11 @@ export default function SpacePage({
       );
 
       const otherSpaceSections = sectionsAfterDelete.filter(
-        (section) => section.spaceId !== space.id,
+        (section) => section.spaceId !== spaceId,
       );
 
       const normalizedCurrentSections = sectionsAfterDelete
-        .filter((section) => section.spaceId === space.id)
+        .filter((section) => section.spaceId === spaceId)
         .map((section, index) => ({
           ...section,
           position: index,
