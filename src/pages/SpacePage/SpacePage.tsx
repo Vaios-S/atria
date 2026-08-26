@@ -68,6 +68,11 @@ export default function SpacePage({
 
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
 
+  const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
+
+  const [isDeleteSectionModalOpen, setIsDeleteSectionModalOpen] =
+    useState(false);
+
   const [editingQuest, setEditingQuest] = useState<Quest | undefined>(
     undefined,
   );
@@ -75,8 +80,6 @@ export default function SpacePage({
   const [questToDelete, setQuestToDelete] = useState<Quest | undefined>(
     undefined,
   );
-
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isSectionPickerOpen, setIsSectionPickerOpen] = useState(false);
 
@@ -104,7 +107,7 @@ export default function SpacePage({
 
   function onDeleteQuest(quest: Quest) {
     setQuestToDelete(quest);
-    setIsDeleteModalOpen(true);
+    setIsDeleteQuestModalOpen(true);
   }
 
   function handleDeleteQuest() {
@@ -114,7 +117,7 @@ export default function SpacePage({
     setQuestCompletions((prev) =>
       prev.filter((completion) => completion.questId !== questToDelete.id),
     );
-    setIsDeleteModalOpen(false);
+    setIsDeleteQuestModalOpen(false);
     setQuestToDelete(undefined);
   }
 
@@ -271,13 +274,13 @@ export default function SpacePage({
       prev.filter((note) => note.sectionId !== selectedSection),
     );
     setIsSectionActionOpen(false);
-    setIsDeleteModalOpen(false);
+    setIsDeleteSectionModalOpen(false);
     setSelectedSection("");
   }
 
   function handleOpenDeleteSection() {
     setIsSectionActionOpen(false);
-    setIsDeleteModalOpen(true);
+    setIsDeleteSectionModalOpen(true);
   }
 
   const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
@@ -465,10 +468,10 @@ export default function SpacePage({
       </Modal>
 
       <Modal
-        isOpen={isDeleteModalOpen}
+        isOpen={isDeleteQuestModalOpen}
         title="Delete Quest"
         onClose={() => {
-          setIsDeleteModalOpen(false);
+          setIsDeleteQuestModalOpen(false);
           setQuestToDelete(undefined);
         }}
       >
@@ -477,7 +480,7 @@ export default function SpacePage({
           message={`Are you sure you want to delete the quest "${questToDelete?.title}"?`}
           onConfirm={handleDeleteQuest}
           onCancel={() => {
-            setIsDeleteModalOpen(false);
+            setIsDeleteQuestModalOpen(false);
             setQuestToDelete(undefined);
           }}
         />
@@ -494,10 +497,10 @@ export default function SpacePage({
         />
       )}
       <Modal
-        isOpen={isDeleteModalOpen}
+        isOpen={isDeleteSectionModalOpen}
         title="Delete Section"
         onClose={() => {
-          setIsDeleteModalOpen(false);
+          setIsDeleteSectionModalOpen(false);
           setSelectedSection("");
         }}
       >
@@ -506,7 +509,7 @@ export default function SpacePage({
           message="Are you sure you want to delete this section?"
           onConfirm={handleDeleteSection}
           onCancel={() => {
-            setIsDeleteModalOpen(false);
+            setIsDeleteSectionModalOpen(false);
             setSelectedSection("");
           }}
         />
