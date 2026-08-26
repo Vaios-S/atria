@@ -75,27 +75,74 @@ export default function SpacePage({
   notes,
   setNotes,
 }: SpacePageProps) {
+  // params
   const { id } = useParams();
 
+  // state
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
-
   const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
-
   const [isDeleteSectionModalOpen, setIsDeleteSectionModalOpen] =
     useState(false);
-
   const [editingQuest, setEditingQuest] = useState<Quest | undefined>(
     undefined,
   );
-
   const [questToDelete, setQuestToDelete] = useState<Quest | undefined>(
     undefined,
   );
-
   const [isSectionPickerOpen, setIsSectionPickerOpen] = useState(false);
+  const [nameOfSection, setNameOfSection] = useState("");
+  const [isSectionActionOpen, setIsSectionActionOpen] = useState(false);
+  const [selectedSection, setSelectedSection] = useState("");
+  const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
+  const [sectionTitle, setSectionTitle] = useState("");
 
+  // current space
   const space = spaces.find((space) => space.id === id);
 
+  if (!space) {
+    return <h1>Space not found</h1>;
+  }
+
+  // derived data
+  const spaceId = space.id;
+
+  const currentSpaceSections = spaceSections.filter(
+    (section) => section.spaceId === space.id,
+  );
+
+  const spaceQuests = getQuestsBySpace(quests, space.id);
+
+  const activeQuests = getActiveQuests(spaceQuests, questCompletions);
+
+  const today = format(new Date(), "yyyy-MM-dd");
+
+  const todayActiveQuests = activeQuests.filter(
+    (quest) =>
+      quest.scheduledDate !== undefined && quest.scheduledDate === today,
+  );
+
+  const upcomingActiveQuests = activeQuests.filter(
+    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate > today,
+  );
+  const overdueActiveQuests = activeQuests.filter(
+    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate < today,
+  );
+
+  const completedQuests = getCompletedQuests(spaceQuests, questCompletions);
+
+  const progress = getQuestProgress(spaceQuests, completedQuests);
+
+  const hasQuestSection = currentSpaceSections.some(
+    (section) => section.type === "quests",
+  );
+
+  const sortedSpaceSections = [...currentSpaceSections].sort(
+    (a, b) => a.position - b.position,
+  );
+
+  // handlers
+
+  // Quest handlers
   function handleToggleQuest(questId: string) {
     const completionExists = questCompletions.some(
       (completion) => completion.questId === questId,
@@ -137,38 +184,6 @@ export default function SpacePage({
     setIsQuestModalOpen(true);
   }
 
-  if (!space) {
-    return <h1>Space not found</h1>;
-  }
-
-  const currentSpaceSections = spaceSections.filter(
-    (section) => section.spaceId === space.id,
-  );
-
-  const spaceQuests = getQuestsBySpace(quests, space.id);
-
-  const activeQuests = getActiveQuests(spaceQuests, questCompletions);
-
-  const today = format(new Date(), "yyyy-MM-dd");
-
-  const todayActiveQuests = activeQuests.filter(
-    (quest) =>
-      quest.scheduledDate !== undefined && quest.scheduledDate === today,
-  );
-
-  const upcomingActiveQuests = activeQuests.filter(
-    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate > today,
-  );
-  const overdueActiveQuests = activeQuests.filter(
-    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate < today,
-  );
-
-  const completedQuests = getCompletedQuests(spaceQuests, questCompletions);
-
-  const progress = getQuestProgress(spaceQuests, completedQuests);
-
-  const spaceId = space.id;
-
   function handleAddQuest(formData: QuestFormData) {
     const newQuest: Quest = {
       id: crypto.randomUUID(),
@@ -207,8 +222,7 @@ export default function SpacePage({
     setIsQuestModalOpen(true);
   }
 
-  const [nameOfSection, setNameOfSection] = useState("");
-
+  // Section handlers
   function handleAddSection(type: SpaceSectionType) {
     const newSection: SpaceSection = {
       id: crypto.randomUUID(),
@@ -224,36 +238,14 @@ export default function SpacePage({
     setNameOfSection("");
   }
 
-  function handleAddItem(sectionId: string, text: string) {
-    const newItem: ChecklistItem = {
-      id: crypto.randomUUID(),
-      sectionId,
-      text,
-      completed: false,
-      createdAt: new Date().toISOString(),
-    };
-
-    setChecklistItems((prev) => [...prev, newItem]);
-  }
-
-  function handleToggleItem(itemId: string) {
-    setChecklistItems((prev) =>
-      prev.map((item) =>
-        item.id === itemId ? { ...item, completed: !item.completed } : item,
-      ),
-    );
-  }
-
-  function handleDeleteItem(itemId: string) {
-    setChecklistItems((prev) => prev.filter((item) => item.id !== itemId));
-  }
-
-  const [isSectionActionOpen, setIsSectionActionOpen] = useState(false);
-  const [selectedSection, setSelectedSection] = useState("");
-
   function onSelectedSection(sectionId: string) {
     setSelectedSection(sectionId);
     setIsSectionActionOpen(true);
+  }
+
+  function handleOpenDeleteSection() {
+    setIsSectionActionOpen(false);
+    setIsDeleteSectionModalOpen(true);
   }
 
   function handleDeleteSection() {
@@ -285,15 +277,6 @@ export default function SpacePage({
     setIsDeleteSectionModalOpen(false);
     setSelectedSection("");
   }
-
-  function handleOpenDeleteSection() {
-    setIsSectionActionOpen(false);
-    setIsDeleteSectionModalOpen(true);
-  }
-
-  const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
-
-  const [sectionTitle, setSectionTitle] = useState("");
 
   function handleEditSection() {
     const sectionToEdit = spaceSections.find(
@@ -328,37 +311,6 @@ export default function SpacePage({
     setSelectedSection("");
     setSectionTitle("");
   }
-
-  function onSaveNote(sectionId: string, content: string) {
-    const newNote = {
-      id: crypto.randomUUID(),
-      sectionId,
-      content,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-
-    setNotes((prev) => {
-      const existingNote = prev.find((note) => note.sectionId === sectionId);
-
-      if (!existingNote) {
-        return [...prev, newNote];
-      }
-      return prev.map((note) =>
-        note.sectionId === sectionId
-          ? { ...note, content: content, updatedAt: new Date().toISOString() }
-          : note,
-      );
-    });
-  }
-
-  const hasQuestSection = currentSpaceSections.some(
-    (section) => section.type === "quests",
-  );
-
-  const sortedSpaceSections = [...currentSpaceSections].sort(
-    (a, b) => a.position - b.position,
-  );
 
   function handleMoveSection(sectionId: string, direction: "up" | "down") {
     setSpaceSections((prev) => {
@@ -399,6 +351,55 @@ export default function SpacePage({
 
         return section;
       });
+    });
+  }
+
+  // Checklist handlers
+  function handleAddItem(sectionId: string, text: string) {
+    const newItem: ChecklistItem = {
+      id: crypto.randomUUID(),
+      sectionId,
+      text,
+      completed: false,
+      createdAt: new Date().toISOString(),
+    };
+
+    setChecklistItems((prev) => [...prev, newItem]);
+  }
+
+  function handleToggleItem(itemId: string) {
+    setChecklistItems((prev) =>
+      prev.map((item) =>
+        item.id === itemId ? { ...item, completed: !item.completed } : item,
+      ),
+    );
+  }
+
+  function handleDeleteItem(itemId: string) {
+    setChecklistItems((prev) => prev.filter((item) => item.id !== itemId));
+  }
+
+  // Notes handlers
+  function onSaveNote(sectionId: string, content: string) {
+    const newNote = {
+      id: crypto.randomUUID(),
+      sectionId,
+      content,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setNotes((prev) => {
+      const existingNote = prev.find((note) => note.sectionId === sectionId);
+
+      if (!existingNote) {
+        return [...prev, newNote];
+      }
+      return prev.map((note) =>
+        note.sectionId === sectionId
+          ? { ...note, content: content, updatedAt: new Date().toISOString() }
+          : note,
+      );
     });
   }
 
