@@ -260,11 +260,11 @@ export default function SpacePage({
 
       const normalizedCurrentSections = sectionsAfterDelete
         .filter((section) => section.spaceId === spaceId)
+        .sort((a, b) => a.position - b.position)
         .map((section, index) => ({
           ...section,
           position: index,
         }));
-
       return [...otherSpaceSections, ...normalizedCurrentSections];
     });
     setCheckListItems((prev) =>
@@ -352,6 +352,48 @@ export default function SpacePage({
     (a, b) => a.position - b.position,
   );
 
+  function handleMoveSection(sectionId: string, direction: "up" | "down") {
+    setSpaceSections((prev) => {
+      const currentSections = prev
+        .filter((section) => section.spaceId === spaceId)
+        .sort((a, b) => a.position - b.position);
+
+      const currentIndex = currentSections.findIndex(
+        (section) => section.id === sectionId,
+      );
+
+      if (currentIndex === -1) return prev;
+
+      const targetIndex =
+        direction === "up" ? currentIndex - 1 : currentIndex + 1;
+
+      if (targetIndex < 0 || targetIndex >= currentSections.length) {
+        return prev;
+      }
+
+      const currentSection = currentSections[currentIndex];
+      const targetSection = currentSections[targetIndex];
+
+      return prev.map((section) => {
+        if (section.id === currentSection.id) {
+          return {
+            ...section,
+            position: targetSection.position,
+          };
+        }
+
+        if (section.id === targetSection.id) {
+          return {
+            ...section,
+            position: currentSection.position,
+          };
+        }
+
+        return section;
+      });
+    });
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -395,7 +437,11 @@ export default function SpacePage({
           description="Add your first section to start building this space."
         />
       ) : (
-        sortedSpaceSections.map((section) => {
+        sortedSpaceSections.map((section, index) => {
+          const canMoveUp = index > 0;
+
+          const canMoveDown = index < sortedSpaceSections.length - 1;
+
           if (section.type === "quests") {
             return (
               <QuestSection
@@ -411,6 +457,10 @@ export default function SpacePage({
                 sectionId={section.id}
                 title={section.title}
                 onSelectedSection={onSelectedSection}
+                onMoveUp={(sectionId) => handleMoveSection(sectionId, "up")}
+                onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
+                canMoveUp={canMoveUp}
+                canMoveDown={canMoveDown}
               />
             );
           }
@@ -428,6 +478,10 @@ export default function SpacePage({
                 handleToggleItem={handleToggleItem}
                 handleDeleteItem={handleDeleteItem}
                 onSelectedSection={onSelectedSection}
+                onMoveUp={(sectionId) => handleMoveSection(sectionId, "up")}
+                onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
+                canMoveUp={canMoveUp}
+                canMoveDown={canMoveDown}
               />
             );
           }
@@ -444,6 +498,10 @@ export default function SpacePage({
                 note={sectionNote}
                 onSelectedSection={onSelectedSection}
                 onSaveNote={onSaveNote}
+                onMoveUp={(sectionId) => handleMoveSection(sectionId, "up")}
+                onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
+                canMoveUp={canMoveUp}
+                canMoveDown={canMoveDown}
               />
             );
           }

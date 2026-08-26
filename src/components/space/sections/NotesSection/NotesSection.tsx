@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { Note } from "../../../../types/note";
 import Button from "../../../ui/Button";
 import "./NotesSection.css";
-import { flushSync } from "react-dom";
 
 type NotesSectionProps = {
   sectionId: string;
@@ -10,6 +9,10 @@ type NotesSectionProps = {
   note?: Note;
   onSelectedSection: (sectionId: string) => void;
   onSaveNote: (sectionId: string, content: string) => void;
+  onMoveUp: (sectionId: string) => void;
+  onMoveDown: (sectionId: string) => void;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
 };
 
 export default function NotesSection({
@@ -18,6 +21,10 @@ export default function NotesSection({
   note,
   onSelectedSection,
   onSaveNote,
+  onMoveUp,
+  onMoveDown,
+  canMoveUp,
+  canMoveDown,
 }: NotesSectionProps) {
   const [noteContent, setNoteContent] = useState(note?.content ?? "");
   return (
@@ -25,14 +32,36 @@ export default function NotesSection({
       <div className="notes-section__header">
         <h2 className="notes-section__title">{title}</h2>
 
-        <button
-          type="button"
-          className="notes-section__menu-button"
-          onClick={() => onSelectedSection(sectionId)}
-          aria-label={`Actions for ${title}`}
-        >
-          ...
-        </button>
+        <div className="section-actions">
+          <button
+            type="button"
+            className="section-actions__move"
+            onClick={() => onMoveUp(sectionId)}
+            disabled={!canMoveUp}
+            aria-label={`Move ${title} up`}
+          >
+            ↑
+          </button>
+
+          <button
+            type="button"
+            className="section-actions__move"
+            onClick={() => onMoveDown(sectionId)}
+            disabled={!canMoveDown}
+            aria-label={`Move ${title} down`}
+          >
+            ↓
+          </button>
+
+          <button
+            type="button"
+            className="section-actions__menu"
+            onClick={() => onSelectedSection(sectionId)}
+            aria-label={`Actions for ${title}`}
+          >
+            ...
+          </button>
+        </div>
       </div>
 
       <div className="notes-section__editor">

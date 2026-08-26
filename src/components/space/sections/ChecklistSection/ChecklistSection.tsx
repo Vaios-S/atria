@@ -11,6 +11,10 @@ type ChecklistSectionProps = {
   handleToggleItem: (itemId: string) => void;
   handleDeleteItem: (itemId: string) => void;
   onSelectedSection: (sectionId: string) => void;
+  onMoveUp: (sectionId: string) => void;
+  onMoveDown: (sectionId: string) => void;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
 };
 
 export default function ChecklistSection({
@@ -21,6 +25,10 @@ export default function ChecklistSection({
   handleToggleItem,
   handleDeleteItem,
   onSelectedSection,
+  onMoveUp,
+  onMoveDown,
+  canMoveUp,
+  canMoveDown,
 }: ChecklistSectionProps) {
   const [listItem, setListItem] = useState("");
   function handleSubmitItem() {
@@ -43,14 +51,36 @@ export default function ChecklistSection({
         </p>
       )}
 
-      <button
-        type="button"
-        className="checklist-section__menu-button"
-        aria-label={`Actions for ${title}`}
-        onClick={() => onSelectedSection(sectionId)}
-      >
-        •••
-      </button>
+      <div className="section-actions">
+        <button
+          type="button"
+          className="section-actions__move"
+          onClick={() => onMoveUp(sectionId)}
+          disabled={!canMoveUp}
+          aria-label={`Move ${title} up`}
+        >
+          ↑
+        </button>
+
+        <button
+          type="button"
+          className="section-actions__move"
+          onClick={() => onMoveDown(sectionId)}
+          disabled={!canMoveDown}
+          aria-label={`Move ${title} down`}
+        >
+          ↓
+        </button>
+
+        <button
+          type="button"
+          className="section-actions__menu"
+          onClick={() => onSelectedSection(sectionId)}
+          aria-label={`Actions for ${title}`}
+        >
+          ...
+        </button>
+      </div>
 
       <div className="checklist-section__empty">
         {items.length === 0 && (

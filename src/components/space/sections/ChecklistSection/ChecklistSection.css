@@ -130,3 +130,45 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.section-actions__move,
+.section-actions__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+.section-actions__move:hover:not(:disabled),
+.section-actions__menu:hover {
+  background: var(--color-surface-secondary);
+}
+
+.section-actions__move:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.section-actions__move:focus-visible,
+.section-actions__menu:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

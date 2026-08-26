@@ -15,6 +15,10 @@ type QuestSectionProps = {
   sectionId: string;
   title: string;
   onSelectedSection: (sectionId: string) => void;
+  onMoveUp: (sectionId: string) => void;
+  onMoveDown: (sectionId: string) => void;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
 };
 
 export default function QuestSection({
@@ -29,17 +33,43 @@ export default function QuestSection({
   sectionId,
   title,
   onSelectedSection,
+  onMoveUp,
+  onMoveDown,
+  canMoveUp,
+  canMoveDown,
 }: QuestSectionProps) {
   return (
     <section>
-      <button
-        type="button"
-        className="quest-section__menu-button"
-        aria-label={`Actions for ${title}`}
-        onClick={() => onSelectedSection(sectionId)}
-      >
-        •••
-      </button>
+      <div className="section-actions">
+        <button
+          type="button"
+          className="section-actions__move"
+          onClick={() => onMoveUp(sectionId)}
+          disabled={!canMoveUp}
+          aria-label={`Move ${title} up`}
+        >
+          ↑
+        </button>
+
+        <button
+          type="button"
+          className="section-actions__move"
+          onClick={() => onMoveDown(sectionId)}
+          disabled={!canMoveDown}
+          aria-label={`Move ${title} down`}
+        >
+          ↓
+        </button>
+
+        <button
+          type="button"
+          className="section-actions__menu"
+          onClick={() => onSelectedSection(sectionId)}
+          aria-label={`Actions for ${title}`}
+        >
+          ...
+        </button>
+      </div>
       <TodaySection
         quests={todayQuests}
         onToggleQuest={onToggleQuest}
