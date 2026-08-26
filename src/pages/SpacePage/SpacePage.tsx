@@ -3,7 +3,6 @@ import { useState } from "react";
 
 // Libraries
 import { Link, useParams } from "react-router-dom";
-import { format } from "date-fns";
 
 // Components
 import SpaceHeader from "../../components/space/SpaceHeader";
@@ -27,6 +26,9 @@ import {
   getCompletedQuests,
   getQuestProgress,
   getQuestsBySpace,
+  getTodayQuests,
+  getUpcomingQuests,
+  getOverdueQuests,
 } from "../../utils/spaceQuestUtils";
 import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
 
@@ -114,19 +116,11 @@ export default function SpacePage({
 
   const activeQuests = getActiveQuests(spaceQuests, questCompletions);
 
-  const today = format(new Date(), "yyyy-MM-dd");
+  const todayActiveQuests = getTodayQuests(activeQuests);
 
-  const todayActiveQuests = activeQuests.filter(
-    (quest) =>
-      quest.scheduledDate !== undefined && quest.scheduledDate === today,
-  );
+  const upcomingActiveQuests = getUpcomingQuests(activeQuests);
 
-  const upcomingActiveQuests = activeQuests.filter(
-    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate > today,
-  );
-  const overdueActiveQuests = activeQuests.filter(
-    (quest) => quest.scheduledDate !== undefined && quest.scheduledDate < today,
-  );
+  const overdueActiveQuests = getOverdueQuests(activeQuests);
 
   const completedQuests = getCompletedQuests(spaceQuests, questCompletions);
 
