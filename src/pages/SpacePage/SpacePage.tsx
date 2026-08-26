@@ -275,8 +275,6 @@ export default function SpacePage({
     setSelectedSection("");
   }
 
-  console.log(currentSpaceSections);
-
   function handleOpenDeleteSection() {
     setIsSectionActionOpen(false);
     setIsDeleteModalOpen(true);
@@ -347,6 +345,10 @@ export default function SpacePage({
     (section) => section.type === "quests",
   );
 
+  const sortedSpaceSections = [...currentSpaceSections].sort(
+    (a, b) => a.position - b.position,
+  );
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -390,7 +392,7 @@ export default function SpacePage({
           description="Add your first section to start building this space."
         />
       ) : (
-        currentSpaceSections.map((section) => {
+        sortedSpaceSections.map((section) => {
           if (section.type === "quests") {
             return (
               <QuestSection
