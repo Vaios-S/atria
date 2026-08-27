@@ -1,20 +1,28 @@
+// React
+import { useState } from "react";
+
+// Libraries
+import { format } from "date-fns";
+
+// Components
 import HomeHeader from "../../components/home/HomeHeader";
 import SpacesSection from "../../components/home/SpacesSection";
-import { useState } from "react";
 import CalendarSection from "../../components/home/CalendarSection";
 import DayDetailsSection from "../../components/home/DayDetailsSection";
 import Modal from "../../components/ui/Modal";
 import SpaceForm from "../../components/home/SpaceForm";
+import ConfirmDialog from "../../components/ui/ConfirmDialog";
+import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
+import QuestForm from "../../components/space/QuestForm";
+
+// Utils / constants
+
+//Types
 import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
 import type { Space } from "../../types/space";
 import type { Quest } from "../../types/quest";
-import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import type { QuestCompletion } from "../../types/questCompletion";
-import QuestForm, {
-  type QuestFormData,
-} from "../../components/space/QuestForm";
-import { format } from "date-fns";
-import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
+import type { QuestFormData } from "../../types/questForm";
 
 type HomePageProps = {
   spaces: Space[];
@@ -34,31 +42,23 @@ export default function HomePage({
   setQuestCompletions,
 }: HomePageProps) {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
-
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
-
   const [editingSpace, setEditingSpace] = useState<Space | undefined>(
     undefined,
   );
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
   const [spaceToDelete, setSpaceToDelete] = useState<Space | undefined>(
     undefined,
   );
-
   const [selectedQuest, setSelectedQuest] = useState<Quest | undefined>(
     undefined,
   );
-
   const [isEditQuestModalOpen, setIsEditQuestModalOpen] = useState(false);
-
   const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
-
   const [isQuestActionsOpen, setIsQuestActionsOpen] = useState(false);
 
+  // Space handlers
   function handleAddSpace(formData: SpaceFormData) {
     const newSpace = {
       id: crypto.randomUUID(),
@@ -75,7 +75,7 @@ export default function HomePage({
     setIsSpaceModalOpen(false);
   }
 
-  function openSpaceModal() {
+  function handleOpenSpaceModal() {
     setIsSpaceModalOpen(true);
   }
 
@@ -131,6 +131,8 @@ export default function HomePage({
     setIsDeleteModalOpen(true);
   }
 
+  // Quest handlers
+
   function handleToggleQuest(questId: string) {
     const completionExists = questCompletions.some(
       (completion) => completion.questId === questId,
@@ -144,7 +146,7 @@ export default function HomePage({
       const newCompletion: QuestCompletion = {
         id: crypto.randomUUID(),
         userId: "user-1",
-        questId: `${questId}`,
+        questId,
         completedAt: new Date().toISOString(),
       };
       setQuestCompletions((prev) => [...prev, newCompletion]);
@@ -226,7 +228,7 @@ export default function HomePage({
         spaces={spaces}
         quests={quests}
         questCompletions={questCompletions}
-        onAddSpace={openSpaceModal}
+        onAddSpace={handleOpenSpaceModal}
         onEditSpace={onEditSpace}
         onDeleteSpace={onDeleteSpace}
       />
