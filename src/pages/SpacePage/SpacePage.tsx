@@ -284,20 +284,11 @@ export default function SpacePage({
   }
 
   function handleSaveSectionTitle() {
-    const sectionToEdit = spaceSections.find(
-      (section) => section.id === selectedSection,
-    );
-
-    if (!sectionToEdit) return;
-
-    const updatedSection = {
-      ...sectionToEdit,
-      title: sectionTitle,
-    };
-
     setSpaceSections((prev) =>
       prev.map((section) =>
-        section.id === selectedSection ? updatedSection : section,
+        section.id === selectedSection
+          ? { ...section, title: sectionTitle }
+          : section,
       ),
     );
     setIsSectionEditOpen(false);

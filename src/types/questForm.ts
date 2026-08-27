@@ -1,3 +1,5 @@
+import type { QuestDifficulty } from "./quest";
+
 export type QuestFormData = {
   title: string;
   description: string;
