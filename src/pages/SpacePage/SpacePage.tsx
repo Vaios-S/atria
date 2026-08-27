@@ -16,9 +16,7 @@ import SectionPicker from "../../components/space/SectionPicker";
 import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
 import NotesSection from "../../components/space/sections/NotesSection";
 import ChecklistSection from "../../components/space/sections/ChecklistSection";
-import QuestForm, {
-  type QuestFormData,
-} from "../../components/space/QuestForm";
+import QuestForm from "../../components/space/QuestForm";
 
 // Utils / constants
 import {
@@ -39,6 +37,7 @@ import type { Space } from "../../types/space";
 import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import type { Note } from "../../types/note";
 import type { ChecklistItem } from "../../types/checklistItem";
+import type { QuestFormData } from "../../types/questForm";
 
 // Styles
 import "./SpacePage.css";

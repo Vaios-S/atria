@@ -5,14 +5,7 @@ import "./QuestForm.css";
 import type { Quest, QuestDifficulty } from "../../../types/quest";
 import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
 import type { Space } from "../../../types/space";
-
-export type QuestFormData = {
-  title: string;
-  description: string;
-  difficulty: QuestDifficulty;
-  scheduledDate: string;
-  spaceId?: string;
-};
+import type { QuestFormData } from "../../../types/questForm";
 
 type QuestFormProps = {
   onSubmit: (formData: QuestFormData) => void;
