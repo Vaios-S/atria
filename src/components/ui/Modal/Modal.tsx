@@ -1,4 +1,5 @@
 import "./Modal.css";
+import { useEffect } from "react";
 import type { ReactNode } from "react";
 
 type ModalProps = {
@@ -12,14 +13,32 @@ export default function Modal({
   isOpen,
   title,
   children,
+
   onClose,
 }: ModalProps) {
-  if (!isOpen) {
-    return null;
-  }
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   return (
-    <div className="modal" role="dialog" aria-modal="true">
+    <div
+      className="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
       <button
         className="modal__backdrop"
         type="button"
@@ -29,11 +48,14 @@ export default function Modal({
 
       <div className="modal__content">
         <header className="modal__header">
-          <h2 className="modal__title">{title}</h2>
+          <h2 id="modal-title" className="modal__title">
+            {title}
+          </h2>
 
           <button
             className="modal__close"
             type="button"
+            tabIndex={-1}
             aria-label="Close modal"
             onClick={onClose}
           >
