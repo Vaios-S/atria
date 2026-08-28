@@ -1,17 +1,19 @@
+// React
 import { useState } from "react";
 import * as React from "react";
+
+// Components
 import Button from "../../ui/Button";
-import type { Space, SpaceCategory } from "../../../types/space";
-import "./SpaceForm.css";
+
+// Utils / constants
 import { SPACE_CATEGORY_LABELS } from "../../../constants/spaceCategories";
 
-export type SpaceFormData = {
-  title: string;
-  description?: string;
-  category: SpaceCategory;
-  icon: string;
-  color: string;
-};
+//Types
+import type { Space, SpaceCategory } from "../../../types/space";
+import type { SpaceFormData } from "../../../types/spaceForm";
+
+//Styles
+import "./SpaceForm.css";
 
 type SpaceFormProps = {
   onSubmit: (formData: SpaceFormData) => void;
@@ -81,9 +83,15 @@ export default function SpaceForm({
           }}
           autoFocus
           autoComplete="off"
+          aria-invalid={Boolean(titleError)}
+          aria-describedby={titleError ? "space-title-error" : undefined}
         />
 
-        {titleError && <p className="space-form__error">{titleError}</p>}
+        {titleError && (
+          <p id="space-title-error" className="space-form__error">
+            {titleError}
+          </p>
+        )}
       </div>
 
       <div className="space-form__field">

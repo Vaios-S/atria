@@ -18,7 +18,7 @@ import QuestForm from "../../components/space/QuestForm";
 // Utils / constants
 
 //Types
-import type { SpaceFormData } from "../../components/home/SpaceForm/SpaceForm";
+import type { SpaceFormData } from "../../types/spaceForm";
 import type { Space } from "../../types/space";
 import type { Quest } from "../../types/quest";
 import type { QuestCompletion } from "../../types/questCompletion";
@@ -132,7 +132,6 @@ export default function HomePage({
   }
 
   // Quest handlers
-
   function handleToggleQuest(questId: string) {
     const completionExists = questCompletions.some(
       (completion) => completion.questId === questId,
