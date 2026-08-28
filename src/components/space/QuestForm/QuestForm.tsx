@@ -1,11 +1,20 @@
+//React
 import { useState } from "react";
 import * as React from "react";
+
+// Components
 import Button from "../../ui/Button";
-import "./QuestForm.css";
-import type { Quest, QuestDifficulty } from "../../../types/quest";
+
+// Utils / constants
 import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
+
+//Types
+import type { Quest, QuestDifficulty } from "../../../types/quest";
 import type { Space } from "../../../types/space";
 import type { QuestFormData } from "../../../types/questForm";
+
+//Styles
+import "./QuestForm.css";
 
 type QuestFormProps = {
   onSubmit: (formData: QuestFormData) => void;
@@ -79,8 +88,14 @@ export default function QuestForm({
           placeholder="What needs to be done?"
           autoComplete="off"
           autoFocus
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? "quest-title-error" : undefined}
         />
-        {error && <p className="quest-form__error">{error}</p>}
+        {error && (
+          <p id="quest-title-error" className="quest-form__error">
+            {error}
+          </p>
+        )}
       </div>
 
       <div className="quest-form__field">
