@@ -32,6 +32,10 @@ export default function Modal({
     };
   }, [isOpen, onClose]);
 
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <div
       className="modal"
@@ -42,6 +46,7 @@ export default function Modal({
       <button
         className="modal__backdrop"
         type="button"
+        tabIndex={-1}
         aria-label="Close modal"
         onClick={onClose}
       />
@@ -55,7 +60,6 @@ export default function Modal({
           <button
             className="modal__close"
             type="button"
-            tabIndex={-1}
             aria-label="Close modal"
             onClick={onClose}
           >
