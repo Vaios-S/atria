@@ -21,7 +21,7 @@ export default function SectionPicker({
       <input
         className="section-picker__input"
         type="text"
-        value={trimmedName}
+        value={nameOfSection}
         onChange={(e) => setNameOfSection(e.target.value)}
         placeholder="Name your section..."
       />

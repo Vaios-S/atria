@@ -95,6 +95,9 @@ export default function ChecklistSection({
               type="checkbox"
               checked={item.completed}
               onChange={() => handleToggleItem(item.id)}
+              aria-label={`Mark ${item.text} as ${
+                item.completed ? "incomplete" : "completed"
+              }`}
             />
             <p
               className={`checklist-section__item-text ${

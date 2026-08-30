@@ -217,10 +217,11 @@ export default function SpacePage({
 
   // Section handlers
   function handleAddSection(type: SpaceSectionType) {
+    const trimmedName = nameOfSection.trim();
     const newSection: SpaceSection = {
       id: crypto.randomUUID(),
       title:
-        nameOfSection.length === 0 ? SPACE_SECTION_LABELS[type] : nameOfSection,
+        trimmedName.length === 0 ? SPACE_SECTION_LABELS[type] : trimmedName,
       spaceId: space?.id,
       type,
       position: currentSpaceSections.length,
