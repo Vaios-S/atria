@@ -1,22 +1,15 @@
 .panel {
-  background: var(--color-surface);
+  position: relative;
 
-  border: var(--border-size) solid var(--color-border);
-
-  border-radius: var(--border-radius-small);
-
-  box-shadow: var(--shadow-pixel);
-
+  width: 100%;
   padding: var(--space-4);
 
-  transition: var(--transition-fast);
-}
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
 
-.panel:hover {
-  transform: translate(-1px, -1px);
-}
+  background-color: var(--color-surface);
 
-.panel:active {
-  transform: translate(2px, 2px);
-  box-shadow: var(--shadow-pixel-small);
+  box-shadow:
+    inset 0 0 0 3px var(--color-bg),
+    4px 4px 0 var(--color-border);
 }
