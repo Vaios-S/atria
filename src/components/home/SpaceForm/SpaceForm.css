@@ -1,7 +1,7 @@
 .space-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-4);
 }
 
 .space-form__header {
@@ -28,42 +28,48 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .space-form__label {
-  color: var(--color-text-primary);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
 
 .space-form__input,
 .space-form__select,
 .space-form__textarea {
   width: 100%;
-  padding: 0.75rem 0.875rem;
-  border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
-  outline: none;
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
+  padding: 0.875rem 1rem;
+
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
   font: inherit;
+  outline: none;
+
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.space-form__input::placeholder {
-  color: var(--color-text-secondary);
+.space-form__input::placeholder,
+.space-form__textarea::placeholder {
+  color: var(--color-text-muted);
 }
 
 .space-form__input:focus,
+.space-form__textarea:focus,
 .space-form__select:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px
-    color-mix(in srgb, var(--color-primary) 15%, transparent);
+    color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
-
 .space-form__input--error {
   border-color: var(--color-danger);
 }
@@ -153,7 +159,18 @@
 .space-form__actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.75rem;
+  gap: var(--space-3);
+
+  padding-top: var(--space-2);
+}
+
+.space-form__textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.space-form__select {
+  cursor: pointer;
 }
 
 @media (max-width: 480px) {
