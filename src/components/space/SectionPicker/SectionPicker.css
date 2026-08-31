@@ -117,3 +117,15 @@
   line-height: 1;
   white-space: nowrap;
 }
+
+.section-picker__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.section-picker__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}

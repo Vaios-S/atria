@@ -4,13 +4,11 @@ import "./QuestActionsMenu.css";
 type QuestActionsMenuProps = {
   onEdit: () => void;
   onDelete: () => void;
-  onClose: () => void;
 };
 
 export default function QuestActionsMenu({
   onEdit,
   onDelete,
-  onClose,
 }: QuestActionsMenuProps) {
   return (
     <section className="quest-actions-menu">

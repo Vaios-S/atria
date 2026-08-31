@@ -549,10 +549,6 @@ export default function SpacePage({
         <QuestActionsMenu
           onEdit={handleEditSection}
           onDelete={handleOpenDeleteSection}
-          onClose={() => {
-            setIsQuestActionsMoadalOpen(false);
-            setSelectedSection("");
-          }}
         />
       </Modal>
 

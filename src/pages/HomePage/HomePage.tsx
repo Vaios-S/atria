@@ -350,10 +350,6 @@ export default function HomePage({
         <QuestActionsMenu
           onEdit={handleOpenEditQuest}
           onDelete={handleOpenDeleteQuest}
-          onClose={() => {
-            setIsQuestActionsMoadalOpen(false);
-            setSelectedQuest(undefined);
-          }}
         />
       </Modal>
     </>

@@ -14,17 +14,22 @@ export default function SectionPicker({
   nameOfSection,
   hasQuestSection,
 }: SectionPickerProps) {
-  const trimmedName = nameOfSection.trim();
-
   return (
     <section className="section-picker">
-      <input
-        className="section-picker__input"
-        type="text"
-        value={nameOfSection}
-        onChange={(e) => setNameOfSection(e.target.value)}
-        placeholder="Name your section..."
-      />
+      <div className="section-picker__field">
+        <label htmlFor="section-name" className="section-picker__label">
+          Section name
+        </label>
+
+        <input
+          id="section-name"
+          className="section-picker__input"
+          type="text"
+          value={nameOfSection}
+          onChange={(e) => setNameOfSection(e.target.value)}
+          placeholder="e.g. Packing list"
+        />
+      </div>
       <div className="section-picker__options">
         <button
           type="button"
