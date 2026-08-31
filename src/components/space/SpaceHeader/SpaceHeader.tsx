@@ -1,7 +1,18 @@
-import "./SpaceHeader.css";
+// React
+
+// Libraries
+
+// Components
 import Panel from "../../ui/Panel";
 import ProgressBar from "../../ui/ProgressBar";
+
+// Utils / constants
+
+//Types
 import type { Space } from "../../../types/space";
+
+//Styles
+import "./SpaceHeader.css";
 
 type SpaceHeaderProps = {
   space: Space;

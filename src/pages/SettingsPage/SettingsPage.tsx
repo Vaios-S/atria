@@ -1,7 +1,18 @@
+// React
+
+// Libraries
+
+// Components
 import SettingsHeader from "../../components/settings/SettingsHeader";
 import SettingsItem from "../../components/settings/SettingsItem";
-import "./SettingsPage.css";
 import AppInfo from "../../components/settings/AppInfo";
+
+// Utils / constants
+
+//Types
+
+//Styles
+import "./SettingsPage.css";
 
 export default function SettingsPage() {
   return (

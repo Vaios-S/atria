@@ -2,10 +2,12 @@
   /* Colors */
   --color-bg: #f4efc7;
   --color-surface: #fff8d8;
+  --color-surface-secondary: #f4efc7;
   --color-surface-dark: #d8d29f;
 
   --color-text: #25291c;
   --color-text-muted: #686b4e;
+  --color-text-light: #fff8d8;
 
   --color-primary: #4d7c3f;
   --color-primary-dark: #31562c;
@@ -21,8 +23,9 @@
 
   /* Borders */
   --border-size: 3px;
-  --border-radius-small: 2px;
-  --border-radius-medium: 4px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 
   /* Pixel shadows */
   --shadow-pixel:

@@ -37,7 +37,7 @@
 
 .space-header__subtitle {
   margin: 0;
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 }
 
 .space-header__progress {
@@ -52,5 +52,5 @@
   align-items: center;
 
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 }

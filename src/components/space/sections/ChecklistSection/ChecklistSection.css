@@ -17,12 +17,6 @@
   font-weight: 600;
 }
 
-.checklist-section__list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .checklist-section__item {
   display: flex;
   align-items: center;
@@ -84,10 +78,6 @@
   gap: 1rem;
 }
 
-.checklist-section__title {
-  margin: 0;
-}
-
 .checklist-section__progress {
   margin: 0;
 
@@ -100,35 +90,6 @@
 .checklist-section__item-text--completed {
   text-decoration: line-through;
   opacity: 0.55;
-}
-
-.checklist-section__menu-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-
-  border: none;
-  border-radius: 0.5rem;
-
-  background: transparent;
-  color: inherit;
-
-  font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.checklist-section__menu-button:hover {
-  background: var(--color-surface-secondary);
-}
-
-.checklist-section__menu-button:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
 }
 
 .section-actions {

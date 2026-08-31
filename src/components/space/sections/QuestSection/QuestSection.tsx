@@ -1,6 +1,17 @@
-import type { Quest } from "../../../../types/quest";
-import "./QuestSection.css";
+// React
+
+// Libraries
+
+// Components
+
+// Utils / constants
 import { QUEST_DIFFICULTY_LABELS } from "../../../../constants/questDifficulties";
+
+//Types
+import type { Quest } from "../../../../types/quest";
+
+//Styles
+import "./QuestSection.css";
 
 type QuestSectionProps = {
   todayQuests: Quest[];

@@ -1,7 +1,18 @@
-import "./CompletedSection.css";
-import type { Quest } from "../../../types/quest";
+// React
+
+// Libraries
+
+// Components
 import EmptyState from "../../ui/EmptyState";
 import Button from "../../ui/Button";
+
+// Utils / constants
+
+//Types
+import type { Quest } from "../../../types/quest";
+
+//Styles
+import "./CompletedSection.css";
 
 type CompletedSectionProps = {
   quests: Quest[];

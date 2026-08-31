@@ -1,4 +1,10 @@
-import "./AppInfo.css";
+// React
+
+// Libraries
+
+// Components
+
+// Utils / constants
 import {
   APP_NAME,
   APP_TAGLINE,
@@ -6,6 +12,11 @@ import {
   APP_AUTHOR,
   APP_MOTO,
 } from "../../../constants/app";
+
+//Types
+
+//Styles
+import "./AppInfo.css";
 
 export default function AppInfo() {
   return (

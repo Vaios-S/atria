@@ -1,6 +1,17 @@
+// React
 import { useState } from "react";
-import type { ChecklistItem } from "../../../../types/checklistItem";
+
+// Libraries
+
+// Components
 import Button from "../../../ui/Button";
+
+// Utils / constants
+
+//Types
+import type { ChecklistItem } from "../../../../types/checklistItem";
+
+//Styles
 import "./ChecklistSection.css";
 
 type ChecklistSectionProps = {
@@ -122,6 +133,7 @@ export default function ChecklistSection({
             type="text"
             value={listItem}
             onChange={(e) => setListItem(e.target.value)}
+            aria-label="Add new checklist item"
           />
           <Button variant="primary" onClick={handleSubmitItem}>
             + Add Item

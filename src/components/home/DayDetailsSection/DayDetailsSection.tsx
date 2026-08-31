@@ -1,12 +1,23 @@
-import "./DayDetailsSection.css";
+// React
+
+// Libraries
+import { format } from "date-fns";
+import { Link } from "react-router-dom";
+
+// Components
+import EmptyState from "../../ui/EmptyState";
+import Button from "../../ui/Button";
+
+// Utils / constants
+import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
+
+//Types
 import type { Quest } from "../../../types/quest";
 import type { Space } from "../../../types/space";
 import type { QuestCompletion } from "../../../types/questCompletion";
-import EmptyState from "../../ui/EmptyState";
-import Button from "../../ui/Button";
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
-import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
+
+//Styles
+import "./DayDetailsSection.css";
 
 type DayDetailsSectionProps = {
   selectedDate: Date;
@@ -82,6 +93,9 @@ export default function DayDetailsSection({
                   type="checkbox"
                   checked={isCompleted}
                   onChange={() => onToggleQuest(quest.id)}
+                  aria-label={`Mark ${quest.title} as ${
+                    isCompleted ? "incomplete" : "completed"
+                  }`}
                 />
 
                 <p className="day-details__quest-title">{quest.title}</p>

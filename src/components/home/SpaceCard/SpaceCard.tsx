@@ -1,6 +1,17 @@
-import "./SpaceCard.css";
-import type { Space } from "../../../types/space";
+// React
+
+// Libraries
 import { Link } from "react-router-dom";
+
+// Components
+
+// Utils / constants
+
+//Types
+import type { Space } from "../../../types/space";
+
+//Styles
+import "./SpaceCard.css";
 
 type SpaceCardProps = {
   space: Space;

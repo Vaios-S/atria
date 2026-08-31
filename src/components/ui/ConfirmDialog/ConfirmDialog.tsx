@@ -1,5 +1,16 @@
-import "./ConfirmDialog.css";
+// React
+
+// Libraries
+
+// Components
 import Button from "../Button";
+
+// Utils / constants
+
+//Types
+
+//Styles
+import "./ConfirmDialog.css";
 
 type ConfirmDialogProps = {
   title: string;

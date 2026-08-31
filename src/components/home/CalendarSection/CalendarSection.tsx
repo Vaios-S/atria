@@ -1,4 +1,6 @@
-import "./CalendarSection.css";
+// React
+
+// Libraries
 import {
   startOfMonth,
   endOfMonth,
@@ -11,7 +13,16 @@ import {
   isToday,
   isWeekend,
 } from "date-fns";
+
+// Components
+
+// Utils / constants
+
+//Types
 import type { Quest } from "../../../types/quest";
+
+//Styles
+import "./CalendarSection.css";
 
 type CalendarSectionProps = {
   selectedDate: Date;

@@ -169,24 +169,9 @@
   flex: 1;
 }
 
-.quest-section__item-title {
-  margin: 0;
-
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
 .quest-section__item-meta {
   font-size: 0.7rem;
   color: var(--color-text-muted);
-}
-
-.quest-section__item-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-
-  flex-shrink: 0;
 }
 
 .quest-section__item--completed {

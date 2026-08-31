@@ -80,7 +80,7 @@
 
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: var(--color-text);
 }
 
 .calendar-section__nav-button {
@@ -96,7 +96,7 @@
   border-radius: 0.5rem;
 
   background: transparent;
-  color: var(--color-text-primary);
+  color: var(--color-text);
 
   font-size: 1rem;
 
@@ -151,7 +151,7 @@
   border-radius: 0.5rem;
 
   background: transparent;
-  color: var(--color-text-primary);
+  color: var(--color-text);
 
   font-size: 0.8rem;
   font-weight: 600;

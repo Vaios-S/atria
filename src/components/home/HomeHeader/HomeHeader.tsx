@@ -1,6 +1,17 @@
-import "./HomeHeader.css";
-import ProgressBar from "../../ui/ProgressBar";
+// React
+
+// Libraries
 import { getDayOfYear, getDaysInYear, getYear } from "date-fns";
+
+// Components
+import ProgressBar from "../../ui/ProgressBar";
+
+// Utils / constants
+
+//Types
+
+//Styles
+import "./HomeHeader.css";
 
 export default function HomeHeader() {
   const today = new Date();

@@ -1,6 +1,17 @@
+// React
 import { useState } from "react";
-import type { Note } from "../../../../types/note";
+
+// Libraries
+
+// Components
 import Button from "../../../ui/Button";
+
+// Utils / constants
+
+//Types
+import type { Note } from "../../../../types/note";
+
+//Styles
 import "./NotesSection.css";
 
 type NotesSectionProps = {

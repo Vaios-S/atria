@@ -77,6 +77,11 @@
   gap: var(--space-4);
 }
 
+.modal__close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 @media (min-width: 768px) {
   .modal {
     place-items: center;

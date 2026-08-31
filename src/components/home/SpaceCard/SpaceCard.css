@@ -62,7 +62,7 @@
 
   overflow: hidden;
 
-  color: var(--color-text-primary);
+  color: var(--color-text);
 
   font-size: 1rem;
   font-weight: 700;
@@ -74,7 +74,7 @@
 .space-card__quests {
   margin: 0.25rem 0 0;
 
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 
   font-size: 0.8rem;
 }
@@ -89,7 +89,7 @@
   display: flex;
   justify-content: space-between;
 
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 
   font-size: 0.75rem;
 }
@@ -124,7 +124,7 @@
   border-radius: 0.5rem;
 
   background-color: var(--color-surface);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 
   font: inherit;
   font-size: 0.7rem;

@@ -1,4 +1,15 @@
+// React
+
+// Libraries
+
+// Components
+
+// Utils / constants
+
+//Types
 import type { SpaceSectionType } from "../../../types/spaceSection";
+
+//Styles
 import "./SectionPicker.css";
 
 type SectionPickerProps = {

@@ -1,4 +1,15 @@
+// React
+
+// Libraries
+
+// Components
 import Button from "../Button";
+
+// Utils / constants
+
+//Types
+
+//Styles
 import "./QuestActionsMenu.css";
 
 type QuestActionsMenuProps = {

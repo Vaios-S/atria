@@ -1,4 +1,15 @@
+// React
+
+// Libraries
 import { NavLink } from "react-router-dom";
+
+// Components
+
+// Utils / constants
+
+//Types
+
+//Styles
 import "./MainNavBar.css";
 
 export default function MainNavbar() {

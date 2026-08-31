@@ -1,5 +1,16 @@
-import "./EmptyState.css";
+// React
 import type { ReactNode } from "react";
+
+// Libraries
+
+// Components
+
+// Utils / constants
+
+//Types
+
+//Styles
+import "./EmptyState.css";
 
 type EmptyStateProps = {
   icon: string;
