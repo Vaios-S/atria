@@ -92,10 +92,11 @@ export default function SpacePage({
   );
   const [isSectionPickerOpen, setIsSectionPickerOpen] = useState(false);
   const [nameOfSection, setNameOfSection] = useState("");
-  const [isSectionActionOpen, setIsSectionActionOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState("");
   const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
   const [sectionTitle, setSectionTitle] = useState("");
+  const [isQuestActionsMoadalOpen, setIsQuestActionsMoadalOpen] =
+    useState(false);
 
   // current space
   const space = spaces.find((space) => space.id === id);
@@ -234,11 +235,11 @@ export default function SpacePage({
 
   function onSelectedSection(sectionId: string) {
     setSelectedSection(sectionId);
-    setIsSectionActionOpen(true);
+    setIsQuestActionsMoadalOpen(true);
   }
 
   function handleOpenDeleteSection() {
-    setIsSectionActionOpen(false);
+    setIsQuestActionsMoadalOpen(false);
     setIsDeleteSectionModalOpen(true);
   }
 
@@ -267,7 +268,7 @@ export default function SpacePage({
     setNotes((prev) =>
       prev.filter((note) => note.sectionId !== selectedSection),
     );
-    setIsSectionActionOpen(false);
+    setIsQuestActionsMoadalOpen(false);
     setIsDeleteSectionModalOpen(false);
     setSelectedSection("");
   }
@@ -280,7 +281,7 @@ export default function SpacePage({
     if (!sectionToEdit) return;
 
     setSectionTitle(sectionToEdit.title);
-    setIsSectionActionOpen(false);
+    setIsQuestActionsMoadalOpen(false);
     setIsSectionEditOpen(true);
   }
 
@@ -538,16 +539,24 @@ export default function SpacePage({
         />
       </Modal>
 
-      {isSectionActionOpen && selectedSection && (
+      <Modal
+        isOpen={isQuestActionsMoadalOpen}
+        title="Quest Actions"
+        onClose={() => {
+          setIsQuestActionsMoadalOpen(false);
+          setSelectedSection("");
+        }}
+      >
         <QuestActionsMenu
           onEdit={handleEditSection}
           onDelete={handleOpenDeleteSection}
           onClose={() => {
-            setIsSectionActionOpen(false);
+            setIsQuestActionsMoadalOpen(false);
             setSelectedSection("");
           }}
         />
-      )}
+      </Modal>
+
       <Modal
         isOpen={isDeleteSectionModalOpen}
         title="Delete Section"
