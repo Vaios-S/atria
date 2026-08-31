@@ -56,7 +56,8 @@ export default function HomePage({
   );
   const [isEditQuestModalOpen, setIsEditQuestModalOpen] = useState(false);
   const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
-  const [isQuestActionsOpen, setIsQuestActionsOpen] = useState(false);
+  const [isQuestActionsMoadalOpen, setIsQuestActionsMoadalOpen] =
+    useState(false);
 
   // Space handlers
   function handleAddSpace(formData: SpaceFormData) {
@@ -170,20 +171,20 @@ export default function HomePage({
 
   function onSelectedQuest(quest: Quest) {
     setSelectedQuest(quest);
-    setIsQuestActionsOpen(true);
+    setIsQuestActionsMoadalOpen(true);
   }
 
   function handleOpenEditQuest() {
     if (!selectedQuest) return;
 
-    setIsQuestActionsOpen(false);
+    setIsQuestActionsMoadalOpen(false);
     setIsEditQuestModalOpen(true);
   }
 
   function handleOpenDeleteQuest() {
     if (!selectedQuest) return;
 
-    setIsQuestActionsOpen(false);
+    setIsQuestActionsMoadalOpen(false);
     setIsDeleteQuestModalOpen(true);
   }
 
@@ -338,16 +339,23 @@ export default function HomePage({
         />
       </Modal>
 
-      {isQuestActionsOpen && selectedQuest && (
+      <Modal
+        isOpen={isQuestActionsMoadalOpen}
+        title="Quest Actions"
+        onClose={() => {
+          setIsQuestActionsMoadalOpen(false);
+          setSelectedQuest(undefined);
+        }}
+      >
         <QuestActionsMenu
           onEdit={handleOpenEditQuest}
           onDelete={handleOpenDeleteQuest}
           onClose={() => {
-            setIsQuestActionsOpen(false);
+            setIsQuestActionsMoadalOpen(false);
             setSelectedQuest(undefined);
           }}
         />
-      )}
+      </Modal>
     </>
   );
 }
