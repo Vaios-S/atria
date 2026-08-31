@@ -394,7 +394,6 @@ export default function SpacePage({
       <Link to="/" className="space-page__back-link">
         ← Back
       </Link>
-      <Button onClick={onAddQuest}>Add Quest</Button>
       <SpaceHeader
         space={space}
         activeQuests={activeQuests.length}
