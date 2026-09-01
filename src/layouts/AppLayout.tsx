@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 // Components
 import MainNavbar from "../components/ui/MainNavBar/MainNavBar.tsx";
-import SpaceNavBar from "../components/ui/SpaceNavBar.tsx";
+import SpaceNavBar from "../components/unused/SpaceNavBar.tsx";
 
 // Utils / constants
 
