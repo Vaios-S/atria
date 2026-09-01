@@ -223,7 +223,7 @@ export default function SpacePage({
       id: crypto.randomUUID(),
       title:
         trimmedName.length === 0 ? SPACE_SECTION_LABELS[type] : trimmedName,
-      spaceId: space?.id,
+      spaceId: spaceId,
       type,
       position: currentSpaceSections.length,
       createdAt: new Date().toISOString(),

@@ -10,11 +10,11 @@ export type SpaceCategory =
 
 export type Space = {
   id: string;
-  userId: string;
+  createdBy: string;
   title: string;
   description?: string;
   category: SpaceCategory;
-  createdAt: string;
-  color?: string;
+  color: string;
   icon: string;
+  createdAt: string;
 };

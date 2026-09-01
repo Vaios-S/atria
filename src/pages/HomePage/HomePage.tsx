@@ -63,7 +63,7 @@ export default function HomePage({
   function handleAddSpace(formData: SpaceFormData) {
     const newSpace = {
       id: crypto.randomUUID(),
-      userId: "user-1",
+      createdBy: "user-1",
       title: formData.title,
       description: formData.description,
       category: formData.category,
