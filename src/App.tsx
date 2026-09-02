@@ -11,6 +11,9 @@ import SpacePage from "./pages/SpacePage/SpacePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.tsx";
 import LoginPage from "./pages/LoginPage/LoginPage.tsx";
 import SignupPage from "./pages/SignupPage";
+import AppLayout from "./layouts/AppLayout.tsx";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import PublicOnlyRoute from "./components/auth/PublicOnlyRoute";
 
 // Utils / constants / data
 import { mockSpaces } from "./data/mockSpaces.ts";
@@ -24,9 +27,6 @@ import { mockNotes } from "./data/mockNotes.ts";
 
 //Styles
 
-import AppLayout from "./layouts/AppLayout.tsx";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-
 function App() {
   const [spaces, setSpaces] = useState(mockSpaces);
   const [quests, setQuests] = useState(mockQuests);
@@ -39,8 +39,23 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/signup"
+          element={
+            <PublicOnlyRoute>
+              <SignupPage />
+            </PublicOnlyRoute>
+          }
+        />
+
+        <Route
+          path="/login"
+          element={
+            <PublicOnlyRoute>
+              <LoginPage />
+            </PublicOnlyRoute>
+          }
+        />
 
         <Route
           element={
