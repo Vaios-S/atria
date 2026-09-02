@@ -10,6 +10,7 @@ import SettingsPage from "./pages/SettingsPage/SettingsPage.tsx";
 import SpacePage from "./pages/SpacePage/SpacePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.tsx";
 import MainNavbar from "./components/ui/MainNavBar/MainNavBar.tsx";
+import LoginPage from "./pages/LoginPage/LoginPage.tsx";
 
 // Utils / constants / data
 import { mockSpaces } from "./data/mockSpaces.ts";
@@ -35,6 +36,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route
           path="/"
           element={
