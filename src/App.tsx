@@ -19,6 +19,7 @@ import { mockQuestCompletions } from "./data/mockQuestCompletions.ts";
 import { mockSpaceSections } from "./data/mockSpaceSections.ts";
 import { mockChecklistItems } from "./data/mockChecklistItems.ts";
 import { mockNotes } from "./data/mockNotes.ts";
+import SignupPage from "./pages/SignupPage/index.ts";
 
 //Types
 
@@ -36,6 +37,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/"
