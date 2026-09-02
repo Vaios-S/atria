@@ -12,3 +12,28 @@
   flex-direction: column;
   gap: 0.75rem;
 }
+
+.settings-page__sign-out {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-size) solid var(--color-danger);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-danger);
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.settings-page__sign-out:hover {
+  background-color: var(--color-danger);
+  color: var(--color-text-light);
+}
+
+.settings-page__sign-out:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}

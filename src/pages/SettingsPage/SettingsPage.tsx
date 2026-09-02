@@ -1,6 +1,7 @@
 // React
 
 // Libraries
+import { supabase } from "../../lib/supabase";
 
 // Components
 import SettingsHeader from "../../components/settings/SettingsHeader";
@@ -15,6 +16,13 @@ import AppInfo from "../../components/settings/AppInfo";
 import "./SettingsPage.css";
 
 export default function SettingsPage() {
+  const handleSignOut = async () => {
+    const result = await supabase.auth.signOut();
+
+    if (result.error) {
+      console.error(result.error.message);
+    }
+  };
   return (
     <>
       <div className="app-container">
@@ -51,6 +59,13 @@ export default function SettingsPage() {
               description="Version and app information."
             />
           </section>
+          <button
+            className="settings-page__sign-out"
+            type="button"
+            onClick={handleSignOut}
+          >
+            Sign out
+          </button>
           <AppInfo />
         </main>
       </div>
