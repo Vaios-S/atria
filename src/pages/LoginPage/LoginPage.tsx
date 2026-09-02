@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // Libraries
 import { supabase } from "../../lib/supabase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Components
 
@@ -19,13 +19,22 @@ export default function LoginPage() {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
   const handleLogin = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    setError(result.error?.message || null);
+
+    if (result.error) {
+      setError(result.error.message);
+      return;
+    }
+
+    setError(null);
+    navigate("/");
   };
 
   return (

@@ -8,7 +8,7 @@ type ProtectedRouteProps = {
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user, loading } = useAuth();
 
-  if (!loading) {
+  if (loading) {
     return <h1>Loading...</h1>;
   }
 

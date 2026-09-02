@@ -10,7 +10,7 @@ import SettingsPage from "./pages/SettingsPage/SettingsPage.tsx";
 import SpacePage from "./pages/SpacePage/SpacePage.tsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.tsx";
 import LoginPage from "./pages/LoginPage/LoginPage.tsx";
-import SignupPage from "./pages/SignupPage/index.ts";
+import SignupPage from "./pages/SignupPage";
 
 // Utils / constants / data
 import { mockSpaces } from "./data/mockSpaces.ts";
@@ -25,7 +25,7 @@ import { mockNotes } from "./data/mockNotes.ts";
 //Styles
 
 import AppLayout from "./layouts/AppLayout.tsx";
-import ProtectedRoute from "./components/auth/ProtectedRoute/ProtectedRoute.tsx";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const [spaces, setSpaces] = useState(mockSpaces);
