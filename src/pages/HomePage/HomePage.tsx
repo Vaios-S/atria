@@ -1,5 +1,5 @@
 // React
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 //Hooks
 import useAuth from "../../hooks/useAuth";
@@ -64,6 +64,34 @@ export default function HomePage({
   const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
   const [isQuestActionsMoadalOpen, setIsQuestActionsMoadalOpen] =
     useState(false);
+
+  useEffect(() => {
+    async function fetchSpaces() {
+      if (!user) return;
+      const result = await supabase
+        .from("spaces")
+        .select("*")
+        .eq("created_by", user.id)
+        .order("created_at", { ascending: true });
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+      const fetchedSpaces: Space[] = result.data.map((space) => ({
+        id: space.id,
+        createdBy: space.created_by,
+        title: space.title,
+        description: space.description ?? undefined,
+        category: space.category,
+        color: space.color,
+        icon: space.icon,
+        createdAt: space.created_at,
+      }));
+      setSpaces(fetchedSpaces);
+    }
+    fetchSpaces();
+  }, [user]);
 
   // Space handlers
   async function handleAddSpace(formData: SpaceFormData) {
