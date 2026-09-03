@@ -1,8 +1,12 @@
 // React
 import { useState } from "react";
 
+//Hooks
+import useAuth from "../../hooks/useAuth";
+
 // Libraries
 import { format } from "date-fns";
+import { supabase } from "../../lib/supabase";
 
 // Components
 import HomeHeader from "../../components/home/HomeHeader";
@@ -41,6 +45,8 @@ export default function HomePage({
   questCompletions,
   setQuestCompletions,
 }: HomePageProps) {
+  const { user } = useAuth();
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isSpaceModalOpen, setIsSpaceModalOpen] = useState(false);
   const [isQuestModalOpen, setIsQuestModalOpen] = useState(false);
@@ -60,16 +66,36 @@ export default function HomePage({
     useState(false);
 
   // Space handlers
-  function handleAddSpace(formData: SpaceFormData) {
-    const newSpace = {
-      id: crypto.randomUUID(),
-      createdBy: "user-1",
-      title: formData.title,
-      description: formData.description,
-      category: formData.category,
-      createdAt: new Date().toISOString(),
-      color: formData.color,
-      icon: formData.icon,
+  async function handleAddSpace(formData: SpaceFormData) {
+    if (!user) return;
+
+    const result = await supabase
+      .from("spaces")
+      .insert({
+        created_by: user.id,
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        color: formData.color,
+        icon: formData.icon,
+      })
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    const newSpace: Space = {
+      id: result.data.id,
+      createdBy: result.data.created_by,
+      title: result.data.title,
+      description: result.data.description ?? undefined,
+      category: result.data.category,
+      color: result.data.color,
+      icon: result.data.icon,
+      createdAt: result.data.created_at,
     };
 
     setSpaces((prev) => [...prev, newSpace]);
