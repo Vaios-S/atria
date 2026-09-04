@@ -239,16 +239,36 @@ export default function HomePage({
     }
   }
 
-  function handleAddQuest(formData: QuestFormData) {
+  async function handleAddQuest(formData: QuestFormData) {
+    if (!user) return;
+
+    const result = await supabase
+      .from("quests")
+      .insert({
+        user_id: user.id,
+        space_id: formData.spaceId ?? null,
+        title: formData.title,
+        description: formData.description || null,
+        difficulty: formData.difficulty,
+        scheduled_date: formData.scheduledDate ?? null,
+      })
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     const newQuest: Quest = {
-      id: crypto.randomUUID(),
-      userId: "user-1",
-      spaceId: formData.spaceId ?? undefined,
-      title: formData.title,
-      description: formData.description,
-      difficulty: formData.difficulty,
-      scheduledDate: formData.scheduledDate,
-      createdAt: new Date().toISOString(),
+      id: result.data.id,
+      userId: result.data.user_id,
+      spaceId: result.data.space_id ?? undefined,
+      title: result.data.title,
+      description: result.data.description ?? undefined,
+      difficulty: result.data.difficulty,
+      scheduledDate: result.data.scheduled_date ?? undefined,
+      createdAt: result.data.created_at,
     };
     setQuests((prev) => [...prev, newQuest]);
 
