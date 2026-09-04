@@ -134,15 +134,36 @@ export default function HomePage({
     setIsSpaceModalOpen(true);
   }
 
-  function handleUpdateSpace(formData: SpaceFormData) {
+  async function handleUpdateSpace(formData: SpaceFormData) {
     if (!editingSpace) return;
-    const updatedSpace = {
-      ...editingSpace,
-      title: formData.title,
-      description: formData.description,
-      category: formData.category,
-      icon: formData.icon,
-      color: formData.color,
+
+    const result = await supabase
+      .from("spaces")
+      .update({
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        color: formData.color,
+        icon: formData.icon,
+      })
+      .eq("id", editingSpace.id)
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    const updatedSpace: Space = {
+      id: result.data.id,
+      createdBy: result.data.created_by,
+      title: result.data.title,
+      description: result.data.description ?? undefined,
+      category: result.data.category,
+      color: result.data.color,
+      icon: result.data.icon,
+      createdAt: result.data.created_at,
     };
 
     setSpaces((prev) =>
