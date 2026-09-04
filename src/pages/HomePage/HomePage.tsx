@@ -180,8 +180,19 @@ export default function HomePage({
     setIsSpaceModalOpen(true);
   }
 
-  function handleDeleteSpace() {
+  async function handleDeleteSpace() {
     if (!spaceToDelete) return;
+
+    const result = await supabase
+      .from("spaces")
+      .delete()
+      .eq("id", spaceToDelete.id);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     const questsIdsToDelete = quests
       .filter((quest) => quest.spaceId === spaceToDelete.id)
       .map((quest) => quest.id);
