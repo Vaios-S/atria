@@ -365,8 +365,18 @@ export default function HomePage({
     setSelectedQuest(undefined);
   }
 
-  function handleDeleteQuest() {
+  async function handleDeleteQuest() {
     if (!selectedQuest) return;
+
+    const result = await supabase
+      .from("quests")
+      .delete()
+      .eq("id", selectedQuest.id);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
 
     setQuests((prev) => prev.filter((quest) => quest.id !== selectedQuest.id));
 
