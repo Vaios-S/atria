@@ -93,6 +93,37 @@ export default function HomePage({
     fetchSpaces();
   }, [user]);
 
+  useEffect(() => {
+    async function fetchQuests() {
+      if (!user) return;
+
+      const result = await supabase
+        .from("quests")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true });
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const fetchedQuests: Quest[] = result.data.map((quest) => ({
+        id: quest.id,
+        userId: quest.user_id,
+        spaceId: quest.space_id ?? undefined,
+        title: quest.title,
+        description: quest.description ?? undefined,
+        difficulty: quest.difficulty,
+        scheduledDate: quest.scheduled_date ?? undefined,
+        createdAt: quest.created_at,
+      }));
+      setQuests(fetchedQuests);
+    }
+
+    fetchQuests();
+  }, [user]);
+
   // Space handlers
   async function handleAddSpace(formData: SpaceFormData) {
     if (!user) return;
