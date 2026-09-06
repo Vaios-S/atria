@@ -1,3 +1,7 @@
+// Types
+import type { SpaceColor } from "../constants/spaceColors";
+import type { SpaceIcon } from "../constants/spaceIcons";
+
 export type SpaceCategory =
   | "personal"
   | "work"
@@ -14,7 +18,7 @@ export type Space = {
   title: string;
   description?: string;
   category: SpaceCategory;
-  color: string;
-  icon: string;
+  color: SpaceColor;
+  icon: SpaceIcon;
   createdAt: string;
 };

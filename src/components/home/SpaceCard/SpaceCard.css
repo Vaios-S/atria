@@ -47,10 +47,11 @@
 
   flex-shrink: 0;
   place-items: center;
+}
 
-  border-radius: 0.75rem;
-
-  font-size: 1.25rem;
+.space-card__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .space-card__info {

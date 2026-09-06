@@ -9,20 +9,18 @@
   align-items: center;
   gap: 1rem;
 }
-
 .space-header__icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  display: grid;
   width: 4rem;
   height: 4rem;
 
-  border-radius: 1rem;
+  flex-shrink: 0;
+  place-items: center;
+}
 
-  font-size: 2rem;
-
-  background: var(--color-surface);
+.space-header__icon svg {
+  width: 2rem;
+  height: 2rem;
 }
 
 .space-header__content {

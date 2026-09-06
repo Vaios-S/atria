@@ -1,6 +1,5 @@
 // React
 import { useState } from "react";
-import * as React from "react";
 
 // Libraries
 
@@ -9,10 +8,14 @@ import Button from "../../ui/Button";
 
 // Utils / constants
 import { SPACE_CATEGORY_LABELS } from "../../../constants/spaceCategories";
+import { SPACE_COLORS } from "../../../constants/spaceColors";
+import { SPACE_ICONS } from "../../../constants/spaceIcons";
 
 //Types
 import type { Space, SpaceCategory } from "../../../types/space";
 import type { SpaceFormData } from "../../../types/spaceForm";
+import type { SpaceColor } from "../../../constants/spaceColors";
+import type { SpaceIcon } from "../../../constants/spaceIcons";
 
 //Styles
 import "./SpaceForm.css";
@@ -37,8 +40,11 @@ export default function SpaceForm({
   const [category, setCategory] = useState<SpaceCategory>(
     initialValues?.category ?? "personal",
   );
-  const [icon, setIcon] = useState(initialValues?.icon ?? "🌿");
-  const [color, setColor] = useState(initialValues?.color ?? "#7c8f73");
+  const [icon, setIcon] = useState<SpaceIcon>(initialValues?.icon ?? "home");
+
+  const [color, setColor] = useState<SpaceColor>(
+    initialValues?.color ?? "#4D7C3F",
+  );
 
   const [titleError, setTitleError] = useState("");
 
@@ -60,6 +66,9 @@ export default function SpaceForm({
       color,
     });
   }
+
+  const selectedIcon = SPACE_ICONS.find((item) => item.id === icon);
+  const SelectedIcon = selectedIcon?.icon;
 
   return (
     <form className="space-form" onSubmit={handleSubmit}>
@@ -131,47 +140,50 @@ export default function SpaceForm({
         </select>
       </div>
 
-      <div className="space-form__row">
-        <div className="space-form__field">
-          <label className="space-form__label" htmlFor="space-icon">
-            Icon
-          </label>
+      <div className="space-form__field">
+        <p className="space-form__label">Icon</p>
 
-          <input
-            className="space-form__input space-form__input--icon"
-            id="space-icon"
-            type="text"
-            value={icon}
-            maxLength={2}
-            onChange={(event) => setIcon(event.target.value.slice(0, 2))}
-          />
+        <div className="space-form__icon-picker">
+          {SPACE_ICONS.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              className={`space-form__icon-option ${
+                icon === id ? "space-form__icon-option--selected" : ""
+              }`}
+              type="button"
+              onClick={() => setIcon(id)}
+              aria-label={label}
+              aria-pressed={icon === id}
+            >
+              <Icon aria-hidden="true" />
+            </button>
+          ))}
         </div>
+      </div>
 
-        <div className="space-form__field">
-          <label className="space-form__label" htmlFor="space-color">
-            Color
-          </label>
+      <div className="space-form__field">
+        <p className="space-form__label">Color</p>
 
-          <div className="space-form__color-control">
-            <input
-              className="space-form__color-input"
-              id="space-color"
-              type="color"
-              value={color}
-              onChange={(event) => setColor(event.target.value)}
+        <div className="space-form__color-picker">
+          {SPACE_COLORS.map(({ label, value }) => (
+            <button
+              key={value}
+              className={`space-form__color-option ${
+                color === value ? "space-form__color-option--selected" : ""
+              }`}
+              type="button"
+              onClick={() => setColor(value)}
+              aria-label={label}
+              aria-pressed={color === value}
+              style={{ backgroundColor: value }}
             />
-
-            <span className="space-form__color-value">{color}</span>
-          </div>
+          ))}
         </div>
       </div>
 
       <div className="space-form__preview">
-        <span
-          className="space-form__preview-icon"
-          style={{ backgroundColor: color }}
-        >
-          {icon || "✨"}
+        <span className="space-form__preview-icon" style={{ color }}>
+          {SelectedIcon && <SelectedIcon aria-hidden="true" />}
         </span>
 
         <div>

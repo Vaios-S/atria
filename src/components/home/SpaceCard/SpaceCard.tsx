@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 // Components
 
 // Utils / constants
+import { SPACE_ICONS } from "../../../constants/spaceIcons";
 
 //Types
 import type { Space } from "../../../types/space";
@@ -28,18 +29,17 @@ export default function SpaceCard({
   onEdit,
   onDelete,
 }: SpaceCardProps) {
+  const selectedIcon = SPACE_ICONS.find((item) => item.id === space.icon);
+  const Icon = selectedIcon?.icon;
+
   return (
     <>
       <article className="space-card">
         <Link to={`/space/${space.id}`} className="space-card__link">
           <div className="space-card__header">
-            <div
-              className="space-card__icon"
-              style={{ backgroundColor: space.color }}
-            >
-              {space.icon}
+            <div className="space-card__icon" style={{ color: space.color }}>
+              {Icon && <Icon aria-hidden="true" />}
             </div>
-
             <div className="space-card__info">
               <h2 className="space-card__title">{space.title}</h2>
               <p className="space-card__quests">{activeQuests} Active Quests</p>

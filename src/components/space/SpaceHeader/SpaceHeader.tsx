@@ -7,6 +7,7 @@ import Panel from "../../ui/Panel";
 import ProgressBar from "../../ui/ProgressBar";
 
 // Utils / constants
+import { SPACE_ICONS } from "../../../constants/spaceIcons";
 
 //Types
 import type { Space } from "../../../types/space";
@@ -24,11 +25,16 @@ export default function SpaceHeader({
   activeQuests,
   progress,
 }: SpaceHeaderProps) {
+  const selectedIcon = SPACE_ICONS.find((item) => item.id === space.icon);
+  const Icon = selectedIcon?.icon;
+
   return (
     <Panel className="space-header">
       <header className="space-header">
         <div className="space-header__top">
-          <div className="space-header__icon">{space.icon}</div>
+          <div className="space-header__icon" style={{ color: space.color }}>
+            {Icon && <Icon aria-hidden="true" />}
+          </div>
 
           <div className="space-header__content">
             <h1 className="space-header__title">{space.title}</h1>
