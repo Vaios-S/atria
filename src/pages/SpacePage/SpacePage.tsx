@@ -189,6 +189,35 @@ export default function SpacePage({
     fetchCompletedQuests();
   }, [user]);
 
+  useEffect(() => {
+    async function fetchSpaceSections() {
+      if (!user || !id) return;
+
+      const result = await supabase
+        .from("space_section")
+        .select("*")
+        .eq("space_id", id)
+        .order("position", { ascending: true });
+
+      if (result.error) {
+        console.error("error4", result.error.message);
+        return;
+      }
+
+      const fetchedspaceSections = result.data.map((section) => ({
+        id: section.id,
+        title: section.title,
+        spaceId: section.space_id,
+        type: section.type,
+        position: section.position,
+        createdAt: section.created_at,
+      }));
+      setSpaceSections(fetchedspaceSections);
+    }
+    fetchSpaceSections();
+    console.log(spaceSections);
+  }, [user, id]);
+
   // current space
   const space = spaces.find((space) => space.id === id);
 
@@ -332,16 +361,35 @@ export default function SpacePage({
   }
 
   // Section handlers
-  function handleAddSection(type: SpaceSectionType) {
+  async function handleAddSection(type: SpaceSectionType) {
+    if (!user) return;
+    if (!spaceId) return;
     const trimmedName = nameOfSection.trim();
+
+    const result = await supabase
+      .from("space_section")
+      .insert({
+        title:
+          trimmedName.length === 0 ? SPACE_SECTION_LABELS[type] : trimmedName,
+        space_id: spaceId,
+        type,
+        position: currentSpaceSections.length,
+      })
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     const newSection: SpaceSection = {
-      id: crypto.randomUUID(),
-      title:
-        trimmedName.length === 0 ? SPACE_SECTION_LABELS[type] : trimmedName,
-      spaceId: spaceId,
-      type,
-      position: currentSpaceSections.length,
-      createdAt: new Date().toISOString(),
+      id: result.data.id,
+      title: result.data.title,
+      spaceId: result.data.space_id,
+      type: result.data.type,
+      position: result.data.position,
+      createdAt: result.data.created_at,
     };
     setSpaceSections((prev) => [...prev, newSection]);
     setIsSectionPickerOpen(false);
