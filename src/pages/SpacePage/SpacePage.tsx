@@ -103,6 +103,65 @@ export default function SpacePage({
     useState(false);
 
   useEffect(() => {
+    async function fetchSpaces() {
+      if (!user) return;
+      const result = await supabase
+        .from("spaces")
+        .select("*")
+        .eq("created_by", user.id)
+        .order("created_at", { ascending: true });
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+      const fetchedSpaces: Space[] = result.data.map((space) => ({
+        id: space.id,
+        createdBy: space.created_by,
+        title: space.title,
+        description: space.description ?? undefined,
+        category: space.category,
+        color: space.color,
+        icon: space.icon,
+        createdAt: space.created_at,
+      }));
+      setSpaces(fetchedSpaces);
+    }
+    fetchSpaces();
+  }, [user]);
+
+  useEffect(() => {
+    async function fetchQuests() {
+      if (!user) return;
+
+      const result = await supabase
+        .from("quests")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true });
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const fetchedQuests: Quest[] = result.data.map((quest) => ({
+        id: quest.id,
+        userId: quest.user_id,
+        spaceId: quest.space_id ?? undefined,
+        title: quest.title,
+        description: quest.description ?? undefined,
+        difficulty: quest.difficulty,
+        scheduledDate: quest.scheduled_date ?? undefined,
+        createdAt: quest.created_at,
+      }));
+      setQuests(fetchedQuests);
+    }
+
+    fetchQuests();
+  }, [user]);
+
+  useEffect(() => {
     async function fetchCompletedQuests() {
       if (!user) return;
 
