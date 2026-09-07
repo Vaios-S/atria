@@ -11,7 +11,6 @@ import Button from "../../ui/Button";
 // Utils / constants
 import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
 import { SPACE_ICONS } from "../../../constants/spaceIcons";
-import { SPACE_COLORS } from "../../../constants/spaceColors";
 
 //Types
 import type { Quest } from "../../../types/quest";

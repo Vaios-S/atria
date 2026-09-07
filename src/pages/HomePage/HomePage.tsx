@@ -124,6 +124,34 @@ export default function HomePage({
     fetchQuests();
   }, [user]);
 
+  useEffect(() => {
+    async function fetchCompletedQuests() {
+      if (!user) return;
+
+      const result = await supabase
+        .from("quest_completions")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("completed_at", { ascending: true });
+
+      if (result.error) {
+        console.error("error3", result.error.message);
+        return;
+      }
+
+      const fetchedCompletedQuests: QuestCompletion[] = result.data.map(
+        (completion) => ({
+          id: completion.id,
+          questId: completion.quest_id,
+          userId: completion.user_id,
+          completedAt: completion.completed_at,
+        }),
+      );
+      setQuestCompletions(fetchedCompletedQuests);
+    }
+    fetchCompletedQuests();
+  }, [user]);
+
   // Space handlers
   async function handleAddSpace(formData: SpaceFormData) {
     if (!user) return;
@@ -250,21 +278,45 @@ export default function HomePage({
   }
 
   // Quest handlers
-  function handleToggleQuest(questId: string) {
+  async function handleToggleQuest(questId: string) {
+    if (!user) return;
+
     const completionExists = questCompletions.some(
       (completion) => completion.questId === questId,
     );
 
     if (completionExists) {
+      const result = await supabase
+        .from("quest_completions")
+        .delete()
+        .eq("quest_id", questId)
+        .eq("user_id", user.id);
+
+      if (result.error) {
+        console.error("error1", result.error.message);
+        return;
+      }
+
       setQuestCompletions((prev) =>
         prev.filter((completion) => completion.questId !== questId),
       );
     } else {
+      const result = await supabase
+        .from("quest_completions")
+        .insert({ quest_id: questId, user_id: user.id })
+        .select()
+        .single();
+
+      if (result.error) {
+        console.error("error2", result.error.message);
+        return;
+      }
+
       const newCompletion: QuestCompletion = {
-        id: crypto.randomUUID(),
-        userId: "user-1",
-        questId,
-        completedAt: new Date().toISOString(),
+        id: result.data.id,
+        userId: result.data.user_id,
+        questId: result.data.quest_id,
+        completedAt: result.data.completed_at,
       };
       setQuestCompletions((prev) => [...prev, newCompletion]);
     }
