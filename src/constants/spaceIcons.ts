@@ -37,9 +37,11 @@ import {
   Users,
   Utensils,
   Wallet,
+  Sword,
 } from "lucide-react";
 
 export const SPACE_ICONS = [
+  { id: "sword", label: "Sword", icon: Sword },
   { id: "home", label: "Home", icon: House },
   { id: "users", label: "Family & Friends", icon: Users },
   { id: "heart", label: "Relationships", icon: Heart },

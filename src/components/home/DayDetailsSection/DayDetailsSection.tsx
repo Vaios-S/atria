@@ -10,6 +10,8 @@ import Button from "../../ui/Button";
 
 // Utils / constants
 import { QUEST_DIFFICULTY_LABELS } from "../../../constants/questDifficulties";
+import { SPACE_ICONS } from "../../../constants/spaceIcons";
+import { SPACE_COLORS } from "../../../constants/spaceColors";
 
 //Types
 import type { Quest } from "../../../types/quest";
@@ -76,6 +78,12 @@ export default function DayDetailsSection({
               (completion) => completion.questId === quest.id,
             );
 
+            const selectedIcon = SPACE_ICONS.find(
+              (i) => i.id === questSpace?.icon,
+            );
+
+            const Icon = selectedIcon?.icon;
+
             return (
               <div key={quest.id} className="day-details__item">
                 {questSpace ? (
@@ -83,7 +91,10 @@ export default function DayDetailsSection({
                     to={`/space/${quest.spaceId}`}
                     className="day-details__space-link"
                   >
-                    {questSpace.icon} {questSpace.title}
+                    <span style={{ color: questSpace.color }}>
+                      {Icon && <Icon aria-hidden="true" />}
+                    </span>{" "}
+                    {questSpace.title}
                   </Link>
                 ) : (
                   <span className="day-details__space">📜 General</span>
