@@ -367,19 +367,42 @@ export default function SpacePage({
     setIsQuestModalOpen(false);
   }
 
-  function handleUpdateQuest(formData: QuestFormData) {
+  async function handleUpdateQuest(formData: QuestFormData) {
     if (!editingQuest) return;
 
+    const result = await supabase
+      .from("quests")
+      .update({
+        title: formData.title,
+        description: formData.description || null,
+        difficulty: formData.difficulty,
+        scheduled_date: formData.scheduledDate ?? null,
+        space_id: formData.spaceId ?? null,
+      })
+      .eq("id", editingQuest.id)
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     const updatedQuest: Quest = {
-      ...editingQuest,
-      title: formData.title,
-      description: formData.description,
-      difficulty: formData.difficulty,
-      scheduledDate: formData.scheduledDate,
+      id: result.data.id,
+      userId: result.data.user_id,
+      spaceId: result.data.space_id ?? undefined,
+      title: result.data.title,
+      description: result.data.description ?? undefined,
+      difficulty: result.data.difficulty,
+      scheduledDate: result.data.scheduled_date ?? undefined,
+      createdAt: result.data.created_at,
     };
+
     setQuests((prev) =>
       prev.map((q) => (q.id === editingQuest.id ? updatedQuest : q)),
     );
+
     setIsQuestModalOpen(false);
     setEditingQuest(undefined);
   }
