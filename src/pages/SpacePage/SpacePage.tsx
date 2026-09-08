@@ -305,8 +305,18 @@ export default function SpacePage({
     setIsDeleteQuestModalOpen(true);
   }
 
-  function handleDeleteQuest() {
+  async function handleDeleteQuest() {
     if (!questToDelete) return;
+
+    const result = await supabase
+      .from("quests")
+      .delete()
+      .eq("id", questToDelete.id);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
 
     setQuests((prev) => prev.filter((quest) => quest.id !== questToDelete.id));
     setQuestCompletions((prev) =>
