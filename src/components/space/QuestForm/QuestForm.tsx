@@ -25,6 +25,7 @@ type QuestFormProps = {
   submitLabel?: string;
   spaces?: Space[];
   initialDate?: string;
+  spaceId?: string;
 };
 
 export default function QuestForm({
@@ -34,6 +35,7 @@ export default function QuestForm({
   submitLabel,
   spaces,
   initialDate,
+  spaceId,
 }: QuestFormProps) {
   const [title, setTitle] = useState(initialValues?.title ?? "");
   const [description, setDescription] = useState(
@@ -49,7 +51,9 @@ export default function QuestForm({
   );
   const [error, setError] = useState("");
 
-  const [spaceId, setSpaceId] = useState(initialValues?.spaceId ?? "");
+  const [selectedSpaceId, setSelectedSpaceId] = useState(
+    initialValues?.spaceId ?? undefined,
+  );
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -66,7 +70,7 @@ export default function QuestForm({
       description: description.trim(),
       difficulty,
       scheduledDate,
-      spaceId: spaceId || undefined,
+      spaceId: spaceId ?? selectedSpaceId,
     });
   }
 
@@ -116,7 +120,7 @@ export default function QuestForm({
         />
       </div>
 
-      {spaces && (
+      {!spaceId && spaces && (
         <div className="quest-form__field">
           <label className="quest-form__label" htmlFor="quest-space">
             Space
@@ -126,8 +130,8 @@ export default function QuestForm({
             className="quest-form__select"
             id="quest-space"
             name="spaceId"
-            value={spaceId}
-            onChange={(event) => setSpaceId(event.target.value)}
+            value={selectedSpaceId}
+            onChange={(event) => setSelectedSpaceId(event.target.value)}
           >
             <option value="">General</option>
 
