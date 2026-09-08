@@ -75,6 +75,8 @@ function App() {
                 setQuests={setQuests}
                 questCompletions={questCompletions}
                 setQuestCompletions={setQuestCompletions}
+                spaceSections={spaceSections}
+                setSpaceSections={setSpaceSections}
               />
             }
           />

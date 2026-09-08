@@ -27,14 +27,21 @@ import type { Space } from "../../types/space";
 import type { Quest } from "../../types/quest";
 import type { QuestCompletion } from "../../types/questCompletion";
 import type { QuestFormData } from "../../types/questForm";
+import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
+import type { SpaceSection } from "../../types/spaceSection";
 
 type HomePageProps = {
   spaces: Space[];
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
+
   quests: Quest[];
   setQuests: React.Dispatch<React.SetStateAction<Quest[]>>;
+
   questCompletions: QuestCompletion[];
   setQuestCompletions: React.Dispatch<React.SetStateAction<QuestCompletion[]>>;
+
+  spaceSections: SpaceSection[];
+  setSpaceSections: React.Dispatch<React.SetStateAction<SpaceSection[]>>;
 };
 
 export default function HomePage({
@@ -44,6 +51,8 @@ export default function HomePage({
   setQuests,
   questCompletions,
   setQuestCompletions,
+  spaceSections,
+  setSpaceSections,
 }: HomePageProps) {
   const { user } = useAuth();
 
@@ -324,6 +333,45 @@ export default function HomePage({
 
   async function handleAddQuest(formData: QuestFormData) {
     if (!user) return;
+
+    if (formData.spaceId) {
+      const spaceId = formData.spaceId;
+
+      const currentSpaceSections = spaceSections.filter(
+        (section) => section.spaceId === spaceId,
+      );
+
+      const hasQuestSection = currentSpaceSections.some(
+        (section) => section.type === "quests",
+      );
+
+      if (!hasQuestSection) {
+        const result = await supabase
+          .from("space_section")
+          .insert({
+            title: SPACE_SECTION_LABELS["quests"],
+            space_id: spaceId,
+            type: "quests",
+            position: currentSpaceSections.length,
+          })
+          .select()
+          .single();
+
+        if (result.error) {
+          console.error(result.error.message);
+          return;
+        }
+        const newSection: SpaceSection = {
+          id: result.data.id,
+          title: result.data.title,
+          spaceId: result.data.space_id,
+          type: result.data.type,
+          position: result.data.position,
+          createdAt: result.data.created_at,
+        };
+        setSpaceSections((prev) => [...prev, newSection]);
+      }
+    }
 
     const result = await supabase
       .from("quests")
