@@ -500,12 +500,35 @@ export default function SpacePage({
     setIsSectionEditOpen(true);
   }
 
-  function handleSaveSectionTitle() {
+  async function handleSaveSectionTitle() {
+    if (!selectedSection) return;
+
+    const result = await supabase
+      .from("space_section")
+      .update({
+        title: sectionTitle,
+      })
+      .eq("id", selectedSection)
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    const updatedSection: SpaceSection = {
+      id: result.data.id,
+      title: result.data.title,
+      spaceId: result.data.space_id,
+      type: result.data.type,
+      position: result.data.position,
+      createdAt: result.data.created_at,
+    };
+
     setSpaceSections((prev) =>
       prev.map((section) =>
-        section.id === selectedSection
-          ? { ...section, title: sectionTitle }
-          : section,
+        section.id === updatedSection.id ? updatedSection : section,
       ),
     );
     setIsSectionEditOpen(false);
