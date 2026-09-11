@@ -125,6 +125,7 @@ export default function CalendarSection({
                   ? "1 quest"
                   : `${dayQuests.length} quests`
               }`}
+              aria-current={isToday(day) ? "date" : undefined}
             >
               {hasQuest && (
                 <span
