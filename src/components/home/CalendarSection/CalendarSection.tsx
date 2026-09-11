@@ -109,6 +109,7 @@ export default function CalendarSection({
 
           return (
             <button
+              type="button"
               disabled={isSameDay(day, selectedDate)}
               key={day.toISOString()}
               className={`calendar-section__day ${
