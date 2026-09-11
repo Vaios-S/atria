@@ -145,6 +145,10 @@
   transform: translateX(-50%);
 }
 
+.calendar-section__day--selected .calendar-section__quest-indicator {
+  background-color: var(--color-text-light);
+}
+
 .calendar-section__day--weekend {
   opacity: 0.65;
 }
