@@ -534,28 +534,55 @@ export default function SpacePage({
     setSectionTitle("");
   }
 
-  function handleMoveSection(sectionId: string, direction: "up" | "down") {
+  async function handleMoveSection(
+    sectionId: string,
+    direction: "up" | "down",
+  ) {
+    const currentSections = spaceSections
+      .filter((section) => section.spaceId === spaceId)
+      .sort((a, b) => a.position - b.position);
+
+    const currentIndex = currentSections.findIndex(
+      (section) => section.id === sectionId,
+    );
+
+    if (currentIndex === -1) return;
+
+    const targetIndex =
+      direction === "up" ? currentIndex - 1 : currentIndex + 1;
+
+    if (targetIndex < 0 || targetIndex >= currentSections.length) return;
+    const currentSection = currentSections[currentIndex];
+    const targetSection = currentSections[targetIndex];
+
+    console.log(currentSection);
+    console.log(targetSection);
+
+    const result = await supabase
+      .from("space_section")
+      .update({ position: targetSection.position })
+      .eq("id", currentSection.id)
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    const result2 = await supabase
+      .from("space_section")
+      .update({ position: currentSection.position })
+      .eq("id", targetSection.id)
+      .select()
+      .single();
+
+    if (result2.error) {
+      console.error(result2.error.message);
+      return;
+    }
+
     setSpaceSections((prev) => {
-      const currentSections = prev
-        .filter((section) => section.spaceId === spaceId)
-        .sort((a, b) => a.position - b.position);
-
-      const currentIndex = currentSections.findIndex(
-        (section) => section.id === sectionId,
-      );
-
-      if (currentIndex === -1) return prev;
-
-      const targetIndex =
-        direction === "up" ? currentIndex - 1 : currentIndex + 1;
-
-      if (targetIndex < 0 || targetIndex >= currentSections.length) {
-        return prev;
-      }
-
-      const currentSection = currentSections[currentIndex];
-      const targetSection = currentSections[targetIndex];
-
       return prev.map((section) => {
         if (section.id === currentSection.id) {
           return {
