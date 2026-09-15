@@ -458,7 +458,19 @@ export default function SpacePage({
     setIsDeleteSectionModalOpen(true);
   }
 
-  function handleDeleteSection() {
+  async function handleDeleteSection() {
+    if (!user) return;
+
+    const result = await supabase
+      .from("space_section")
+      .delete()
+      .eq("id", selectedSection);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     setSpaceSections((prev) => {
       const sectionsAfterDelete = prev.filter(
         (section) => section.id !== selectedSection,
