@@ -471,24 +471,10 @@ export default function SpacePage({
       return;
     }
 
-    setSpaceSections((prev) => {
-      const sectionsAfterDelete = prev.filter(
-        (section) => section.id !== selectedSection,
-      );
+    setSpaceSections((prev) =>
+      prev.filter((section) => section.id !== selectedSection),
+    );
 
-      const otherSpaceSections = sectionsAfterDelete.filter(
-        (section) => section.spaceId !== spaceId,
-      );
-
-      const normalizedCurrentSections = sectionsAfterDelete
-        .filter((section) => section.spaceId === spaceId)
-        .sort((a, b) => a.position - b.position)
-        .map((section, index) => ({
-          ...section,
-          position: index,
-        }));
-      return [...otherSpaceSections, ...normalizedCurrentSections];
-    });
     setChecklistItems((prev) =>
       prev.filter((item) => item.sectionId !== selectedSection),
     );
