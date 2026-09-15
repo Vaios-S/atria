@@ -461,6 +461,25 @@ export default function SpacePage({
   async function handleDeleteSection() {
     if (!user) return;
 
+    const currentSection = spaceSections.find(
+      (section) => section.id === selectedSection,
+    );
+    if (!currentSection) return;
+
+    if (currentSection.type === "quests") {
+      const result = await supabase
+        .from("quests")
+        .delete()
+        .eq("space_id", spaceId);
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      setQuests((prev) => prev.filter((quest) => quest.spaceId !== spaceId));
+    }
+
     const result = await supabase
       .from("space_section")
       .delete()
@@ -554,9 +573,6 @@ export default function SpacePage({
     if (targetIndex < 0 || targetIndex >= currentSections.length) return;
     const currentSection = currentSections[currentIndex];
     const targetSection = currentSections[targetIndex];
-
-    console.log(currentSection);
-    console.log(targetSection);
 
     const result = await supabase
       .from("space_section")
