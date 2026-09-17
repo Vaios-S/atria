@@ -217,6 +217,30 @@ export default function SpacePage({
     fetchSpaceSections();
   }, [user, id]);
 
+  useEffect(() => {
+    async function fetchChecklistItems() {
+      if (!user) return;
+      const result = await supabase.from("checklist_items").select("*");
+
+      console.log("checklist result:", result);
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const fetchedChecklistItems = result.data.map((item) => ({
+        id: item.id,
+        sectionId: item.section_id,
+        text: item.text,
+        completed: item.completed,
+        createdAt: item.created_at,
+      }));
+      setChecklistItems(fetchedChecklistItems);
+    }
+    fetchChecklistItems();
+  }, [user]);
+
   // current space
   const space = spaces.find((space) => space.id === id);
 

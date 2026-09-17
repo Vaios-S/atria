@@ -16,7 +16,6 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PublicOnlyRoute from "./components/auth/PublicOnlyRoute";
 
 // Utils / constants / data
-import { mockChecklistItems } from "./data/mockChecklistItems.ts";
 import { mockNotes } from "./data/mockNotes.ts";
 
 //Types
@@ -24,6 +23,7 @@ import type { Space } from "./types/space.ts";
 import type { Quest } from "./types/quest.ts";
 import type { QuestCompletion } from "./types/questCompletion.ts";
 import type { SpaceSection } from "./types/spaceSection.ts";
+import type { ChecklistItem } from "./types/checklistItem.ts";
 
 //Styles
 
@@ -34,7 +34,7 @@ function App() {
     [],
   );
   const [spaceSections, setSpaceSections] = useState<SpaceSection[]>([]);
-  const [checklistItems, setChecklistItems] = useState(mockChecklistItems);
+  const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([]);
   const [notes, setNotes] = useState(mockNotes);
 
   return (
