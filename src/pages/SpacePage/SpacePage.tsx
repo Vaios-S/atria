@@ -690,7 +690,21 @@ export default function SpacePage({
     );
   }
 
-  function handleDeleteItem(itemId: string) {
+  async function handleDeleteItem(itemId: string) {
+    const item = checklistItems.find((item) => item.id === itemId);
+
+    if (!item) return;
+
+    const result = await supabase
+      .from("checklist_items")
+      .delete()
+      .eq("id", itemId);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     setChecklistItems((prev) => prev.filter((item) => item.id !== itemId));
   }
 
