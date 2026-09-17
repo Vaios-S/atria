@@ -220,7 +220,10 @@ export default function SpacePage({
   useEffect(() => {
     async function fetchChecklistItems() {
       if (!user) return;
-      const result = await supabase.from("checklist_items").select("*");
+      const result = await supabase
+        .from("checklist_items")
+        .select("*")
+        .order("created_at", { ascending: true });
 
       if (result.error) {
         console.error(result.error.message);
@@ -665,7 +668,21 @@ export default function SpacePage({
     setChecklistItems((prev) => [...prev, newItem]);
   }
 
-  function handleToggleItem(itemId: string) {
+  async function handleToggleItem(itemId: string) {
+    const item = checklistItems.find((item) => item.id === itemId);
+
+    if (!item) return;
+
+    const result = await supabase
+      .from("checklist_items")
+      .update({ completed: !item.completed })
+      .eq("id", itemId);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     setChecklistItems((prev) =>
       prev.map((item) =>
         item.id === itemId ? { ...item, completed: !item.completed } : item,
