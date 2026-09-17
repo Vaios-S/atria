@@ -222,8 +222,6 @@ export default function SpacePage({
       if (!user) return;
       const result = await supabase.from("checklist_items").select("*");
 
-      console.log("checklist result:", result);
-
       if (result.error) {
         console.error(result.error.message);
         return;
@@ -644,13 +642,24 @@ export default function SpacePage({
   }
 
   // Checklist handlers
-  function handleAddItem(sectionId: string, text: string) {
+  async function handleAddItem(sectionId: string, text: string) {
+    const result = await supabase
+      .from("checklist_items")
+      .insert({ section_id: sectionId, text, completed: false })
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
     const newItem: ChecklistItem = {
-      id: crypto.randomUUID(),
-      sectionId,
-      text,
-      completed: false,
-      createdAt: new Date().toISOString(),
+      id: result.data.id,
+      sectionId: result.data.section_id,
+      text: result.data.text,
+      completed: result.data.completed,
+      createdAt: result.data.created_at,
     };
 
     setChecklistItems((prev) => [...prev, newItem]);
