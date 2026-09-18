@@ -242,6 +242,29 @@ export default function SpacePage({
     fetchChecklistItems();
   }, [user]);
 
+  useEffect(() => {
+    async function fetchNotes() {
+      if (!user) return;
+
+      const result = await supabase.from("notes").select("*");
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const fetchedNotes = result.data.map((note) => ({
+        id: note.id,
+        sectionId: note.section_id,
+        content: note.content,
+        createdAt: note.created_at,
+        updatedAt: note.updated_at,
+      }));
+      setNotes(fetchedNotes);
+    }
+    fetchNotes();
+  }, [user]);
+
   // current space
   const space = spaces.find((space) => space.id === id);
 
