@@ -732,27 +732,63 @@ export default function SpacePage({
   }
 
   // Notes handlers
-  function onSaveNote(sectionId: string, content: string) {
-    const newNote = {
-      id: crypto.randomUUID(),
-      sectionId,
-      content,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+  async function onSaveNote(sectionId: string, content: string) {
+    const existingNote = notes.find((note) => note.sectionId === sectionId);
+
+    if (existingNote) {
+      const result = await supabase
+        .from("notes")
+        .update({
+          content,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("section_id", sectionId)
+        .select()
+        .single();
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const updatedNote: Note = {
+        id: result.data.id,
+        sectionId: result.data.section_id,
+        content: result.data.content,
+        createdAt: result.data.created_at,
+        updatedAt: result.data.updated_at,
+      };
+
+      setNotes((prev) =>
+        prev.map((note) => (note.sectionId === sectionId ? updatedNote : note)),
+      );
+
+      return;
+    }
+
+    const result = await supabase
+      .from("notes")
+      .insert({
+        section_id: sectionId,
+        content,
+      })
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    const newNote: Note = {
+      id: result.data.id,
+      sectionId: result.data.section_id,
+      content: result.data.content,
+      createdAt: result.data.created_at,
+      updatedAt: result.data.updated_at,
     };
 
-    setNotes((prev) => {
-      const existingNote = prev.find((note) => note.sectionId === sectionId);
-
-      if (!existingNote) {
-        return [...prev, newNote];
-      }
-      return prev.map((note) =>
-        note.sectionId === sectionId
-          ? { ...note, content: content, updatedAt: new Date().toISOString() }
-          : note,
-      );
-    });
+    setNotes((prev) => [...prev, newNote]);
   }
 
   return (
