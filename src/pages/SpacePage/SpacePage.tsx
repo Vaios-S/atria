@@ -837,9 +837,11 @@ export default function SpacePage({
         completed={completedQuests.length}
       />
 
-      <Button onClick={() => setIsSectionPickerOpen(true)}>
-        + Add Section
-      </Button>
+      {isOwner && (
+        <Button onClick={() => setIsSectionPickerOpen(true)}>
+          + Add Section
+        </Button>
+      )}
 
       <Modal
         isOpen={isSectionPickerOpen}

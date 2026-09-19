@@ -29,6 +29,7 @@ type QuestSectionProps = {
   onMoveDown: (sectionId: string) => void;
   canMoveUp: boolean;
   canMoveDown: boolean;
+  canEdit: boolean;
 };
 
 export default function QuestSection({
@@ -47,6 +48,7 @@ export default function QuestSection({
   onMoveDown,
   canMoveUp,
   canMoveDown,
+  canEdit,
 }: QuestSectionProps) {
   function renderQuestList(quests: Quest[], completed = false) {
     if (quests.length === 0) {
@@ -65,6 +67,7 @@ export default function QuestSection({
             <input
               type="checkbox"
               checked={completed}
+              disabled={!canEdit}
               onChange={() => onToggleQuest(quest.id)}
               aria-label={`Mark ${quest.title} as ${
                 completed ? "active" : "completed"
@@ -86,26 +89,27 @@ export default function QuestSection({
                 </p>
               )}
             </div>
+            {canEdit && (
+              <div className="quest-section__item-actions">
+                <button
+                  type="button"
+                  className="quest-section__item-action"
+                  onClick={() => onEditQuest(quest)}
+                  aria-label={`Edit ${quest.title}`}
+                >
+                  Edit
+                </button>
 
-            <div className="quest-section__item-actions">
-              <button
-                type="button"
-                className="quest-section__item-action"
-                onClick={() => onEditQuest(quest)}
-                aria-label={`Edit ${quest.title}`}
-              >
-                Edit
-              </button>
-
-              <button
-                type="button"
-                className="quest-section__item-action quest-section__item-action--danger"
-                onClick={() => onDeleteQuest(quest)}
-                aria-label={`Delete ${quest.title}`}
-              >
-                ×
-              </button>
-            </div>
+                <button
+                  type="button"
+                  className="quest-section__item-action quest-section__item-action--danger"
+                  onClick={() => onDeleteQuest(quest)}
+                  aria-label={`Delete ${quest.title}`}
+                >
+                  ×
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -114,50 +118,54 @@ export default function QuestSection({
 
   return (
     <section className="quest-section">
-      <div className="quest-section__header">
-        <div>
-          <h2 className="quest-section__title">{title}</h2>
-          <p className="quest-section__subtitle">Plan and track your quests.</p>
+      {canEdit && (
+        <div className="quest-section__header">
+          <div>
+            <h2 className="quest-section__title">{title}</h2>
+            <p className="quest-section__subtitle">
+              Plan and track your quests.
+            </p>
+          </div>
+
+          <div className="quest-section__header-actions">
+            <button
+              type="button"
+              className="quest-section__add-button"
+              onClick={onAddQuest}
+            >
+              + Add
+            </button>
+            <button
+              type="button"
+              className="quest-section__move-button"
+              onClick={() => onMoveUp(sectionId)}
+              disabled={!canMoveUp}
+              aria-label={`Move ${title} up`}
+            >
+              ↑
+            </button>
+
+            <button
+              type="button"
+              className="quest-section__move-button"
+              onClick={() => onMoveDown(sectionId)}
+              disabled={!canMoveDown}
+              aria-label={`Move ${title} down`}
+            >
+              ↓
+            </button>
+
+            <button
+              type="button"
+              className="quest-section__menu-button"
+              onClick={() => onSelectedSection(sectionId)}
+              aria-label={`Actions for ${title}`}
+            >
+              ...
+            </button>
+          </div>
         </div>
-
-        <div className="quest-section__header-actions">
-          <button
-            type="button"
-            className="quest-section__add-button"
-            onClick={onAddQuest}
-          >
-            + Add
-          </button>
-          <button
-            type="button"
-            className="quest-section__move-button"
-            onClick={() => onMoveUp(sectionId)}
-            disabled={!canMoveUp}
-            aria-label={`Move ${title} up`}
-          >
-            ↑
-          </button>
-
-          <button
-            type="button"
-            className="quest-section__move-button"
-            onClick={() => onMoveDown(sectionId)}
-            disabled={!canMoveDown}
-            aria-label={`Move ${title} down`}
-          >
-            ↓
-          </button>
-
-          <button
-            type="button"
-            className="quest-section__menu-button"
-            onClick={() => onSelectedSection(sectionId)}
-            aria-label={`Actions for ${title}`}
-          >
-            ...
-          </button>
-        </div>
-      </div>
+      )}
 
       <div className="quest-section__groups">
         <div className="quest-section__group">

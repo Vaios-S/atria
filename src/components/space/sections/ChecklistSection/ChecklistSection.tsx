@@ -26,6 +26,7 @@ type ChecklistSectionProps = {
   onMoveDown: (sectionId: string) => void;
   canMoveUp: boolean;
   canMoveDown: boolean;
+  canEdit: boolean;
 };
 
 export default function ChecklistSection({
@@ -40,6 +41,7 @@ export default function ChecklistSection({
   onMoveDown,
   canMoveUp,
   canMoveDown,
+  canEdit,
 }: ChecklistSectionProps) {
   const [listItem, setListItem] = useState("");
   function handleSubmitItem() {
@@ -61,38 +63,38 @@ export default function ChecklistSection({
           {completedItems.length} of {items.length} completed
         </p>
       )}
+      {canEdit && (
+        <div className="section-actions">
+          <button
+            type="button"
+            className="section-actions__move"
+            onClick={() => onMoveUp(sectionId)}
+            disabled={!canMoveUp}
+            aria-label={`Move ${title} up`}
+          >
+            ↑
+          </button>
 
-      <div className="section-actions">
-        <button
-          type="button"
-          className="section-actions__move"
-          onClick={() => onMoveUp(sectionId)}
-          disabled={!canMoveUp}
-          aria-label={`Move ${title} up`}
-        >
-          ↑
-        </button>
+          <button
+            type="button"
+            className="section-actions__move"
+            onClick={() => onMoveDown(sectionId)}
+            disabled={!canMoveDown}
+            aria-label={`Move ${title} down`}
+          >
+            ↓
+          </button>
 
-        <button
-          type="button"
-          className="section-actions__move"
-          onClick={() => onMoveDown(sectionId)}
-          disabled={!canMoveDown}
-          aria-label={`Move ${title} down`}
-        >
-          ↓
-        </button>
-
-        <button
-          type="button"
-          className="section-actions__menu"
-          onClick={() => onSelectedSection(sectionId)}
-          aria-label={`Actions for ${title}`}
-        >
-          ...
-        </button>
-      </div>
-
+          <button
+            type="button"
+            className="section-actions__menu"
+            onClick={() => onSelectedSection(sectionId)}
+            aria-label={`Actions for ${title}`}
+          >
+            ...
+          </button>
+        </div>
+      )}
       <div className="checklist-section__empty">
         {items.length === 0 && (
           <p className="checklist-section__empty-text">
@@ -105,6 +107,7 @@ export default function ChecklistSection({
             <input
               type="checkbox"
               checked={item.completed}
+              disabled={!canEdit}
               onChange={() => handleToggleItem(item.id)}
               aria-label={`Mark ${item.text} as ${
                 item.completed ? "incomplete" : "completed"
@@ -117,28 +120,31 @@ export default function ChecklistSection({
             >
               {item.text}
             </p>
-            <button
-              type="button"
-              className="checklist-section__delete"
-              onClick={() => handleDeleteItem(item.id)}
-              aria-label={`Delete ${item.text}`}
-            >
-              ×
-            </button>
+            {canEdit && (
+              <button
+                type="button"
+                className="checklist-section__delete"
+                onClick={() => handleDeleteItem(item.id)}
+                aria-label={`Delete ${item.text}`}
+              >
+                ×
+              </button>
+            )}
           </div>
         ))}
-
-        <div className="checklist-section__actions">
-          <input
-            type="text"
-            value={listItem}
-            onChange={(e) => setListItem(e.target.value)}
-            aria-label="Add new checklist item"
-          />
-          <Button variant="primary" onClick={handleSubmitItem}>
-            + Add Item
-          </Button>
-        </div>
+        {canEdit && (
+          <div className="checklist-section__actions">
+            <input
+              type="text"
+              value={listItem}
+              onChange={(e) => setListItem(e.target.value)}
+              aria-label="Add new checklist item"
+            />
+            <Button variant="primary" onClick={handleSubmitItem}>
+              + Add Item
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
