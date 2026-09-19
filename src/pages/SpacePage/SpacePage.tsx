@@ -38,6 +38,7 @@ import type { SpaceSection, SpaceSectionType } from "../../types/spaceSection";
 import type { Note } from "../../types/note";
 import type { ChecklistItem } from "../../types/checklistItem";
 import type { QuestFormData } from "../../types/questForm";
+import type { SpaceMemberRole } from "../../types/spaceMember";
 
 // Styles
 import "./SpacePage.css";
@@ -108,7 +109,6 @@ export default function SpacePage({
       const result = await supabase
         .from("spaces")
         .select("*")
-        .eq("created_by", user.id)
         .order("created_at", { ascending: true });
 
       if (result.error) {
@@ -137,7 +137,6 @@ export default function SpacePage({
       const result = await supabase
         .from("quests")
         .select("*")
-        .eq("user_id", user.id)
         .order("created_at", { ascending: true });
 
       if (result.error) {
@@ -264,6 +263,38 @@ export default function SpacePage({
     }
     fetchNotes();
   }, [user]);
+
+  const [currentUserRole, setCurrentUserRole] =
+    useState<SpaceMemberRole | null>(null);
+
+  const isOwner = currentUserRole === "owner";
+
+  useEffect(() => {
+    async function fetchCurrentUserRole() {
+      if (!user || !id) {
+        setCurrentUserRole(null);
+        return;
+      }
+
+      const result = await supabase
+        .from("space_members")
+        .select("role")
+        .eq("space_id", id)
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const role = result.data?.role as SpaceMemberRole | undefined;
+
+      setCurrentUserRole(role ?? null);
+    }
+
+    fetchCurrentUserRole();
+  }, [user, id]);
 
   // current space
   const space = spaces.find((space) => space.id === id);
