@@ -11,6 +11,7 @@ import { SPACE_ICONS } from "../../../constants/spaceIcons";
 
 //Types
 import type { Space } from "../../../types/space";
+import type { SpaceMemberRole } from "../../../types/spaceMember";
 
 //Styles
 import "./SpaceHeader.css";
@@ -19,11 +20,13 @@ type SpaceHeaderProps = {
   space: Space;
   activeQuests: number;
   progress: number;
+  role: SpaceMemberRole | null;
 };
 export default function SpaceHeader({
   space,
   activeQuests,
   progress,
+  role,
 }: SpaceHeaderProps) {
   const selectedIcon = SPACE_ICONS.find((item) => item.id === space.icon);
   const Icon = selectedIcon?.icon;
@@ -43,6 +46,12 @@ export default function SpaceHeader({
               {activeQuests} Active Quest
               {activeQuests !== 1 ? "s" : ""}
             </p>
+
+            {role && (
+              <span className="space-header__role">
+                {role === "owner" ? "Owner" : "View only"}
+              </span>
+            )}
           </div>
         </div>
 

@@ -831,6 +831,7 @@ export default function SpacePage({
         space={space}
         activeQuests={activeQuests.length}
         progress={progress}
+        role={currentUserRole}
       />
       <SpaceStats
         active={activeQuests.length}
@@ -890,6 +891,7 @@ export default function SpacePage({
                 onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
                 canMoveUp={canMoveUp}
                 canMoveDown={canMoveDown}
+                canEdit={isOwner}
               />
             );
           }
@@ -911,6 +913,7 @@ export default function SpacePage({
                 onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
                 canMoveUp={canMoveUp}
                 canMoveDown={canMoveDown}
+                canEdit={isOwner}
               />
             );
           }
@@ -931,6 +934,7 @@ export default function SpacePage({
                 onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
                 canMoveUp={canMoveUp}
                 canMoveDown={canMoveDown}
+                canEdit={isOwner}
               />
             );
           }
