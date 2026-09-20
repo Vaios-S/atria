@@ -44,6 +44,7 @@ import type { ChecklistItem } from "../../types/checklistItem";
 import type { QuestFormData } from "../../types/questForm";
 import type { SpaceMemberRole } from "../../types/spaceMember";
 import type { SpaceMember } from "../../types/spaceMember";
+import type { User } from "../../types/user";
 
 // Styles
 import "./SpacePage.css";
@@ -105,6 +106,7 @@ export default function SpacePage({
   const [sectionTitle, setSectionTitle] = useState("");
   const [isQuestActionsModalOpen, setIsQuestActionsModalOpen] = useState(false);
   const [spaceMembers, setSpaceMembers] = useState<SpaceMember[]>([]);
+  const [memberProfiles, setMemberProfiles] = useState<User[]>([]);
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -292,6 +294,37 @@ export default function SpacePage({
 
     fetchSpaceMembers();
   }, [user, id]);
+
+  useEffect(() => {
+    const profileIds = spaceMembers.map((member) => member.userId);
+
+    if (profileIds.length === 0) {
+      setMemberProfiles([]);
+      return;
+    }
+
+    async function fetchProfiles() {
+      const result = await supabase
+        .from("profiles")
+        .select("*")
+        .in("id", profileIds);
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      const fetchedProfiles = result.data.map((profile) => ({
+        id: profile.id,
+        name: profile.name,
+        email: profile.email,
+        createdAt: profile.created_at,
+      }));
+      setMemberProfiles(fetchedProfiles);
+    }
+
+    fetchProfiles();
+  }, [spaceMembers]);
 
   // current space
   const space = spaces.find((space) => space.id === id);

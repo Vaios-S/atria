@@ -47,11 +47,7 @@ export default function SpaceHeader({
               {activeQuests !== 1 ? "s" : ""}
             </p>
 
-            {role && (
-              <span className="space-header__role">
-                {role === "owner" ? "Owner" : "View only"}
-              </span>
-            )}
+            {role && <span className="space-header__role">{role}</span>}
           </div>
         </div>
 
