@@ -293,11 +293,6 @@ export default function SpacePage({
     fetchSpaceMembers();
   }, [user, id]);
 
-  const currentSpaceMember = spaceMembers.find(
-    (member) => member.userId === user?.id,
-  );
-  const currentUserRole = currentSpaceMember?.role ?? null;
-
   // current space
   const space = spaces.find((space) => space.id === id);
 
@@ -307,7 +302,6 @@ export default function SpacePage({
 
   // derived data
   const spaceId = space.id;
-  const isOwner = currentUserRole === "owner";
 
   const currentSpaceSections = spaceSections.filter(
     (section) => section.spaceId === space.id,
@@ -334,6 +328,16 @@ export default function SpacePage({
   const sortedSpaceSections = [...currentSpaceSections].sort(
     (a, b) => a.position - b.position,
   );
+
+  const currentSpaceMember = spaceMembers.find(
+    (member) => member.userId === user?.id,
+  );
+  const currentUserRole = currentSpaceMember?.role ?? null;
+
+  const canEditContent =
+    currentUserRole === "owner" || currentUserRole === "member";
+
+  const canManageMembers = currentUserRole === "owner";
 
   // handlers
 
@@ -841,7 +845,7 @@ export default function SpacePage({
         completed={completedQuests.length}
       />
 
-      {isOwner && (
+      {canEditContent && (
         <Button onClick={() => setIsSectionPickerOpen(true)}>
           + Add Section
         </Button>
@@ -894,7 +898,7 @@ export default function SpacePage({
                 onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
                 canMoveUp={canMoveUp}
                 canMoveDown={canMoveDown}
-                canEdit={isOwner}
+                canEdit={canEditContent}
               />
             );
           }
@@ -916,7 +920,7 @@ export default function SpacePage({
                 onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
                 canMoveUp={canMoveUp}
                 canMoveDown={canMoveDown}
-                canEdit={isOwner}
+                canEdit={canEditContent}
               />
             );
           }
@@ -937,7 +941,7 @@ export default function SpacePage({
                 onMoveDown={(sectionId) => handleMoveSection(sectionId, "down")}
                 canMoveUp={canMoveUp}
                 canMoveDown={canMoveDown}
-                canEdit={isOwner}
+                canEdit={canEditContent}
               />
             );
           }
