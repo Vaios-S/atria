@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 // Libraries
 import { Link, useParams } from "react-router-dom";
+import { supabase } from "../../lib/supabase";
 
 // Components
 import SpaceHeader from "../../components/space/SpaceHeader";
@@ -30,6 +31,9 @@ import {
 } from "../../utils/spaceQuestUtils";
 import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
 
+//Hooks
+import useAuth from "../../hooks/useAuth";
+
 //Types
 import type { QuestCompletion } from "../../types/questCompletion";
 import type { Quest } from "../../types/quest";
@@ -42,8 +46,6 @@ import type { SpaceMemberRole } from "../../types/spaceMember";
 
 // Styles
 import "./SpacePage.css";
-import { supabase } from "../../lib/supabase";
-import useAuth from "../../hooks/useAuth";
 
 type SpacePageProps = {
   spaces: Space[];
@@ -100,8 +102,9 @@ export default function SpacePage({
   const [selectedSection, setSelectedSection] = useState("");
   const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
   const [sectionTitle, setSectionTitle] = useState("");
-  const [isQuestActionsMoadalOpen, setIsQuestActionsMoadalOpen] =
-    useState(false);
+  const [isQuestActionsModalOpen, setIsQuestActionsModalOpen] = useState(false);
+  const [currentUserRole, setCurrentUserRole] =
+    useState<SpaceMemberRole | null>(null);
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -264,11 +267,6 @@ export default function SpacePage({
     fetchNotes();
   }, [user]);
 
-  const [currentUserRole, setCurrentUserRole] =
-    useState<SpaceMemberRole | null>(null);
-
-  const isOwner = currentUserRole === "owner";
-
   useEffect(() => {
     async function fetchCurrentUserRole() {
       if (!user || !id) {
@@ -305,6 +303,7 @@ export default function SpacePage({
 
   // derived data
   const spaceId = space.id;
+  const isOwner = currentUserRole === "owner";
 
   const currentSpaceSections = spaceSections.filter(
     (section) => section.spaceId === space.id,
@@ -529,11 +528,11 @@ export default function SpacePage({
 
   function onSelectedSection(sectionId: string) {
     setSelectedSection(sectionId);
-    setIsQuestActionsMoadalOpen(true);
+    setIsQuestActionsModalOpen(true);
   }
 
   function handleOpenDeleteSection() {
-    setIsQuestActionsMoadalOpen(false);
+    setIsQuestActionsModalOpen(false);
     setIsDeleteSectionModalOpen(true);
   }
 
@@ -579,7 +578,7 @@ export default function SpacePage({
     setNotes((prev) =>
       prev.filter((note) => note.sectionId !== selectedSection),
     );
-    setIsQuestActionsMoadalOpen(false);
+    setIsQuestActionsModalOpen(false);
     setIsDeleteSectionModalOpen(false);
     setSelectedSection("");
   }
@@ -592,7 +591,7 @@ export default function SpacePage({
     if (!sectionToEdit) return;
 
     setSectionTitle(sectionToEdit.title);
-    setIsQuestActionsMoadalOpen(false);
+    setIsQuestActionsModalOpen(false);
     setIsSectionEditOpen(true);
   }
 
@@ -979,10 +978,10 @@ export default function SpacePage({
       </Modal>
 
       <Modal
-        isOpen={isQuestActionsMoadalOpen}
+        isOpen={isQuestActionsModalOpen}
         title="Quest Actions"
         onClose={() => {
-          setIsQuestActionsMoadalOpen(false);
+          setIsQuestActionsModalOpen(false);
           setSelectedSection("");
         }}
       >
