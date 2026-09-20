@@ -43,6 +43,7 @@ import type { Note } from "../../types/note";
 import type { ChecklistItem } from "../../types/checklistItem";
 import type { QuestFormData } from "../../types/questForm";
 import type { SpaceMemberRole } from "../../types/spaceMember";
+import type { SpaceMember } from "../../types/spaceMember";
 
 // Styles
 import "./SpacePage.css";
@@ -103,8 +104,7 @@ export default function SpacePage({
   const [isSectionEditOpen, setIsSectionEditOpen] = useState(false);
   const [sectionTitle, setSectionTitle] = useState("");
   const [isQuestActionsModalOpen, setIsQuestActionsModalOpen] = useState(false);
-  const [currentUserRole, setCurrentUserRole] =
-    useState<SpaceMemberRole | null>(null);
+  const [spaceMembers, setSpaceMembers] = useState<SpaceMember[]>([]);
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -268,31 +268,35 @@ export default function SpacePage({
   }, [user]);
 
   useEffect(() => {
-    async function fetchCurrentUserRole() {
-      if (!user || !id) {
-        setCurrentUserRole(null);
-        return;
-      }
+    async function fetchSpaceMembers() {
+      if (!user || !id) return;
 
       const result = await supabase
         .from("space_members")
-        .select("role")
-        .eq("space_id", id)
-        .eq("user_id", user.id)
-        .maybeSingle();
+        .select("*")
+        .eq("space_id", id);
 
       if (result.error) {
         console.error(result.error.message);
         return;
       }
-
-      const role = result.data?.role as SpaceMemberRole | undefined;
-
-      setCurrentUserRole(role ?? null);
+      const fetchedSpaceMembers = result.data.map((member) => ({
+        id: member.id,
+        spaceId: member.space_id,
+        userId: member.user_id,
+        role: member.role,
+        joinedAt: member.created_at,
+      }));
+      setSpaceMembers(fetchedSpaceMembers);
     }
 
-    fetchCurrentUserRole();
+    fetchSpaceMembers();
   }, [user, id]);
+
+  const currentSpaceMember = spaceMembers.find(
+    (member) => member.userId === user?.id,
+  );
+  const currentUserRole = currentSpaceMember?.role ?? null;
 
   // current space
   const space = spaces.find((space) => space.id === id);
