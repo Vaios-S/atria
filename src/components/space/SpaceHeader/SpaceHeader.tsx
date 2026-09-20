@@ -21,12 +21,16 @@ type SpaceHeaderProps = {
   activeQuests: number;
   progress: number;
   role: SpaceMemberRole | null;
+  memberCount: number;
+  onMembersClick: () => void;
 };
 export default function SpaceHeader({
   space,
   activeQuests,
   progress,
   role,
+  memberCount,
+  onMembersClick,
 }: SpaceHeaderProps) {
   const selectedIcon = SPACE_ICONS.find((item) => item.id === space.icon);
   const Icon = selectedIcon?.icon;
@@ -41,6 +45,14 @@ export default function SpaceHeader({
 
           <div className="space-header__content">
             <h1 className="space-header__title">{space.title}</h1>
+
+            <button
+              type="button"
+              className="space-header__members"
+              onClick={onMembersClick}
+            >
+              Members · {memberCount}
+            </button>
 
             <p className="space-header__subtitle">
               {activeQuests} Active Quest

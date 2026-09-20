@@ -67,3 +67,29 @@
   font-weight: 600;
   text-transform: uppercase;
 }
+
+.space-header__members {
+  width: fit-content;
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+  color: var(--color-text-muted);
+
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.space-header__members:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.space-header__members:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

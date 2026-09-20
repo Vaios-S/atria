@@ -107,6 +107,7 @@ export default function SpacePage({
   const [isQuestActionsModalOpen, setIsQuestActionsModalOpen] = useState(false);
   const [spaceMembers, setSpaceMembers] = useState<SpaceMember[]>([]);
   const [memberProfiles, setMemberProfiles] = useState<User[]>([]);
+  const [isMembersModalOpen, setIsMembersModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -872,6 +873,8 @@ export default function SpacePage({
         activeQuests={activeQuests.length}
         progress={progress}
         role={currentUserRole}
+        memberCount={spaceMembers.length}
+        onMembersClick={() => setIsMembersModalOpen(true)}
       />
       <SpaceStats
         active={activeQuests.length}
@@ -1092,6 +1095,17 @@ export default function SpacePage({
             </Button>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        isOpen={isMembersModalOpen}
+        title="Members"
+        onClose={() => setIsMembersModalOpen(false)}
+      >
+        <p>
+          {spaceMembers.length} member{spaceMembers.length !== 1 ? "s" : ""} in
+          this space.
+        </p>
       </Modal>
     </main>
   );
