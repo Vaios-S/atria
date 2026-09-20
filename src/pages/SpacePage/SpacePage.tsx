@@ -1102,10 +1102,41 @@ export default function SpacePage({
         title="Members"
         onClose={() => setIsMembersModalOpen(false)}
       >
-        <p>
-          {spaceMembers.length} member{spaceMembers.length !== 1 ? "s" : ""} in
-          this space.
-        </p>
+        <div className="space-members">
+          <p className="space-members__count">
+            {spaceMembers.length} member{spaceMembers.length !== 1 ? "s" : ""}
+          </p>
+
+          <div className="space-members__list">
+            {spaceMembers.map((member) => {
+              const profile = memberProfiles.find(
+                (profile) => profile.id === member.userId,
+              );
+              console.log(profile);
+              console.log(memberProfiles);
+
+              return (
+                <div key={member.id} className="space-members__item">
+                  <div className="space-members__info">
+                    <p className="space-members__name">
+                      {profile?.name ?? "Unknown user"}
+                    </p>
+
+                    {profile?.email && (
+                      <p className="space-members__email">{profile.email}</p>
+                    )}
+                  </div>
+
+                  <span
+                    className={`space-members__role space-members__role--${member.role}`}
+                  >
+                    {member.role}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </Modal>
     </main>
   );
