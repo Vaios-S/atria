@@ -32,7 +32,7 @@ export default function SpaceHeader({
   const Icon = selectedIcon?.icon;
 
   return (
-    <Panel className="space-header">
+    <Panel>
       <header className="space-header">
         <div className="space-header__top">
           <div className="space-header__icon" style={{ color: space.color }}>
