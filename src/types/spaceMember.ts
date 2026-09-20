@@ -1,4 +1,4 @@
-export type SpaceMemberRole = "owner" | "viewer";
+export type SpaceMemberRole = "owner" | "member" | "viewer";
 
 export type SpaceMember = {
   id: string;
