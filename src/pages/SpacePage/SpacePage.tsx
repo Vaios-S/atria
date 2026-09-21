@@ -919,6 +919,33 @@ export default function SpacePage({
     setInviteRole("member");
   }
 
+  async function handleRemoveMember(memberId: string) {
+    const memberToRemove = spaceMembers.find(
+      (member) => member.id === memberId,
+    );
+
+    if (!memberToRemove) return;
+
+    // Do not allow removing yourself from this management UI.
+    if (memberToRemove.userId === user?.id) return;
+
+    const result = await supabase
+      .from("space_members")
+      .delete()
+      .eq("id", memberId);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    setSpaceMembers((prev) => prev.filter((member) => member.id !== memberId));
+
+    setMemberProfiles((prev) =>
+      prev.filter((profile) => profile.id !== memberToRemove.userId),
+    );
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -1196,31 +1223,46 @@ export default function SpacePage({
                     </p>
                   </div>
 
-                  {isManagingMembers &&
-                  canManageMembers &&
-                  member.userId !== user?.id ? (
-                    <select
-                      className="space-members__role-select"
-                      value={member.role}
-                      onChange={(event) =>
-                        handleMemberRoleChange(
-                          member.id,
-                          event.target.value as SpaceMemberRole,
-                        )
-                      }
-                      aria-label={`Change role for ${profile?.name ?? "member"}`}
-                    >
-                      <option value="owner">Owner</option>
-                      <option value="member">Member</option>
-                      <option value="viewer">Viewer</option>
-                    </select>
-                  ) : (
-                    <span
-                      className={`space-members__role space-members__role--${member.role}`}
-                    >
-                      {member.role}
-                    </span>
-                  )}
+                  <div className="space-members__controls">
+                    {isManagingMembers &&
+                    canManageMembers &&
+                    member.userId !== user?.id ? (
+                      <select
+                        className="space-members__role-select"
+                        value={member.role}
+                        onChange={(event) =>
+                          handleMemberRoleChange(
+                            member.id,
+                            event.target.value as SpaceMemberRole,
+                          )
+                        }
+                        aria-label={`Change role for ${profile?.name ?? "member"}`}
+                      >
+                        <option value="owner">Owner</option>
+                        <option value="member">Member</option>
+                        <option value="viewer">Viewer</option>
+                      </select>
+                    ) : (
+                      <span
+                        className={`space-members__role space-members__role--${member.role}`}
+                      >
+                        {member.role}
+                      </span>
+                    )}
+
+                    {isManagingMembers &&
+                      canManageMembers &&
+                      member.userId !== user?.id && (
+                        <button
+                          type="button"
+                          className="space-members__remove-button"
+                          onClick={() => handleRemoveMember(member.id)}
+                          aria-label={`Remove ${profile?.name ?? "member"} from space`}
+                        >
+                          ×
+                        </button>
+                      )}
+                  </div>
                 </div>
               );
             })}
