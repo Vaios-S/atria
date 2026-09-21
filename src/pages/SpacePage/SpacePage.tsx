@@ -864,6 +864,35 @@ export default function SpacePage({
     setNotes((prev) => [...prev, newNote]);
   }
 
+  async function handleMemberRoleChange(
+    memberId: string,
+    newRole: SpaceMemberRole,
+  ) {
+    const memberToUpdate = spaceMembers.find(
+      (member) => member.id === memberId,
+    );
+
+    if (!memberToUpdate) return;
+
+    if (memberToUpdate.userId === user?.id) return;
+
+    const result = await supabase
+      .from("space_members")
+      .update({ role: newRole })
+      .eq("id", memberId);
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    setSpaceMembers((prev) =>
+      prev.map((member) =>
+        member.id === memberId ? { ...member, role: newRole } : member,
+      ),
+    );
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -1141,11 +1170,31 @@ export default function SpacePage({
                     </p>
                   </div>
 
-                  <span
-                    className={`space-members__role space-members__role--${member.role}`}
-                  >
-                    {member.role}
-                  </span>
+                  {isManagingMembers &&
+                  canManageMembers &&
+                  member.userId !== user?.id ? (
+                    <select
+                      className="space-members__role-select"
+                      value={member.role}
+                      onChange={(event) =>
+                        handleMemberRoleChange(
+                          member.id,
+                          event.target.value as SpaceMemberRole,
+                        )
+                      }
+                      aria-label={`Change role for ${profile?.name ?? "member"}`}
+                    >
+                      <option value="owner">Owner</option>
+                      <option value="member">Member</option>
+                      <option value="viewer">Viewer</option>
+                    </select>
+                  ) : (
+                    <span
+                      className={`space-members__role space-members__role--${member.role}`}
+                    >
+                      {member.role}
+                    </span>
+                  )}
                 </div>
               );
             })}
