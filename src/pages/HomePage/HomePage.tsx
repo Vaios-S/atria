@@ -80,7 +80,6 @@ export default function HomePage({
       const result = await supabase
         .from("spaces")
         .select("*")
-        .eq("created_by", user.id)
         .order("created_at", { ascending: true });
 
       if (result.error) {
