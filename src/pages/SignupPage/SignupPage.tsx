@@ -16,6 +16,7 @@ import "./SignupPage.css";
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -34,9 +35,19 @@ export default function SignupPage() {
       return;
     }
 
+    if (username.trim().length === 0) {
+      setError("Please provide a Username");
+      return;
+    }
+
     const result = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          display_name: username.trim(),
+        },
+      },
     });
 
     if (result.error) {
@@ -128,6 +139,22 @@ export default function SignupPage() {
               {error}
             </p>
           )}
+
+          <div className="signup-field">
+            <label className="signup-label" htmlFor="username">
+              Username
+            </label>
+
+            <input
+              className="signup-input"
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              required
+            />
+          </div>
 
           {successMessage && (
             <p className="signup-success" role="status">

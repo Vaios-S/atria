@@ -317,7 +317,7 @@ export default function SpacePage({
 
       const fetchedProfiles = result.data.map((profile) => ({
         id: profile.id,
-        name: profile.name,
+        name: profile.display_name,
         email: profile.email,
         createdAt: profile.created_at,
       }));
@@ -1112,8 +1112,6 @@ export default function SpacePage({
               const profile = memberProfiles.find(
                 (profile) => profile.id === member.userId,
               );
-              console.log(profile);
-              console.log(memberProfiles);
 
               return (
                 <div key={member.id} className="space-members__item">
