@@ -893,6 +893,32 @@ export default function SpacePage({
     );
   }
 
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState<"member" | "viewer">("member");
+
+  async function createInvitation(email: string, role: "member" | "viewer") {
+    if (!user || !spaceId) return;
+
+    const result = await supabase
+      .from("space_invitations")
+      .insert({
+        space_id: spaceId,
+        invited_email: email.trim().toLowerCase(),
+        invited_by: user.id,
+        role,
+      })
+      .select()
+      .single();
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    setInviteEmail("");
+    setInviteRole("member");
+  }
+
   return (
     <main className="space-page">
       <Link to="/" className="space-page__back-link">
@@ -1199,6 +1225,71 @@ export default function SpacePage({
               );
             })}
           </div>
+
+          {canManageMembers && isManagingMembers && (
+            <form
+              className="space-members__invite"
+              onSubmit={(event) => {
+                event.preventDefault();
+                createInvitation(inviteEmail, inviteRole);
+              }}
+            >
+              <p className="space-members__invite-title">Invite member</p>
+
+              <div className="space-members__invite-field">
+                <label
+                  className="space-members__invite-label"
+                  htmlFor="invite-email"
+                >
+                  Email
+                </label>
+
+                <input
+                  className="space-members__invite-input"
+                  id="invite-email"
+                  name="email"
+                  type="email"
+                  value={inviteEmail}
+                  onChange={(event) => setInviteEmail(event.target.value)}
+                  placeholder="name@example.com"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+
+              <div className="space-members__invite-field">
+                <label
+                  className="space-members__invite-label"
+                  htmlFor="invite-role"
+                >
+                  Role
+                </label>
+
+                <select
+                  className="space-members__invite-select"
+                  id="invite-role"
+                  name="role"
+                  value={inviteRole}
+                  onChange={(event) =>
+                    setInviteRole(event.target.value as "member" | "viewer")
+                  }
+                >
+                  <option value="member">Member</option>
+                  <option value="viewer">Viewer</option>
+                </select>
+              </div>
+
+              <div className="space-members__invite-actions">
+                <button
+                  type="submit"
+                  className="space-members__invite-button"
+                  disabled={!inviteEmail.trim()}
+                >
+                  Send invite
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </Modal>
     </main>

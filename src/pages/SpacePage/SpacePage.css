@@ -194,3 +194,105 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+.space-members__invite {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-surface-secondary);
+}
+
+.space-members__invite-title {
+  margin: 0;
+
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.space-members__invite-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.space-members__invite-label {
+  color: var(--color-text-muted);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.space-members__invite-input,
+.space-members__invite-select {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.space-members__invite-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.space-members__invite-input:focus-visible,
+.space-members__invite-select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.space-members__invite-select {
+  cursor: pointer;
+}
+
+.space-members__invite-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.space-members__invite-button {
+  padding: 0.5rem 0.75rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.space-members__invite-button:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.space-members__invite-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.space-members__invite-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
