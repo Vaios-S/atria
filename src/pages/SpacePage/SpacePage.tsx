@@ -108,6 +108,7 @@ export default function SpacePage({
   const [spaceMembers, setSpaceMembers] = useState<SpaceMember[]>([]);
   const [memberProfiles, setMemberProfiles] = useState<User[]>([]);
   const [isMembersModalOpen, setIsMembersModalOpen] = useState(false);
+  const [isManagingMembers, setIsManagingMembers] = useState(false);
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -1100,12 +1101,31 @@ export default function SpacePage({
       <Modal
         isOpen={isMembersModalOpen}
         title="Members"
-        onClose={() => setIsMembersModalOpen(false)}
+        onClose={() => {
+          setIsMembersModalOpen(false);
+          setIsManagingMembers(false);
+        }}
       >
         <div className="space-members">
-          <p className="space-members__count">
-            {spaceMembers.length} member{spaceMembers.length !== 1 ? "s" : ""}
-          </p>
+          <div className="space-members__header">
+            <p className="space-members__count">
+              {spaceMembers.length} member{spaceMembers.length !== 1 ? "s" : ""}
+            </p>
+
+            {canManageMembers && (
+              <button
+                type="button"
+                className={`space-members__manage-button ${
+                  isManagingMembers
+                    ? "space-members__manage-button--active"
+                    : ""
+                }`}
+                onClick={() => setIsManagingMembers(!isManagingMembers)}
+              >
+                {isManagingMembers ? "Done" : "Manage"}
+              </button>
+            )}
+          </div>
 
           <div className="space-members__list">
             {spaceMembers.map((member) => {
@@ -1119,10 +1139,6 @@ export default function SpacePage({
                     <p className="space-members__name">
                       {profile?.name ?? "Unknown user"}
                     </p>
-
-                    {profile?.email && (
-                      <p className="space-members__email">{profile.email}</p>
-                    )}
                   </div>
 
                   <span
