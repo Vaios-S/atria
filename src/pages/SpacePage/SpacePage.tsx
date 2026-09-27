@@ -109,6 +109,8 @@ export default function SpacePage({
   const [memberProfiles, setMemberProfiles] = useState<User[]>([]);
   const [isMembersModalOpen, setIsMembersModalOpen] = useState(false);
   const [isManagingMembers, setIsManagingMembers] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState<"member" | "viewer">("member");
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -892,9 +894,6 @@ export default function SpacePage({
       ),
     );
   }
-
-  const [inviteEmail, setInviteEmail] = useState("");
-  const [inviteRole, setInviteRole] = useState<"member" | "viewer">("member");
 
   async function createInvitation(email: string, role: "member" | "viewer") {
     if (!user || !spaceId) return;

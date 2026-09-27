@@ -1,5 +1,5 @@
 // React
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Libraries
 import { Routes, Route } from "react-router-dom";
@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PublicOnlyRoute from "./components/auth/PublicOnlyRoute";
 
 // Utils / constants / data
+import { runDevSupabaseActivity } from "./utils/devSupabaseActivity.ts";
 
 //Types
 import type { Space } from "./types/space.ts";
@@ -28,6 +29,10 @@ import type { Note } from "./types/note.ts";
 //Styles
 
 function App() {
+  useEffect(() => {
+    runDevSupabaseActivity();
+  }, []);
+
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [quests, setQuests] = useState<Quest[]>([]);
   const [questCompletions, setQuestCompletions] = useState<QuestCompletion[]>(
