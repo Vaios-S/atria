@@ -846,6 +846,7 @@ export default function SpacePage({
       .insert({
         section_id: sectionId,
         content,
+        updated_at: new Date().toISOString(),
       })
       .select()
       .single();

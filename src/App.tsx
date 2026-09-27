@@ -29,6 +29,7 @@ import type { Note } from "./types/note.ts";
 //Styles
 
 function App() {
+  // Dev-only Supabase reads to keep the development project active.
   useEffect(() => {
     runDevSupabaseActivity();
   }, []);
