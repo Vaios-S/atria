@@ -32,6 +32,9 @@ import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
 import type { SpaceSection } from "../../types/spaceSection";
 import type { SpaceInvitation } from "../../types/spaceInvitation";
 
+//Styles
+import "./HomePage.css";
+
 type HomePageProps = {
   spaces: Space[];
   setSpaces: React.Dispatch<React.SetStateAction<Space[]>>;
@@ -144,7 +147,6 @@ export default function HomePage({
       const result = await supabase
         .from("quest_completions")
         .select("*")
-        .eq("user_id", user.id)
         .order("completed_at", { ascending: true });
 
       if (result.error) {
@@ -179,10 +181,6 @@ export default function HomePage({
         .eq("status", "Pending")
         .gt("expires_at", new Date().toISOString())
         .order("created_at", { ascending: false });
-
-      console.log("logged user email:", user.email);
-      console.log("invitations data:", result.data);
-      console.log("invitations error:", result.error);
 
       if (result.error) {
         console.error("error3", result.error.message);
