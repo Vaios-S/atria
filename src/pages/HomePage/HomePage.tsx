@@ -18,6 +18,7 @@ import SpaceForm from "../../components/home/SpaceForm";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import QuestActionsMenu from "../../components/ui/QuestActionsMenu";
 import QuestForm from "../../components/space/QuestForm";
+import Button from "../../components/ui/Button";
 
 // Utils / constants
 
@@ -29,6 +30,7 @@ import type { QuestCompletion } from "../../types/questCompletion";
 import type { QuestFormData } from "../../types/questForm";
 import { SPACE_SECTION_LABELS } from "../../constants/sectionsTypes";
 import type { SpaceSection } from "../../types/spaceSection";
+import type { SpaceInvitation } from "../../types/spaceInvitation";
 
 type HomePageProps = {
   spaces: Space[];
@@ -73,6 +75,9 @@ export default function HomePage({
   const [isDeleteQuestModalOpen, setIsDeleteQuestModalOpen] = useState(false);
   const [isQuestActionsMoadalOpen, setIsQuestActionsMoadalOpen] =
     useState(false);
+  const [pendingInvitations, setPendingInvitations] = useState<
+    SpaceInvitation[]
+  >([]);
 
   useEffect(() => {
     async function fetchSpaces() {
@@ -158,6 +163,49 @@ export default function HomePage({
       setQuestCompletions(fetchedCompletedQuests);
     }
     fetchCompletedQuests();
+  }, [user]);
+
+  useEffect(() => {
+    async function fetchPendingInvitations() {
+      if (!user?.email) {
+        setPendingInvitations([]);
+        return;
+      }
+
+      const result = await supabase
+        .from("space_invitations")
+        .select("*")
+        .eq("invited_email", user.email)
+        .eq("status", "Pending")
+        .gt("expires_at", new Date().toISOString())
+        .order("created_at", { ascending: false });
+
+      console.log("logged user email:", user.email);
+      console.log("invitations data:", result.data);
+      console.log("invitations error:", result.error);
+
+      if (result.error) {
+        console.error("error3", result.error.message);
+        return;
+      }
+
+      const fetchedInvitations: SpaceInvitation[] = result.data.map(
+        (invitation) => ({
+          id: invitation.id,
+          spaceId: invitation.space_id,
+          invitedEmail: invitation.invited_email,
+          invitedBy: invitation.invited_by,
+          role: invitation.role,
+          status: invitation.status,
+          token: invitation.token,
+          createdAt: invitation.created_at,
+          expiresAt: invitation.expires_at,
+          acceptedAt: invitation.accepted_at ?? undefined,
+        }),
+      );
+      setPendingInvitations(fetchedInvitations);
+    }
+    fetchPendingInvitations();
   }, [user]);
 
   // Space handlers
@@ -487,9 +535,123 @@ export default function HomePage({
     setSelectedQuest(undefined);
   }
 
+  async function handleAcceptInvitation(invitation: SpaceInvitation) {
+    const result = await supabase.rpc("accept_space_invitation", {
+      invitation_token: invitation.token,
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    const acceptedSpaceId = result.data;
+
+    setPendingInvitations((prev) =>
+      prev.filter((item) => item.id !== invitation.id),
+    );
+
+    const spaceResult = await supabase
+      .from("spaces")
+      .select("*")
+      .eq("id", acceptedSpaceId)
+      .single();
+
+    if (spaceResult.error) {
+      console.error(spaceResult.error.message);
+      return;
+    }
+
+    const acceptedSpace: Space = {
+      id: spaceResult.data.id,
+      createdBy: spaceResult.data.created_by,
+      title: spaceResult.data.title,
+      description: spaceResult.data.description ?? undefined,
+      category: spaceResult.data.category,
+      color: spaceResult.data.color,
+      icon: spaceResult.data.icon,
+      createdAt: spaceResult.data.created_at,
+    };
+
+    setSpaces((prev) => {
+      const alreadyExists = prev.some((space) => space.id === acceptedSpace.id);
+
+      if (alreadyExists) return prev;
+
+      return [...prev, acceptedSpace];
+    });
+  }
+
+  async function handleDeclineInvitation(invitation: SpaceInvitation) {
+    const result = await supabase.rpc("decline_space_invitation", {
+      invitation_token: invitation.token,
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+      return;
+    }
+
+    setPendingInvitations((prev) =>
+      prev.filter((item) => item.id !== invitation.id),
+    );
+  }
+
   return (
     <>
       <HomeHeader />
+
+      {pendingInvitations.length > 0 && (
+        <section
+          className="home-invitations"
+          aria-labelledby="home-invitations-title"
+        >
+          <div className="home-invitations__header">
+            <h2 id="home-invitations-title" className="home-invitations__title">
+              Invitations
+            </h2>
+
+            <span className="home-invitations__count">
+              {pendingInvitations.length}
+            </span>
+          </div>
+
+          <div className="home-invitations__list">
+            {pendingInvitations.map((invitation) => (
+              <article key={invitation.id} className="home-invitations__item">
+                <div className="home-invitations__info">
+                  <p className="home-invitations__message">
+                    You've been invited to join a shared space.
+                  </p>
+
+                  <p className="home-invitations__role">
+                    Role: {invitation.role}
+                  </p>
+                </div>
+
+                <div className="home-invitations__actions">
+                  <Button
+                    type="button"
+                    variant="primary"
+                    onClick={() => handleAcceptInvitation(invitation)}
+                  >
+                    Accept
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={() => handleDeclineInvitation(invitation)}
+                  >
+                    Decline
+                  </Button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       <SpacesSection
         spaces={spaces}
         quests={quests}
