@@ -176,7 +176,6 @@ export default function SpacePage({
       const result = await supabase
         .from("quest_completions")
         .select("*")
-        .eq("user_id", user.id)
         .order("completed_at", { ascending: true });
 
       if (result.error) {
@@ -390,8 +389,7 @@ export default function SpacePage({
       const result = await supabase
         .from("quest_completions")
         .delete()
-        .eq("quest_id", questId)
-        .eq("user_id", user.id);
+        .eq("quest_id", questId);
 
       if (result.error) {
         console.error("error1", result.error.message);

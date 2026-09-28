@@ -116,7 +116,6 @@ export default function HomePage({
       const result = await supabase
         .from("quests")
         .select("*")
-        .eq("user_id", user.id)
         .order("created_at", { ascending: true });
 
       if (result.error) {
@@ -343,8 +342,7 @@ export default function HomePage({
       const result = await supabase
         .from("quest_completions")
         .delete()
-        .eq("quest_id", questId)
-        .eq("user_id", user.id);
+        .eq("quest_id", questId);
 
       if (result.error) {
         console.error("error1", result.error.message);
