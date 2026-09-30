@@ -87,6 +87,12 @@
   font-weight: 600;
 }
 
+.home-header__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
 @media (max-width: 640px) {
   .home-header {
     gap: 1rem;

@@ -39,21 +39,23 @@ export default function HomeHeader({
 
   return (
     <section className="home-header" aria-labelledby="home-header-title">
-      <h1 id="home-header-title" className="home-header__title">
-        ATRIA
-      </h1>
+      <div className="home-header__heading">
+        <h1 id="home-header-title" className="home-header__title">
+          ATRIA
+        </h1>
 
-      <p className="home-header__date">
-        <span>
-          DAY {dayOfYear} OF {totalDays}
-        </span>
+        <p className="home-header__date">
+          <span>
+            DAY {dayOfYear} OF {totalDays}
+          </span>
 
-        <span className="home-header__date-separator" aria-hidden="true">
-          ·
-        </span>
+          <span className="home-header__date-separator" aria-hidden="true">
+            ·
+          </span>
 
-        <span>YEAR {humanEraYear} H.E.</span>
-      </p>
+          <span>YEAR {humanEraYear} H.E.</span>
+        </p>
+      </div>
 
       <div
         className="home-header__progress"
