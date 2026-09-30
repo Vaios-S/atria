@@ -34,8 +34,10 @@ export default function HomeHeader({
   const safeCurrentXp = Math.min(Math.max(currentXp, 0), safeNextLevelXp);
 
   return (
-    <section className="home-header">
-      <h1 className="home-header__title">ATRIA</h1>
+    <section className="home-header" aria-labelledby="home-header-title">
+      <h1 id="home-header-title" className="home-header__title">
+        ATRIA
+      </h1>
 
       <p className="home-header__date">
         <span>
