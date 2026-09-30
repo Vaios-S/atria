@@ -13,7 +13,17 @@ import ProgressBar from "../../ui/ProgressBar";
 //Styles
 import "./HomeHeader.css";
 
-export default function HomeHeader() {
+type HomeHeaderProps = {
+  level?: number;
+  currentXp?: number;
+  nextLevelXp?: number;
+};
+
+export default function HomeHeader({
+  level = 3,
+  currentXp = 420,
+  nextLevelXp = 500,
+}: HomeHeaderProps) {
   const today = new Date();
   const dayOfYear = getDayOfYear(today);
   const totalDays = getDaysInYear(today);
