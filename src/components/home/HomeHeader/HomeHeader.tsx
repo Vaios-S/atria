@@ -29,16 +29,20 @@ export default function HomeHeader({
   const totalDays = getDaysInYear(today);
   const humanEraYear = getYear(today) + 10000;
 
-  const level = 3;
-  const currentXp = 420;
-  const nextLevelXp = 500;
-
   return (
     <section className="home-header">
       <h1 className="home-header__title">ATRIA</h1>
 
       <p className="home-header__date">
-        DAY {dayOfYear} OF {totalDays} · YEAR {humanEraYear} H.E.
+        <span>
+          DAY {dayOfYear} OF {totalDays}
+        </span>
+
+        <span className="home-header__date-separator" aria-hidden="true">
+          ·
+        </span>
+
+        <span>YEAR {humanEraYear} H.E.</span>
       </p>
 
       <div className="home-header__progress">
