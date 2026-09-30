@@ -73,3 +73,33 @@
   font-size: 0.9rem;
   font-weight: 600;
 }
+
+@media (max-width: 640px) {
+  .home-header {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .home-header__title {
+    font-size: 1.65rem;
+    letter-spacing: 1.5px;
+  }
+
+  .home-header__date {
+    gap: 0.3rem;
+
+    font-size: 0.8rem;
+  }
+
+  .home-header__progress {
+    padding-top: 0.85rem;
+  }
+
+  .home-header__level {
+    font-size: 1rem;
+  }
+
+  .home-header__xp {
+    font-size: 0.8rem;
+  }
+}
