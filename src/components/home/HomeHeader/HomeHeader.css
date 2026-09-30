@@ -74,6 +74,19 @@
   font-weight: 600;
 }
 
+.home-header__xp-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.home-header__percentage {
+  color: var(--color-text-muted);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 @media (max-width: 640px) {
   .home-header {
     gap: 1rem;

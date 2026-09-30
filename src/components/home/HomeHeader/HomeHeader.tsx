@@ -33,6 +33,10 @@ export default function HomeHeader({
 
   const safeCurrentXp = Math.min(Math.max(currentXp, 0), safeNextLevelXp);
 
+  const progressPercentage = Math.round(
+    (safeCurrentXp / safeNextLevelXp) * 100,
+  );
+
   return (
     <section className="home-header" aria-labelledby="home-header-title">
       <h1 id="home-header-title" className="home-header__title">
@@ -58,9 +62,15 @@ export default function HomeHeader({
         <div className="home-header__info">
           <h2 className="home-header__level">LVL {level}</h2>
 
-          <p className="home-header__xp">
-            XP {safeCurrentXp} / {safeNextLevelXp}
-          </p>
+          <div className="home-header__xp-info">
+            <p className="home-header__xp">
+              XP {safeCurrentXp} / {safeNextLevelXp}
+            </p>
+
+            <span className="home-header__percentage">
+              {progressPercentage}%
+            </span>
+          </div>
         </div>
         <ProgressBar value={safeCurrentXp} max={safeNextLevelXp} />
       </div>
