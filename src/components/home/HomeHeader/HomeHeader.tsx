@@ -1,7 +1,7 @@
 // React
 
 // Libraries
-import { getDayOfYear, getDaysInYear, getYear } from "date-fns";
+import { format, getDayOfYear, getDaysInYear, getYear } from "date-fns";
 
 // Components
 import ProgressBar from "../../ui/ProgressBar";
@@ -28,6 +28,7 @@ export default function HomeHeader({
   const dayOfYear = getDayOfYear(today);
   const totalDays = getDaysInYear(today);
   const humanEraYear = getYear(today) + 10000;
+  const todayDateTime = format(today, "yyyy-MM-dd");
 
   const safeNextLevelXp = Math.max(nextLevelXp, 1);
 
@@ -44,7 +45,7 @@ export default function HomeHeader({
           ATRIA
         </h1>
 
-        <p className="home-header__date">
+        <time className="home-header__date" dateTime={todayDateTime}>
           <span>
             DAY {dayOfYear} OF {totalDays}
           </span>
@@ -54,7 +55,7 @@ export default function HomeHeader({
           </span>
 
           <span>YEAR {humanEraYear} H.E.</span>
-        </p>
+        </time>
       </div>
 
       <div

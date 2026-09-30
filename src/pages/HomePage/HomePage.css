@@ -101,17 +101,7 @@
   flex-shrink: 0;
 }
 
-.home-header__date {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.4rem;
 
-  margin: 0;
-
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
 
 .home-header__date-separator {
   opacity: 0.6;
