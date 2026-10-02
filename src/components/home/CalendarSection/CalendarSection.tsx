@@ -120,7 +120,6 @@ export default function CalendarSection({
           return (
             <button
               type="button"
-              disabled={isSameDay(day, selectedDate)}
               key={day.toISOString()}
               className={`calendar-section__day ${
                 isSameDay(day, selectedDate)
@@ -134,6 +133,7 @@ export default function CalendarSection({
                 questCount === 1 ? "1 quest" : `${questCount} quests`
               }`}
               aria-current={isToday(day) ? "date" : undefined}
+              aria-pressed={isSameDay(day, selectedDate)}
             >
               {hasQuest && (
                 <span

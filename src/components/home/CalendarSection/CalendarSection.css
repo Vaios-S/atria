@@ -61,10 +61,6 @@
   color: var(--color-text-light);
 }
 
-.calendar-section__day:disabled {
-  cursor: not-allowed;
-}
-
 .calendar-section__weekday {
   text-align: center;
   font-size: 0.75rem;
