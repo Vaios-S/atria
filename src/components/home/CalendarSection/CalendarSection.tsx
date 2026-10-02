@@ -46,6 +46,17 @@ export default function CalendarSection({
 
   const emptyDays = startDay === 0 ? 6 : startDay - 1;
 
+  const questCountByDate = quests.reduce<Record<string, number>>(
+    (counts, quest) => {
+      if (!quest.scheduledDate) return counts;
+
+      counts[quest.scheduledDate] = (counts[quest.scheduledDate] ?? 0) + 1;
+
+      return counts;
+    },
+    {},
+  );
+
   function handlePreviousMonth() {
     onDaySelect(subMonths(selectedDate, 1));
   }
@@ -102,10 +113,9 @@ export default function CalendarSection({
           <div key={`empty-${index}`} className="calendar-section__empty-day" />
         ))}
         {days.map((day) => {
-          const dayQuests = quests.filter(
-            (quest) => quest.scheduledDate === format(day, "yyyy-MM-dd"),
-          );
-          const hasQuest = dayQuests.length > 0;
+          const dateKey = format(day, "yyyy-MM-dd");
+          const questCount = questCountByDate[dateKey] ?? 0;
+          const hasQuest = questCount > 0;
 
           return (
             <button
@@ -121,9 +131,7 @@ export default function CalendarSection({
               }`}
               onClick={() => onDaySelect(day)}
               aria-label={`${format(day, "MMMM d, yyyy")}, ${
-                dayQuests.length === 1
-                  ? "1 quest"
-                  : `${dayQuests.length} quests`
+                questCount === 1 ? "1 quest" : `${questCount} quests`
               }`}
               aria-current={isToday(day) ? "date" : undefined}
             >
