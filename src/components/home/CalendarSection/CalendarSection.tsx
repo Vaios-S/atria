@@ -70,7 +70,10 @@ export default function CalendarSection({
       <header className="calendar-section__header">
         <h1 className="calendar-section__title">CALENDAR</h1>
 
-        <div className="calendar-section__navigation">
+        <nav
+          className="calendar-section__navigation"
+          aria-label="Calendar month navigation"
+        >
           <button
             type="button"
             className="calendar-section__nav-button"
@@ -80,7 +83,11 @@ export default function CalendarSection({
             ←
           </button>
 
-          <p className="calendar-section__date">
+          <p
+            className="calendar-section__date"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             {format(selectedDate, "MMMM yyyy")}
           </p>
 
@@ -96,10 +103,11 @@ export default function CalendarSection({
             type="button"
             className="calendar-section__today-button"
             onClick={() => onDaySelect(new Date())}
+            aria-label="Go to today"
           >
             Today
           </button>
-        </div>
+        </nav>
       </header>
 
       <div className="calendar-section__weekday">
