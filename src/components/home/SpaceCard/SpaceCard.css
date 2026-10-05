@@ -73,11 +73,28 @@
 }
 
 .space-card__quests {
-  margin: 0.25rem 0 0;
+  margin: 0.2rem 0 0;
 
   color: var(--color-text-muted);
 
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.space-card__description {
+  display: -webkit-box;
+
+  margin: 0.45rem 0 0;
+
+  overflow: hidden;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.75rem;
+  line-height: 1.4;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .space-card__progress {

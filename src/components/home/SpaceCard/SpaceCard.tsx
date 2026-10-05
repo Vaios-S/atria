@@ -42,7 +42,14 @@ export default function SpaceCard({
             </div>
             <div className="space-card__info">
               <h2 className="space-card__title">{space.title}</h2>
-              <p className="space-card__quests">{activeQuests} Active Quests</p>
+
+              <p className="space-card__quests">
+                {activeQuests} active {activeQuests === 1 ? "quest" : "quests"}
+              </p>
+
+              {space.description && (
+                <p className="space-card__description">{space.description}</p>
+              )}
             </div>
           </div>
 
