@@ -113,6 +113,25 @@
   letter-spacing: 0.02em;
 }
 
+.home-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  width: fit-content;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.home-header__brand-mark {
+  color: var(--color-primary);
+  font-size: 0.8rem;
+}
+
 @media (max-width: 640px) {
   .home-header {
     gap: 1rem;

@@ -69,6 +69,13 @@ export default function HomeHeader({
   return (
     <section className="home-header" aria-labelledby="home-header-title">
       <div className="home-header__heading">
+        <div className="home-header__brand">
+          <span className="home-header__brand-mark" aria-hidden="true">
+            ✦
+          </span>
+
+          <span>ATRIA</span>
+        </div>
         <p className="home-header__eyebrow">WELCOME BACK</p>
 
         <h1 id="home-header-title" className="home-header__title">
