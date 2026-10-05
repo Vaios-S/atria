@@ -100,16 +100,20 @@ export default function HomeHeader({
         aria-label={`Level ${level} progress`}
       >
         <div className="home-header__info">
-          <h2 className="home-header__level">LVL {level}</h2>
+          <div className="home-header__level-info">
+            <span className="home-header__level-label">CURRENT LEVEL</span>
+
+            <h2 className="home-header__level">LVL {level}</h2>
+          </div>
 
           <div className="home-header__xp-info">
-            <p className="home-header__xp">
-              XP {safeCurrentXp} / {safeNextLevelXp}
-            </p>
-
             <span className="home-header__percentage">
               {progressPercentage}%
             </span>
+
+            <p className="home-header__xp">
+              {safeCurrentXp} / {safeNextLevelXp} XP
+            </p>
           </div>
         </div>
         <ProgressBar value={safeCurrentXp} max={safeNextLevelXp} />

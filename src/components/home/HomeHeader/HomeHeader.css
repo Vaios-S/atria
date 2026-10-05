@@ -135,6 +135,52 @@
   font-size: 0.8rem;
 }
 
+.home-header__level-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.home-header__level-label {
+  color: var(--color-text-muted);
+
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.home-header__level {
+  margin: 0;
+
+  color: var(--color-text);
+
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.home-header__xp-info {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.home-header__percentage {
+  color: var(--color-text);
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.home-header__xp {
+  margin: 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 @media (max-width: 640px) {
   .home-header {
     gap: 1rem;
