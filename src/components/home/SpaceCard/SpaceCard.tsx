@@ -2,6 +2,7 @@
 
 // Libraries
 import { Link } from "react-router-dom";
+import { Pencil, Trash2 } from "lucide-react";
 
 // Components
 
@@ -68,23 +69,25 @@ export default function SpaceCard({
           </div>
         </Link>
 
-        <button
-          className="space-card__edit-button"
-          type="button"
-          onClick={onEdit}
-          aria-label={`Edit ${space.title}`}
-        >
-          Edit
-        </button>
+        <div className="space-card__actions">
+          <button
+            className="space-card__action-button"
+            type="button"
+            onClick={onEdit}
+            aria-label={`Edit ${space.title}`}
+          >
+            <Pencil aria-hidden="true" />
+          </button>
 
-        <button
-          className="space-card__delete-button"
-          type="button"
-          onClick={onDelete}
-          aria-label={`Delete ${space.title}`}
-        >
-          Delete
-        </button>
+          <button
+            className="space-card__action-button space-card__action-button--danger"
+            type="button"
+            onClick={onDelete}
+            aria-label={`Delete ${space.title}`}
+          >
+            <Trash2 aria-hidden="true" />
+          </button>
+        </div>
       </article>
     </>
   );
