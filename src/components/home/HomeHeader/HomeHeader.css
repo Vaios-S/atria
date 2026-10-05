@@ -184,29 +184,51 @@
 @media (max-width: 640px) {
   .home-header {
     gap: 1rem;
+
     padding: 1rem;
+  }
+
+  .home-header__heading {
+    gap: 0.3rem;
+  }
+
+  .home-header__brand {
+    font-size: 0.65rem;
+  }
+
+  .home-header__eyebrow {
+    margin-top: 0.35rem;
+
+    font-size: 0.68rem;
   }
 
   .home-header__title {
     font-size: 1.65rem;
-    letter-spacing: 1.5px;
   }
 
   .home-header__date {
     gap: 0.3rem;
 
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   .home-header__progress {
-    padding-top: 0.85rem;
+    padding: 0.85rem;
+  }
+
+  .home-header__info {
+    align-items: flex-end;
   }
 
   .home-header__level {
     font-size: 1rem;
   }
 
+  .home-header__percentage {
+    font-size: 0.9rem;
+  }
+
   .home-header__xp {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 }
