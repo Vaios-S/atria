@@ -126,7 +126,6 @@
   height: 100%;
 
   border-radius: inherit;
-  background-color: var(--color-primary);
 
   transition: width 0.3s ease;
 }
@@ -163,9 +162,11 @@
     color 0.2s ease;
 }
 
-.space-card__action-button svg {
-  width: 0.9rem;
-  height: 0.9rem;
+.space-card__icon svg {
+  width: 1.65rem;
+  height: 1.65rem;
+
+  stroke-width: 2;
 }
 
 .space-card__action-button:hover {

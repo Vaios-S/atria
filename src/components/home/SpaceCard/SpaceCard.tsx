@@ -63,7 +63,10 @@ export default function SpaceCard({
             <div className="space-card__progress-track">
               <div
                 className="space-card__progress-bar"
-                style={{ width: `${progress}%` }}
+                style={{
+                  width: `${progress}%`,
+                  backgroundColor: space.color,
+                }}
               />
             </div>
           </div>
