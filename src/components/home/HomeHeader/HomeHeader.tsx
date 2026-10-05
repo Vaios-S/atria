@@ -1,12 +1,15 @@
 // React
+import { useEffect, useState } from "react";
 
 // Libraries
 import { format, getDayOfYear, getDaysInYear, getYear } from "date-fns";
+import { supabase } from "../../../lib/supabase";
 
 // Components
 import ProgressBar from "../../ui/ProgressBar";
 
 // Utils / constants
+import useAuth from "../../../hooks/useAuth";
 
 //Types
 
@@ -24,6 +27,10 @@ export default function HomeHeader({
   currentXp = 420,
   nextLevelXp = 500,
 }: HomeHeaderProps) {
+  const { user } = useAuth();
+
+  const [displayName, setDisplayName] = useState("");
+
   const today = new Date();
   const dayOfYear = getDayOfYear(today);
   const totalDays = getDaysInYear(today);
@@ -38,11 +45,34 @@ export default function HomeHeader({
     (safeCurrentXp / safeNextLevelXp) * 100,
   );
 
+  useEffect(() => {
+    async function fetchProfile() {
+      if (!user) return;
+
+      const result = await supabase
+        .from("profiles")
+        .select("display_name")
+        .eq("id", user.id)
+        .single();
+
+      if (result.error) {
+        console.error(result.error.message);
+        return;
+      }
+
+      setDisplayName(result.data.display_name ?? "");
+    }
+
+    fetchProfile();
+  }, [user]);
+
   return (
     <section className="home-header" aria-labelledby="home-header-title">
       <div className="home-header__heading">
+        <p className="home-header__eyebrow">WELCOME BACK</p>
+
         <h1 id="home-header-title" className="home-header__title">
-          ATRIA
+          {displayName || "Adventurer"}
         </h1>
 
         <time className="home-header__date" dateTime={todayDateTime}>
