@@ -144,6 +144,17 @@
   transition: width 0.3s ease;
 }
 
+.space-card__progress-label {
+  color: var(--color-text-muted);
+}
+
+.space-card__progress-value {
+  color: var(--color-text);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .space-card__actions {
   position: absolute;
   top: 0.75rem;

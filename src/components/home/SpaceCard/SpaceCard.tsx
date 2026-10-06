@@ -61,8 +61,9 @@ export default function SpaceCard({
 
           <div className="space-card__progress">
             <div className="space-card__progress-info">
-              <span>Progress</span>
-              <span>{progress}%</span>
+              <span className="space-card__progress-label">Progress</span>
+
+              <span className="space-card__progress-value">{progress}%</span>
             </div>
 
             <div className="space-card__progress-track">
