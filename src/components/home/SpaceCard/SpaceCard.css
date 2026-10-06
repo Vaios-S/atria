@@ -244,3 +244,21 @@
     flex-basis: 15rem;
   }
 }
+
+@media (hover: hover) {
+  .space-card__actions {
+    opacity: 0;
+
+    transform: translateY(-0.2rem);
+
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .space-card:hover .space-card__actions,
+  .space-card:focus-within .space-card__actions {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
