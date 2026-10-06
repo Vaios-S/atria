@@ -245,6 +245,48 @@
   }
 }
 
+@media (max-width: 640px) {
+  .space-card {
+    flex-basis: 12rem;
+  }
+
+  .space-card__link {
+    gap: 1rem;
+
+    min-height: 9.5rem;
+    padding: 0.9rem;
+  }
+
+  .space-card__header {
+    gap: 0.6rem;
+
+    padding-right: 3.75rem;
+  }
+
+  .space-card__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .space-card__icon svg {
+    width: 1.45rem;
+    height: 1.45rem;
+  }
+
+  .space-card__title {
+    font-size: 0.95rem;
+  }
+
+  .space-card__description {
+    font-size: 0.7rem;
+  }
+
+  .space-card__actions {
+    top: 0.65rem;
+    right: 0.65rem;
+  }
+}
+
 @media (hover: hover) {
   .space-card__actions {
     opacity: 0;
