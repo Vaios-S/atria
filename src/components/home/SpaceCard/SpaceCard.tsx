@@ -36,7 +36,14 @@ export default function SpaceCard({
 
   return (
     <>
-      <article className="space-card">
+      <article
+        className="space-card"
+        style={
+          {
+            "--space-accent": space.color,
+          } as React.CSSProperties
+        }
+      >
         <Link to={`/space/${space.id}`} className="space-card__link">
           <div className="space-card__header">
             <div className="space-card__icon" style={{ color: space.color }}>
