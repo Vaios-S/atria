@@ -8,6 +8,7 @@ import { Pencil, Trash2 } from "lucide-react";
 
 // Utils / constants
 import { SPACE_ICONS } from "../../../constants/spaceIcons";
+import { SPACE_CATEGORY_LABELS } from "../../../constants/spaceCategories";
 
 //Types
 import type { Space } from "../../../types/space";
@@ -43,6 +44,10 @@ export default function SpaceCard({
             </div>
             <div className="space-card__info">
               <h2 className="space-card__title">{space.title}</h2>
+
+              <span className="space-card__category">
+                {SPACE_CATEGORY_LABELS[space.category]}
+              </span>
 
               <p className="space-card__quests">
                 {activeQuests} active {activeQuests === 1 ? "quest" : "quests"}
