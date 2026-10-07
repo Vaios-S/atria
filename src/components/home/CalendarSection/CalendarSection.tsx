@@ -145,9 +145,18 @@ export default function CalendarSection({
             >
               {hasQuest && (
                 <span
-                  className="calendar-section__quest-indicator"
+                  className="calendar-section__quest-indicators"
                   aria-hidden="true"
-                />
+                >
+                  {Array.from({ length: Math.min(questCount, 3) }).map(
+                    (_, index) => (
+                      <span
+                        key={index}
+                        className="calendar-section__quest-indicator"
+                      />
+                    ),
+                  )}
+                </span>
               )}
               {format(day, "d")}
             </button>
