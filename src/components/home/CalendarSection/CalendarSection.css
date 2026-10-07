@@ -38,6 +38,12 @@
 
   width: fit-content;
   margin-inline: auto;
+
+  padding: 0.35rem;
+
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-surface-secondary);
 }
 
 .calendar-section__date {
@@ -60,7 +66,7 @@
   place-items: center;
   padding: 0;
 
-  border: 1px solid transparent;
+  border: 0;
   border-radius: var(--radius-sm);
 
   background: transparent;
@@ -71,10 +77,6 @@
   font-weight: 600;
 
   cursor: pointer;
-
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
 }
 
 .calendar-section__nav-button:hover {
@@ -90,10 +92,10 @@
 .calendar-section__today-button {
   padding: 0.4rem 0.7rem;
 
-  border: 1px solid var(--color-border);
+  border: 0;
   border-radius: var(--radius-sm);
 
-  background: transparent;
+  background-color: var(--color-surface);
   color: var(--color-text);
 
   font: inherit;
@@ -101,10 +103,6 @@
   font-weight: 700;
 
   cursor: pointer;
-
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
 }
 
 .calendar-section__today-button:hover {
