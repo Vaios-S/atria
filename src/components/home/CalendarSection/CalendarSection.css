@@ -126,7 +126,9 @@
 .calendar-section__weekday {
   gap: 0.35rem;
 
-  padding-bottom: 0.35rem;
+  padding-bottom: 0.65rem;
+
+  border-bottom: 1px solid var(--color-border);
 
   color: var(--color-text-muted);
 
@@ -141,7 +143,7 @@
 /* Calendar grid */
 
 .calendar-section__grid {
-  gap: 0.35rem;
+  margin-top: 0.15rem;
 }
 
 .calendar-section__empty-day {
