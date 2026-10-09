@@ -208,11 +208,44 @@
   transform: none;
 }
 
+.calendar-section__day-number {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.calendar-section__day--selected {
+  background: transparent;
+  color: var(--color-text);
+
+  font-weight: 700;
+}
+
+.calendar-section__day--selected .calendar-section__day-number {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.calendar-section__day--selected:hover {
+  background-color: var(--color-surface-secondary);
+}
+
 /* Today */
 
-.calendar-section__day--today:not(.calendar-section__day--selected) {
+.calendar-section__day--today:not(.calendar-section__day--selected)
+  .calendar-section__day-number {
   box-shadow: inset 0 0 0 1px var(--color-primary);
 
+  color: var(--color-primary);
   font-weight: 700;
 }
 
