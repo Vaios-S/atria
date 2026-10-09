@@ -158,7 +158,9 @@ export default function CalendarSection({
                   )}
                 </span>
               )}
-              {format(day, "d")}
+              <span className="calendar-section__day-number">
+                {format(day, "d")}
+              </span>
             </button>
           );
         })}
