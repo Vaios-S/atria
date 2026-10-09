@@ -293,6 +293,21 @@
   color: var(--color-primary);
 }
 
+.calendar-section__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.calendar-section__summary {
+  margin: 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
 /* Mobile */
 
 @media (max-width: 640px) {

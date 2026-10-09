@@ -57,6 +57,12 @@ export default function CalendarSection({
     {},
   );
 
+  const monthQuestCount = days.reduce((total, day) => {
+    const dateKey = format(day, "yyyy-MM-dd");
+
+    return total + (questCountByDate[dateKey] ?? 0);
+  }, 0);
+
   function handlePreviousMonth() {
     onDaySelect(subMonths(selectedDate, 1));
   }
@@ -68,7 +74,14 @@ export default function CalendarSection({
   return (
     <section className="calendar-section">
       <header className="calendar-section__header">
-        <h1 className="calendar-section__title">CALENDAR</h1>
+        <div className="calendar-section__heading">
+          <h1 className="calendar-section__title">CALENDAR</h1>
+
+          <p className="calendar-section__summary">
+            {monthQuestCount} scheduled{" "}
+            {monthQuestCount === 1 ? "quest" : "quests"}
+          </p>
+        </div>
 
         <nav
           className="calendar-section__navigation"
