@@ -382,3 +382,29 @@
     height: 0.2rem;
   }
 }
+
+.calendar-section__day {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.calendar-section__day:hover {
+  background-color: var(--color-surface-secondary);
+
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calendar-section__day,
+  .calendar-section__day-number,
+  .calendar-section__nav-button,
+  .calendar-section__today-button {
+    transition: none;
+  }
+
+  .calendar-section__day:hover {
+    transform: none;
+  }
+}
