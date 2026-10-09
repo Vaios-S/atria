@@ -281,6 +281,18 @@
   background-color: var(--color-text-light);
 }
 
+.calendar-section__quest-more {
+  color: var(--color-text-muted);
+
+  font-size: 0.55rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.calendar-section__day--selected .calendar-section__quest-more {
+  color: var(--color-primary);
+}
+
 /* Mobile */
 
 @media (max-width: 640px) {

@@ -156,6 +156,10 @@ export default function CalendarSection({
                       />
                     ),
                   )}
+
+                  {questCount > 3 && (
+                    <span className="calendar-section__quest-more">+</span>
+                  )}
                 </span>
               )}
               <span className="calendar-section__day-number">
